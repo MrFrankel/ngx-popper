@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "main": "dist/ngx-popper.js",
   "directories": {

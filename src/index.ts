@@ -1,3 +1,4 @@
+import 'popper.js';
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {PopperController} from './popper';
