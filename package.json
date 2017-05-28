@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "main": "dist/ngx-popper.js",
   "directories": {
@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "",
+    "build": "webpack --config=webpack.config.dist.js",
     "start": "webpack",
     "dev": "webpack-dev-server"
   },
