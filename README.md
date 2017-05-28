@@ -13,4 +13,5 @@ node and npm are required to run this package.
 ### Demo
 
 run npm run dev to start example
-
+or visit 
+<a href="https://mrfrankel.github.io/ngx-popper/">Demo</a>
