@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es7",
+      "dom",
+      "es2017.object",
+      "es2015.iterable",
+      "ScriptHost"
+    ]
+  },
+  "typeRoots": [
+    "./node_modules/@types",
+    "./node_modules"
+  ],
+  "types": [
+    "node"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
