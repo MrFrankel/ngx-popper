@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "main": "dist/ngx-popper.js",
   "directories": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jacobharasimo/angular-popper.git"
+    "url": "git@github.com:MrFrankel/ngx-popper"
   },
   "keywords": [
     "Angular",

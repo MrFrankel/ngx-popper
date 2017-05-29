@@ -3,6 +3,9 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {PopperController} from './popper';
 import {PopperContent} from './popper-content';
+export * from './popper';
+export * from './popper.model';
+export * from './popper-content';
 
 @NgModule({
   imports: [

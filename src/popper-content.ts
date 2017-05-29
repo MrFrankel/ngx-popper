@@ -1,18 +1,14 @@
 import {
   Component,
   Input,
-  AfterViewInit,
   ElementRef,
-  ChangeDetectorRef,
   OnDestroy,
   ViewChild,
   EventEmitter,
-  Renderer2, HostListener
+  HostListener
 } from "@angular/core";
 import PopperOptions = Popper.PopperOptions;
 import {Placement, Trigger, Triggers} from './popper.model';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: "popper-content",

@@ -74,7 +74,7 @@
 
 var root_1 = __webpack_require__(2);
 var toSubscriber_1 = __webpack_require__(41);
-var observable_1 = __webpack_require__(11);
+var observable_1 = __webpack_require__(12);
 /**
  * A representation of any set of values over any amount of time. This the most basic building block
  * of RxJS.
@@ -225,10 +225,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var isFunction_1 = __webpack_require__(13);
-var Subscription_1 = __webpack_require__(4);
-var Observer_1 = __webpack_require__(10);
-var rxSubscriber_1 = __webpack_require__(6);
+var isFunction_1 = __webpack_require__(14);
+var Subscription_1 = __webpack_require__(5);
+var Observer_1 = __webpack_require__(11);
+var rxSubscriber_1 = __webpack_require__(9);
 /**
  * Implements the {@link Observer} interface and extends the
  * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -508,7 +508,7 @@ exports.root = _root;
     }
 })();
 //# sourceMappingURL=root.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
 /***/ }),
 /* 3 */
@@ -719,7 +719,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -6597,7 +6597,7 @@ var SystemJsNgModuleLoader = (function () {
         if (exportName === undefined) {
             exportName = 'default';
         }
-        return __webpack_require__(8)(module)
+        return __webpack_require__(10)(module)
             .then(function (module) { return module[exportName]; })
             .then(function (type) { return checkNotEmpty(type, module, exportName); })
             .then(function (type) { return _this._compiler.compileModuleAsync(type); });
@@ -6613,7 +6613,7 @@ var SystemJsNgModuleLoader = (function () {
             exportName = 'default';
             factoryClassSuffix = '';
         }
-        return __webpack_require__(8)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
+        return __webpack_require__(10)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
             .then(function (module) { return module[exportName + factoryClassSuffix]; })
             .then(function (factory) { return checkNotEmpty(factory, module, exportName); });
     };
@@ -14869,7 +14869,7 @@ function transition$$1(stateChangeExpr, steps) {
 
 //# sourceMappingURL=core.es5.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
 
 /***/ }),
 /* 4 */
@@ -14877,11 +14877,119 @@ function transition$$1(stateChangeExpr, steps) {
 
 "use strict";
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(3);
+var popper_model_1 = __webpack_require__(6);
+var PopperContent = (function () {
+    function PopperContent() {
+        this.animationClass = '';
+        this.isMouseOver = false;
+        this.onHidden = new core_1.EventEmitter();
+        this.displayType = "none";
+    }
+    PopperContent.prototype.onMouseOver = function () {
+        this.isMouseOver = true;
+    };
+    PopperContent.prototype.showonleave = function () {
+        this.isMouseOver = false;
+        if (this.trigger !== popper_model_1.Triggers.Hover) {
+            return;
+        }
+        this.hide();
+    };
+    PopperContent.prototype.ngOnDestroy = function () {
+        this.popperInstance.disableEventListeners();
+        this.popperInstance.destroy();
+    };
+    PopperContent.prototype.show = function () {
+        if (!this.referenceObject) {
+            return;
+        }
+        var popperOptions = {
+            placement: this.placement,
+            modifiers: {
+                arrow: {
+                    element: this.popperViewRef.nativeElement.querySelector('.popper__arrow')
+                }
+            }
+        };
+        if (this.boundariesElement) {
+            popperOptions.modifiers.preventOverflow = {
+                boundariesElement: document.querySelector(this.boundariesElement),
+            };
+        }
+        popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperModifiers);
+        this.popperInstance = new Popper(this.referenceObject, this.popperViewRef.nativeElement, popperOptions);
+        this.popperInstance.enableEventListeners();
+        this.displayType = "block";
+    };
+    PopperContent.prototype.update = function () {
+        this.popperInstance && this.popperInstance.update();
+    };
+    PopperContent.prototype.scheduleUpdate = function () {
+        this.popperInstance && this.popperInstance.scheduleUpdate();
+    };
+    PopperContent.prototype.hide = function () {
+        this.displayType = "none";
+        this.onHidden.emit();
+    };
+    return PopperContent;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], PopperContent.prototype, "content", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], PopperContent.prototype, "placement", void 0);
+__decorate([
+    core_1.ViewChild("popperViewRef"),
+    __metadata("design:type", core_1.ElementRef)
+], PopperContent.prototype, "popperViewRef", void 0);
+__decorate([
+    core_1.HostListener('mouseover'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], PopperContent.prototype, "onMouseOver", null);
+__decorate([
+    core_1.HostListener('mouseleave'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], PopperContent.prototype, "showonleave", null);
+PopperContent = __decorate([
+    core_1.Component({
+        selector: "popper-content",
+        template: "\n<div #popperViewRef class=\"popper\"  \n     [class.fade]=\"animationClass\"\n     [style.display]=\"displayType\"\n     role=\"popper\">        \n      <div class=\"popper__inner\"><ng-content ></ng-content>  {{ content }} </div>\n      <div class=\"popper__arrow\"></div>  \n    \n</div>\n",
+        styles: ["\np.thin {\n  font-weight: 100;\n  margin: 0;\n  line-height: 1.2em;\n}\n\np.bold {\n  font-weight: 900;\n  margin: 0;\n  margin-top: -5px;\n}\n\n.rel {\n  width: 30%;\n  margin: 0 auto;\n  position: relative;\n  text-align: center;\n  padding: 20px;\n  border-style: dotted;\n  border-color: white;\n  border-width: medium;\n}\n\n.popper {\n  display:none;\n  position: absolute;\n  background: #FFC107;\n  color: black;\n  width: 150px;\n  border-radius: 3px;\n  box-shadow: 0 0 2px rgba(0,0,0,0.5);\n  padding: 10px;\n  text-align: center;\n}\n.popper .popper__arrow {\n  width: 0;\n  height: 0;\n  border-style: solid;\n  position: absolute;\n  margin: 5px;\n}\n\n.popper[x-placement^=\"top\"],\n.popper[x-placement^=\"bottom\"],\n.popper[x-placement^=\"right\"],\n.popper[x-placement^=\"left\"]\n{\n  display:block;\n}\n.popper[x-placement^=\"top\"] {\n  margin-bottom: 5px;\n}\n.popper[x-placement^=\"top\"] .popper__arrow {\n  border-width: 5px 5px 0 5px;\n  border-color: #FFC107 transparent transparent transparent;\n  bottom: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.popper[x-placement^=\"bottom\"] {\n  margin-top: 5px;\n}\n.popper[x-placement^=\"bottom\"] .popper__arrow {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #FFC107 transparent;\n  top: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.popper[x-placement^=\"right\"] {\n  margin-left: 5px;\n}\n.popper[x-placement^=\"right\"] .popper__arrow {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #FFC107 transparent transparent;\n  left: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n.popper[x-placement^=\"left\"] {\n  margin-right: 5px;\n}\n.popper[x-placement^=\"left\"] .popper__arrow {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #FFC107;\n  right: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}"]
+    }),
+    __metadata("design:paramtypes", [])
+], PopperContent);
+exports.PopperContent = PopperContent;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var isArray_1 = __webpack_require__(37);
-var isObject_1 = __webpack_require__(14);
-var isFunction_1 = __webpack_require__(13);
+var isObject_1 = __webpack_require__(15);
+var isFunction_1 = __webpack_require__(14);
 var tryCatch_1 = __webpack_require__(42);
-var errorObject_1 = __webpack_require__(12);
+var errorObject_1 = __webpack_require__(13);
 var UnsubscriptionError_1 = __webpack_require__(36);
 /**
  * Represents a disposable resource, such as the execution of an Observable. A
@@ -15071,7 +15179,290 @@ function flattenUnsubscriptionErrors(errors) {
 //# sourceMappingURL=Subscription.js.map
 
 /***/ }),
-/* 5 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Triggers = (function () {
+    function Triggers() {
+    }
+    return Triggers;
+}());
+Triggers.Click = 'click';
+Triggers.Hover = 'hover';
+Triggers.MouseDown = 'mousedown';
+exports.Triggers = Triggers;
+var Placements = (function () {
+    function Placements() {
+    }
+    return Placements;
+}());
+Placements.Top = 'top';
+Placements.Bottom = 'bottom';
+Placements.Left = 'left';
+Placements.Right = 'right';
+Placements.TopStart = 'top-start';
+Placements.BottomStart = 'bottom-start';
+Placements.LeftStart = 'left-start';
+Placements.RightStart = 'right-start';
+Placements.TopEnd = 'top-end';
+Placements.BottomEnd = 'bottom-end';
+Placements.LeftEnd = 'left-end';
+Placements.RightEnd = 'right-end';
+Placements.Auto = 'auto';
+Placements.AutoTop = 'auto-top';
+Placements.AutoBottom = 'auto-bottom';
+Placements.AutoLeft = 'auto-left';
+Placements.AutoRight = 'auto-right';
+exports.Placements = Placements;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(3);
+var popper_content_1 = __webpack_require__(4);
+var popper_model_1 = __webpack_require__(6);
+var PopperController = (function () {
+    function PopperController(viewContainerRef, resolver) {
+        this.viewContainerRef = viewContainerRef;
+        this.resolver = resolver;
+        this.popperContentClass = popper_content_1.PopperContent;
+        this.shown = false;
+        this.placement = popper_model_1.Placements.Auto;
+        this.showDelay = 0;
+        this.hideTimeout = 0;
+        this.popperOnShown = new core_1.EventEmitter();
+        this.popperOnHidden = new core_1.EventEmitter();
+    }
+    PopperController.prototype.showOrHideOnClick = function ($event) {
+        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Click) {
+            return;
+        }
+        $event.stopPropagation();
+        this.toggle();
+    };
+    PopperController.prototype.showOrHideOnMouseOver = function ($event) {
+        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.MouseDown) {
+            return;
+        }
+        $event.stopPropagation();
+        this.toggle();
+    };
+    PopperController.prototype.showOnHover = function () {
+        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Hover) {
+            return;
+        }
+        this.scheduledShow();
+    };
+    PopperController.prototype.hideOnClick = function ($event) {
+        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Click) {
+            return;
+        }
+        this.scheduledHide($event, 0);
+    };
+    PopperController.prototype.hideOnLeave = function ($event) {
+        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Hover) {
+            return;
+        }
+        this.scheduledHide($event, 200);
+    };
+    PopperController.prototype.ngOnInit = function () {
+        if (this.showOnStart) {
+            this.show();
+        }
+    };
+    PopperController.prototype.ngOnChanges = function (changes) {
+        if (changes['popperDisabled']) {
+            if (changes['popperDisabled'].currentValue) {
+                this.hide();
+            }
+        }
+    };
+    PopperController.prototype.toggle = function () {
+        this.shown ? this.hide() : this.scheduledShow();
+    };
+    PopperController.prototype.show = function () {
+        if (this.shown) {
+            return;
+        }
+        this.shown = true;
+        var isTextContent = typeof this.content === 'string';
+        var popperRef = isTextContent ? this.constructContent() : this.content;
+        popperRef.referenceObject = this.getElement();
+        if (isTextContent) {
+            popperRef.content = this.content;
+            this.setContentProperties(popperRef);
+        }
+        else {
+            this.setContentProperties(popperRef);
+            popperRef.show();
+        }
+        this.popperOnShown.emit(this);
+    };
+    PopperController.prototype.hide = function () {
+        if (!this.shown) {
+            return;
+        }
+        this.shown = false;
+        if (this.popperContentRef) {
+            this.popperContentRef.instance.hide();
+        }
+        else {
+            this.content.hide();
+        }
+        this.popperOnHidden.emit(this);
+    };
+    PopperController.prototype.scheduledShow = function (delay) {
+        var _this = this;
+        if (delay === void 0) { delay = this.showDelay; }
+        setTimeout(function () {
+            _this.show();
+        }, delay);
+    };
+    PopperController.prototype.scheduledHide = function ($event, delay) {
+        var _this = this;
+        if (delay === void 0) { delay = 0; }
+        setTimeout(function () {
+            var toElement = $event.toElement;
+            var popperContentView = _this.content.popperViewRef.nativeElement;
+            if (popperContentView === toElement || popperContentView.contains(toElement) || _this.content.isMouseOver) {
+                return;
+            }
+            _this.hide();
+        }, delay);
+    };
+    PopperController.prototype.getElement = function () {
+        return this.viewContainerRef.element.nativeElement;
+    };
+    PopperController.prototype.constructContent = function () {
+        var factory = this.resolver.resolveComponentFactory(this.popperContentClass);
+        this.popperContentRef = this.viewContainerRef.createComponent(factory);
+        return this.popperContentRef.instance;
+    };
+    PopperController.prototype.setContentProperties = function (popperRef) {
+        popperRef.placement = this.placement;
+        popperRef.animationClass = this.animationClass;
+        popperRef.text = this.contentText;
+        popperRef.trigger = this.showTrigger;
+        popperRef.boundariesElement = this.boundariesElement;
+        popperRef.popperModifiers = this.popperModifiers;
+        popperRef.onHidden.subscribe(this.hide.bind(this));
+        if (this.hideTimeout > 0)
+            setTimeout(this.hide.bind(this), this.hideTimeout);
+    };
+    return PopperController;
+}());
+__decorate([
+    core_1.Input('popper'),
+    __metadata("design:type", Object)
+], PopperController.prototype, "content", void 0);
+__decorate([
+    core_1.Input('popper-disabled'),
+    __metadata("design:type", Boolean)
+], PopperController.prototype, "disabled", void 0);
+__decorate([
+    core_1.Input('popper-animation'),
+    __metadata("design:type", String)
+], PopperController.prototype, "animationClass", void 0);
+__decorate([
+    core_1.Input('popper-placement'),
+    __metadata("design:type", Object)
+], PopperController.prototype, "placement", void 0);
+__decorate([
+    core_1.Input('popper-text'),
+    __metadata("design:type", String)
+], PopperController.prototype, "contentText", void 0);
+__decorate([
+    core_1.Input('popper-trigger'),
+    __metadata("design:type", String)
+], PopperController.prototype, "showTrigger", void 0);
+__decorate([
+    core_1.Input('popper-delay'),
+    __metadata("design:type", Number)
+], PopperController.prototype, "showDelay", void 0);
+__decorate([
+    core_1.Input('popper-timeout'),
+    __metadata("design:type", Number)
+], PopperController.prototype, "hideTimeout", void 0);
+__decorate([
+    core_1.Input('popper-boundaries'),
+    __metadata("design:type", String)
+], PopperController.prototype, "boundariesElement", void 0);
+__decorate([
+    core_1.Input('popper-show-onstart'),
+    __metadata("design:type", Boolean)
+], PopperController.prototype, "showOnStart", void 0);
+__decorate([
+    core_1.Input('popper-modifiers'),
+    __metadata("design:type", Object)
+], PopperController.prototype, "popperModifiers", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], PopperController.prototype, "popperOnShown", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], PopperController.prototype, "popperOnHidden", void 0);
+__decorate([
+    core_1.HostListener('click', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [MouseEvent]),
+    __metadata("design:returntype", void 0)
+], PopperController.prototype, "showOrHideOnClick", null);
+__decorate([
+    core_1.HostListener('mousedown', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [MouseEvent]),
+    __metadata("design:returntype", void 0)
+], PopperController.prototype, "showOrHideOnMouseOver", null);
+__decorate([
+    core_1.HostListener('mouseenter'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], PopperController.prototype, "showOnHover", null);
+__decorate([
+    core_1.HostListener("document:click", ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [MouseEvent]),
+    __metadata("design:returntype", void 0)
+], PopperController.prototype, "hideOnClick", null);
+__decorate([
+    core_1.HostListener('mouseleave', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [MouseEvent]),
+    __metadata("design:returntype", void 0)
+], PopperController.prototype, "hideOnLeave", null);
+PopperController = __decorate([
+    core_1.Directive({
+        selector: '[popper]',
+        exportAs: 'popper'
+    }),
+    __metadata("design:paramtypes", [core_1.ViewContainerRef,
+        core_1.ComponentFactoryResolver])
+], PopperController);
+exports.PopperController = PopperController;
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15083,10 +15474,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Observable_1 = __webpack_require__(0);
 var Subscriber_1 = __webpack_require__(1);
-var Subscription_1 = __webpack_require__(4);
+var Subscription_1 = __webpack_require__(5);
 var ObjectUnsubscribedError_1 = __webpack_require__(35);
 var SubjectSubscription_1 = __webpack_require__(24);
-var rxSubscriber_1 = __webpack_require__(6);
+var rxSubscriber_1 = __webpack_require__(9);
 /**
  * @class SubjectSubscriber<T>
  */
@@ -15245,7 +15636,7 @@ exports.AnonymousSubject = AnonymousSubject;
 //# sourceMappingURL=Subject.js.map
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15261,115 +15652,7 @@ exports.$$rxSubscriber = exports.rxSubscriber;
 //# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(3);
-var popper_model_1 = __webpack_require__(9);
-var PopperContent = (function () {
-    function PopperContent() {
-        this.animationClass = '';
-        this.isMouseOver = false;
-        this.onHidden = new core_1.EventEmitter();
-        this.displayType = "none";
-    }
-    PopperContent.prototype.onMouseOver = function () {
-        this.isMouseOver = true;
-    };
-    PopperContent.prototype.showonleave = function () {
-        this.isMouseOver = false;
-        if (this.trigger !== popper_model_1.Triggers.Hover) {
-            return;
-        }
-        this.hide();
-    };
-    PopperContent.prototype.ngOnDestroy = function () {
-        this.popperInstance.disableEventListeners();
-        this.popperInstance.destroy();
-    };
-    PopperContent.prototype.show = function () {
-        if (!this.referenceObject) {
-            return;
-        }
-        var popperOptions = {
-            placement: this.placement,
-            modifiers: {
-                arrow: {
-                    element: this.popperViewRef.nativeElement.querySelector('.popper__arrow')
-                }
-            }
-        };
-        if (this.boundariesElement) {
-            popperOptions.modifiers.preventOverflow = {
-                boundariesElement: document.querySelector(this.boundariesElement),
-            };
-        }
-        popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperModifiers);
-        this.popperInstance = new Popper(this.referenceObject, this.popperViewRef.nativeElement, popperOptions);
-        this.popperInstance.enableEventListeners();
-        this.displayType = "block";
-    };
-    PopperContent.prototype.update = function () {
-        this.popperInstance && this.popperInstance.update();
-    };
-    PopperContent.prototype.scheduleUpdate = function () {
-        this.popperInstance && this.popperInstance.scheduleUpdate();
-    };
-    PopperContent.prototype.hide = function () {
-        this.displayType = "none";
-        this.onHidden.emit();
-    };
-    return PopperContent;
-}());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], PopperContent.prototype, "content", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], PopperContent.prototype, "placement", void 0);
-__decorate([
-    core_1.ViewChild("popperViewRef"),
-    __metadata("design:type", core_1.ElementRef)
-], PopperContent.prototype, "popperViewRef", void 0);
-__decorate([
-    core_1.HostListener('mouseover'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], PopperContent.prototype, "onMouseOver", null);
-__decorate([
-    core_1.HostListener('mouseleave'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], PopperContent.prototype, "showonleave", null);
-PopperContent = __decorate([
-    core_1.Component({
-        selector: "popper-content",
-        template: "\n<div #popperViewRef class=\"popper\"  \n     [class.fade]=\"animationClass\"\n     [style.display]=\"displayType\"\n     role=\"popper\">        \n      <div class=\"popper__inner\"><ng-content ></ng-content>  {{ content }} </div>\n      <div class=\"popper__arrow\"></div>  \n    \n</div>\n",
-        styles: ["\np.thin {\n  font-weight: 100;\n  margin: 0;\n  line-height: 1.2em;\n}\n\np.bold {\n  font-weight: 900;\n  margin: 0;\n  margin-top: -5px;\n}\n\n.rel {\n  width: 30%;\n  margin: 0 auto;\n  position: relative;\n  text-align: center;\n  padding: 20px;\n  border-style: dotted;\n  border-color: white;\n  border-width: medium;\n}\n\n.popper {\n  display:none;\n  position: absolute;\n  background: #FFC107;\n  color: black;\n  width: 150px;\n  border-radius: 3px;\n  box-shadow: 0 0 2px rgba(0,0,0,0.5);\n  padding: 10px;\n  text-align: center;\n}\n.popper .popper__arrow {\n  width: 0;\n  height: 0;\n  border-style: solid;\n  position: absolute;\n  margin: 5px;\n}\n\n.popper[x-placement^=\"top\"],\n.popper[x-placement^=\"bottom\"],\n.popper[x-placement^=\"right\"],\n.popper[x-placement^=\"left\"]\n{\n  display:block;\n}\n.popper[x-placement^=\"top\"] {\n  margin-bottom: 5px;\n}\n.popper[x-placement^=\"top\"] .popper__arrow {\n  border-width: 5px 5px 0 5px;\n  border-color: #FFC107 transparent transparent transparent;\n  bottom: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.popper[x-placement^=\"bottom\"] {\n  margin-top: 5px;\n}\n.popper[x-placement^=\"bottom\"] .popper__arrow {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #FFC107 transparent;\n  top: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.popper[x-placement^=\"right\"] {\n  margin-left: 5px;\n}\n.popper[x-placement^=\"right\"] .popper__arrow {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #FFC107 transparent transparent;\n  left: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n.popper[x-placement^=\"left\"] {\n  margin-right: 5px;\n}\n.popper[x-placement^=\"left\"] .popper__arrow {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #FFC107;\n  right: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}"]
-    }),
-    __metadata("design:paramtypes", [])
-], PopperContent);
-exports.PopperContent = PopperContent;
-
-
-/***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -15378,51 +15661,10 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 8;
+webpackEmptyContext.id = 10;
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Triggers = (function () {
-    function Triggers() {
-    }
-    return Triggers;
-}());
-Triggers.Click = 'click';
-Triggers.Hover = 'hover';
-Triggers.MouseDown = 'mousedown';
-exports.Triggers = Triggers;
-var Placements = (function () {
-    function Placements() {
-    }
-    return Placements;
-}());
-Placements.Top = 'top';
-Placements.Bottom = 'bottom';
-Placements.Left = 'left';
-Placements.Right = 'right';
-Placements.TopStart = 'top-start';
-Placements.BottomStart = 'bottom-start';
-Placements.LeftStart = 'left-start';
-Placements.RightStart = 'right-start';
-Placements.TopEnd = 'top-end';
-Placements.BottomEnd = 'bottom-end';
-Placements.LeftEnd = 'left-end';
-Placements.RightEnd = 'right-end';
-Placements.Auto = 'auto';
-Placements.AutoTop = 'auto-top';
-Placements.AutoBottom = 'auto-bottom';
-Placements.AutoLeft = 'auto-left';
-Placements.AutoRight = 'auto-right';
-exports.Placements = Placements;
-
-
-/***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15436,7 +15678,7 @@ exports.empty = {
 //# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15468,7 +15710,7 @@ exports.$$observable = exports.observable;
 //# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15478,7 +15720,7 @@ exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15490,7 +15732,7 @@ exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15502,7 +15744,7 @@ exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15514,7 +15756,7 @@ exports.isScheduler = isScheduler;
 //# sourceMappingURL=isScheduler.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 var g;
@@ -15541,7 +15783,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19564,248 +19806,6 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Version"]('4.1.2'
 
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(3);
-var popper_content_1 = __webpack_require__(7);
-var popper_model_1 = __webpack_require__(9);
-var PopperController = (function () {
-    function PopperController(viewContainerRef, resolver) {
-        this.viewContainerRef = viewContainerRef;
-        this.resolver = resolver;
-        this.popperContentClass = popper_content_1.PopperContent;
-        this.shown = false;
-        this.placement = popper_model_1.Placements.Auto;
-        this.showDelay = 0;
-        this.hideTimeout = 0;
-        this.popperOnShown = new core_1.EventEmitter();
-        this.popperOnHidden = new core_1.EventEmitter();
-    }
-    PopperController.prototype.showOrHideOnClick = function ($event) {
-        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Click) {
-            return;
-        }
-        $event.stopPropagation();
-        this.toggle();
-    };
-    PopperController.prototype.showOrHideOnMouseOver = function ($event) {
-        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.MouseDown) {
-            return;
-        }
-        $event.stopPropagation();
-        this.toggle();
-    };
-    PopperController.prototype.showOnHover = function () {
-        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Hover) {
-            return;
-        }
-        this.scheduledShow();
-    };
-    PopperController.prototype.hideOnClick = function ($event) {
-        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Click) {
-            return;
-        }
-        this.scheduledHide($event, 0);
-    };
-    PopperController.prototype.hideOnLeave = function ($event) {
-        if (this.disabled || this.showTrigger !== popper_model_1.Triggers.Hover) {
-            return;
-        }
-        this.scheduledHide($event, 200);
-    };
-    PopperController.prototype.ngOnInit = function () {
-        if (this.showOnStart) {
-            this.show();
-        }
-    };
-    PopperController.prototype.ngOnChanges = function (changes) {
-        if (changes['popperDisabled']) {
-            if (changes['popperDisabled'].currentValue) {
-                this.hide();
-            }
-        }
-    };
-    PopperController.prototype.toggle = function () {
-        this.shown ? this.hide() : this.scheduledShow();
-    };
-    PopperController.prototype.show = function () {
-        if (this.shown) {
-            return;
-        }
-        this.shown = true;
-        var isTextContent = typeof this.content === 'string';
-        var popperRef = isTextContent ? this.constructContent() : this.content;
-        popperRef.referenceObject = this.getElement();
-        if (isTextContent) {
-            popperRef.content = this.content;
-            this.setContentProperties(popperRef);
-        }
-        else {
-            this.setContentProperties(popperRef);
-            popperRef.show();
-        }
-        this.popperOnShown.emit(this);
-    };
-    PopperController.prototype.hide = function () {
-        if (!this.shown) {
-            return;
-        }
-        this.shown = false;
-        if (this.popperContentRef) {
-            this.popperContentRef.instance.hide();
-        }
-        else {
-            this.content.hide();
-        }
-        this.popperOnHidden.emit(this);
-    };
-    PopperController.prototype.scheduledShow = function (delay) {
-        var _this = this;
-        if (delay === void 0) { delay = this.showDelay; }
-        setTimeout(function () {
-            _this.show();
-        }, delay);
-    };
-    PopperController.prototype.scheduledHide = function ($event, delay) {
-        var _this = this;
-        if (delay === void 0) { delay = 0; }
-        setTimeout(function () {
-            var toElement = $event.toElement;
-            var popperContentView = _this.content.popperViewRef.nativeElement;
-            if (popperContentView === toElement || popperContentView.contains(toElement) || _this.content.isMouseOver) {
-                return;
-            }
-            _this.hide();
-        }, delay);
-    };
-    PopperController.prototype.getElement = function () {
-        return this.viewContainerRef.element.nativeElement;
-    };
-    PopperController.prototype.constructContent = function () {
-        var factory = this.resolver.resolveComponentFactory(this.popperContentClass);
-        this.popperContentRef = this.viewContainerRef.createComponent(factory);
-        return this.popperContentRef.instance;
-    };
-    PopperController.prototype.setContentProperties = function (popperRef) {
-        popperRef.placement = this.placement;
-        popperRef.animationClass = this.animationClass;
-        popperRef.text = this.contentText;
-        popperRef.trigger = this.showTrigger;
-        popperRef.boundariesElement = this.boundariesElement;
-        popperRef.popperModifiers = this.popperModifiers;
-        popperRef.onHidden.subscribe(this.hide.bind(this));
-        if (this.hideTimeout > 0)
-            setTimeout(this.hide.bind(this), this.hideTimeout);
-    };
-    return PopperController;
-}());
-__decorate([
-    core_1.Input('popper'),
-    __metadata("design:type", Object)
-], PopperController.prototype, "content", void 0);
-__decorate([
-    core_1.Input('popper-disabled'),
-    __metadata("design:type", Boolean)
-], PopperController.prototype, "disabled", void 0);
-__decorate([
-    core_1.Input('popper-animation'),
-    __metadata("design:type", String)
-], PopperController.prototype, "animationClass", void 0);
-__decorate([
-    core_1.Input('popper-placement'),
-    __metadata("design:type", Object)
-], PopperController.prototype, "placement", void 0);
-__decorate([
-    core_1.Input('popper-text'),
-    __metadata("design:type", String)
-], PopperController.prototype, "contentText", void 0);
-__decorate([
-    core_1.Input('popper-trigger'),
-    __metadata("design:type", String)
-], PopperController.prototype, "showTrigger", void 0);
-__decorate([
-    core_1.Input('popper-delay'),
-    __metadata("design:type", Number)
-], PopperController.prototype, "showDelay", void 0);
-__decorate([
-    core_1.Input('popper-timeout'),
-    __metadata("design:type", Number)
-], PopperController.prototype, "hideTimeout", void 0);
-__decorate([
-    core_1.Input('popper-boundaries'),
-    __metadata("design:type", String)
-], PopperController.prototype, "boundariesElement", void 0);
-__decorate([
-    core_1.Input('popper-show-onstart'),
-    __metadata("design:type", Boolean)
-], PopperController.prototype, "showOnStart", void 0);
-__decorate([
-    core_1.Input('popper-modifiers'),
-    __metadata("design:type", Object)
-], PopperController.prototype, "popperModifiers", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", Object)
-], PopperController.prototype, "popperOnShown", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", Object)
-], PopperController.prototype, "popperOnHidden", void 0);
-__decorate([
-    core_1.HostListener('click', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [MouseEvent]),
-    __metadata("design:returntype", void 0)
-], PopperController.prototype, "showOrHideOnClick", null);
-__decorate([
-    core_1.HostListener('mousedown', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [MouseEvent]),
-    __metadata("design:returntype", void 0)
-], PopperController.prototype, "showOrHideOnMouseOver", null);
-__decorate([
-    core_1.HostListener('mouseenter'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], PopperController.prototype, "showOnHover", null);
-__decorate([
-    core_1.HostListener("document:click", ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [MouseEvent]),
-    __metadata("design:returntype", void 0)
-], PopperController.prototype, "hideOnClick", null);
-__decorate([
-    core_1.HostListener('mouseleave', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [MouseEvent]),
-    __metadata("design:returntype", void 0)
-], PopperController.prototype, "hideOnLeave", null);
-PopperController = __decorate([
-    core_1.Directive({
-        selector: '[popper]',
-        exportAs: 'popper'
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef,
-        core_1.ComponentFactoryResolver])
-], PopperController);
-exports.PopperController = PopperController;
-
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19823,12 +19823,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(19);
-var common_1 = __webpack_require__(17);
+var common_1 = __webpack_require__(18);
 var core_1 = __webpack_require__(3);
-var popper_1 = __webpack_require__(18);
-var popper_content_1 = __webpack_require__(7);
+var popper_1 = __webpack_require__(7);
+var popper_content_1 = __webpack_require__(4);
+__export(__webpack_require__(7));
+__export(__webpack_require__(6));
+__export(__webpack_require__(4));
 var NgxPopperModule = (function () {
     function NgxPopperModule() {
     }
@@ -19950,7 +19956,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscription_1 = __webpack_require__(4);
+var Subscription_1 = __webpack_require__(5);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -19999,7 +20005,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = __webpack_require__(0);
 var ScalarObservable_1 = __webpack_require__(28);
 var EmptyObservable_1 = __webpack_require__(27);
-var isScheduler_1 = __webpack_require__(15);
+var isScheduler_1 = __webpack_require__(16);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -20124,10 +20130,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subject_1 = __webpack_require__(5);
+var Subject_1 = __webpack_require__(8);
 var Observable_1 = __webpack_require__(0);
 var Subscriber_1 = __webpack_require__(1);
-var Subscription_1 = __webpack_require__(4);
+var Subscription_1 = __webpack_require__(5);
 /**
  * @class ConnectableObservable<T>
  */
@@ -20458,7 +20464,7 @@ exports.merge = merge_1.mergeStatic;
 var Observable_1 = __webpack_require__(0);
 var ArrayObservable_1 = __webpack_require__(25);
 var mergeAll_1 = __webpack_require__(31);
-var isScheduler_1 = __webpack_require__(15);
+var isScheduler_1 = __webpack_require__(16);
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which concurrently emits all values from every
@@ -20787,7 +20793,7 @@ exports.MulticastOperator = MulticastOperator;
 "use strict";
 
 var multicast_1 = __webpack_require__(32);
-var Subject_1 = __webpack_require__(5);
+var Subject_1 = __webpack_require__(8);
 function shareSubjectFactory() {
     return new Subject_1.Subject();
 }
@@ -20957,11 +20963,11 @@ exports.isPromise = isPromise;
 var root_1 = __webpack_require__(2);
 var isArrayLike_1 = __webpack_require__(38);
 var isPromise_1 = __webpack_require__(39);
-var isObject_1 = __webpack_require__(14);
+var isObject_1 = __webpack_require__(15);
 var Observable_1 = __webpack_require__(0);
 var iterator_1 = __webpack_require__(34);
 var InnerSubscriber_1 = __webpack_require__(22);
-var observable_1 = __webpack_require__(11);
+var observable_1 = __webpack_require__(12);
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
     var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
     if (destination.closed) {
@@ -21039,8 +21045,8 @@ exports.subscribeToResult = subscribeToResult;
 "use strict";
 
 var Subscriber_1 = __webpack_require__(1);
-var rxSubscriber_1 = __webpack_require__(6);
-var Observer_1 = __webpack_require__(10);
+var rxSubscriber_1 = __webpack_require__(9);
+var Observer_1 = __webpack_require__(11);
 function toSubscriber(nextOrObserver, error, complete) {
     if (nextOrObserver) {
         if (nextOrObserver instanceof Subscriber_1.Subscriber) {
@@ -21064,7 +21070,7 @@ exports.toSubscriber = toSubscriber;
 
 "use strict";
 
-var errorObject_1 = __webpack_require__(12);
+var errorObject_1 = __webpack_require__(13);
 var tryCatchTarget;
 function tryCatcher() {
     try {

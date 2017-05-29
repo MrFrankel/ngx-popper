@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import {PopperContent} from './popper-content';
 import {Placement, Placements, Trigger, Triggers} from './popper.model';
-import {Observable} from 'rxjs/Observable';
 
 @Directive({
   selector: '[popper]',
