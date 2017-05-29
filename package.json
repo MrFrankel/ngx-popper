@@ -1,15 +1,16 @@
 {
   "name": "ngx-popper",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "ngx-popper is an angular wrapper for popper.js",
-  "main": "dist/ngx-popper.js",
+  "main": "src/index.js",
+  "module": "esm/index.js",
+  "types": "src/index.d.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "",
-    "build": "webpack --config=webpack.config.dist.js",
-    "start": "webpack",
+    "build": "node_modules/.bin/ngc -p tsconfig-aot.json && ngc -p tsconfig.esm.json",
     "dev": "webpack-dev-server"
   },
   "repository": {
@@ -41,8 +42,9 @@
     "@angular/forms": "^4.1.3",
     "@angular/platform-browser": "^4.1.2",
     "@angular/platform-browser-dynamic": "^4.121",
+    "@angular/compiler-cli": "^4.1.3",
+    "@angular/platform-server": "^4.1.3",
     "@types/node": "^7.0.18",
-    "@types/popper.js": "^1.8.0",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.1.3",
     "chalk": "^1.1.3",
@@ -64,6 +66,7 @@
     "ng2draggable": "^1.3.2"
   },
   "dependencies": {
+    "@types/popper.js": "^1.8.0",
     "popper.js": "^1.9.4"
   }
 }

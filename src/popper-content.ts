@@ -7,7 +7,7 @@ import {
   EventEmitter,
   HostListener
 } from "@angular/core";
-import PopperOptions = Popper.PopperOptions;
+import Popper from 'popper.js';
 import {Placement, Trigger, Triggers} from './popper.model';
 
 @Component({
@@ -168,7 +168,7 @@ export class PopperContent implements OnDestroy {
       return;
     }
 
-    let popperOptions: PopperOptions = <PopperOptions>{
+    let popperOptions: Popper.PopperOptions = <Popper.PopperOptions>{
       placement: this.placement,
       modifiers: {
         arrow: {

@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "target": "es5",
     "sourceMap": true,
     "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "outDir": "esm",
     "lib": [
       "es7",
       "dom",
@@ -22,6 +23,10 @@
   "types": [
     "node"
   ],
+  "include": [
+    "src/index.ts"
+  ],
+
   "exclude": [
     "node_modules",
     "dist"
