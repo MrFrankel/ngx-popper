@@ -12,7 +12,7 @@ node and npm are required to run this package.
   $ npm install ngx-popper --save 
   ```
 
-2. You could either add into your module `imports` the `NgxPopperModule` in order to add all of the pipes, Or add a specific module such as `NgArrayPipesModule`, `NgObjectPipesModule`, `NgStringPipesModule`, `NgMathPipesModule` or `NgBooleanPipesModule`.
+2. You simply add into your module `NgxPopperModule`.
 
   ```typescript
   import {NgxPopperModule} from 'ngx-popper';
