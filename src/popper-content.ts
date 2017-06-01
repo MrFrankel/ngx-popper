@@ -5,7 +5,8 @@ import {
   OnDestroy,
   ViewChild,
   EventEmitter,
-  HostListener
+  HostListener,
+  ViewEncapsulation,
 } from "@angular/core";
 import Popper from 'popper.js';
 import {Placement, Trigger, Triggers} from './popper.model';
@@ -23,39 +24,13 @@ import {Placement, Trigger, Triggers} from './popper.model';
 </div>
 `,
   styles: [`
-p.thin {
-  font-weight: 100;
-  margin: 0;
-  line-height: 1.2em;
-}
-
-p.bold {
-  font-weight: 900;
-  margin: 0;
-  margin-top: -5px;
-}
-
-.rel {
-  width: 30%;
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
-  padding: 20px;
-  border-style: dotted;
-  border-color: white;
-  border-width: medium;
-}
-
 .popper {
   display:none;
-  position: absolute;
-  background: #FFC107;
-  color: black;
-  width: 150px;
+  position: absolute;    
   border-radius: 3px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  border: 1px solid grey;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);  
   padding: 10px;
-  text-align: center;
 }
 .popper .popper__arrow {
   width: 0;
@@ -77,7 +52,7 @@ p.bold {
 }
 .popper[x-placement^="top"] .popper__arrow {
   border-width: 5px 5px 0 5px;
-  border-color: #FFC107 transparent transparent transparent;
+  border-color: grey transparent transparent transparent;
   bottom: -5px;
   left: calc(50% - 5px);
   margin-top: 0;
@@ -88,7 +63,7 @@ p.bold {
 }
 .popper[x-placement^="bottom"] .popper__arrow {
   border-width: 0 5px 5px 5px;
-  border-color: transparent transparent #FFC107 transparent;
+  border-color: transparent transparent grey transparent;
   top: -5px;
   left: calc(50% - 5px);
   margin-top: 0;
@@ -99,7 +74,7 @@ p.bold {
 }
 .popper[x-placement^="right"] .popper__arrow {
   border-width: 5px 5px 5px 0;
-  border-color: transparent #FFC107 transparent transparent;
+  border-color: transparent grey transparent transparent;
   left: -5px;
   top: calc(50% - 5px);
   margin-left: 0;
@@ -110,7 +85,7 @@ p.bold {
 }
 .popper[x-placement^="left"] .popper__arrow {
   border-width: 5px 0 5px 5px;
-  border-color: transparent transparent transparent #FFC107;
+  border-color: transparent transparent transparent grey;
   right: -5px;
   top: calc(50% - 5px);
   margin-left: 0;
