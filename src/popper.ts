@@ -135,12 +135,10 @@ export class PopperController implements OnInit, OnChanges {
     popperRef.referenceObject = this.getElement();
     if (isTextContent) {
       popperRef.content = this.content as string;
-      this.setContentProperties(popperRef);
-    } else {
-      this.setContentProperties(popperRef);
-      popperRef.show();
+      this.content = popperRef;
     }
-
+    this.setContentProperties(popperRef);
+    popperRef.show();
     this.popperOnShown.emit(this);
   }
 
