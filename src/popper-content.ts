@@ -6,7 +6,6 @@ import {
   ViewChild,
   EventEmitter,
   HostListener,
-  ViewEncapsulation,
 } from "@angular/core";
 import Popper from 'popper.js';
 import {Placement, Trigger, Triggers} from './popper.model';
@@ -133,6 +132,9 @@ export class PopperContent implements OnDestroy {
   }
 
   ngOnDestroy() {
+    if(!this.popperInstance){
+      return;
+    }
     (this.popperInstance as any).disableEventListeners();
     this.popperInstance.destroy();
 

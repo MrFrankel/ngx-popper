@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "0.0.82-beta.2",
+  "version": "0.0.82-beta.21",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "main": "src/index.js",
   "module": "esm/index.js",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "",
-    "build": "node_modules/.bin/ngc -p tsconfig-aot.json && ngc -p tsconfig.esm.json",
+    "build": "node_modules/.bin/ngc -p tsconfig-aot.json && node_modules/.bin/ngc -p tsconfig.esm.json",
     "dev": "webpack-dev-server"
   },
   "repository": {
