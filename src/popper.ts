@@ -173,8 +173,8 @@ export class PopperController implements OnInit, OnChanges {
     this.overrideShowTimeout();
     this.scheduledHideTimeout = setTimeout(() => {
       const toElement = $event.toElement;
-      const popperContentView = (this.content as PopperContent).popperViewRef.nativeElement;
-      if (popperContentView === toElement || popperContentView.contains(toElement) || (this.content as PopperContent).isMouseOver) {
+      const popperContentView = (this.content as PopperContent).popperViewRef ? (this.content as PopperContent).popperViewRef.nativeElement : false;
+      if (!popperContentView || popperContentView === toElement || popperContentView.contains(toElement) || (this.content as PopperContent).isMouseOver) {
         return;
       }
       this.hide();
