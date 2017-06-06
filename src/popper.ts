@@ -148,7 +148,7 @@ export class PopperController implements OnInit, OnChanges {
 
   hide() {
     if (!this.shown) {
-      this.scheduledShowTimeout();
+      this.overrideShowTimeout();
       return;
     }
 
