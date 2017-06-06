@@ -21,6 +21,8 @@ export class PopperController implements OnInit, OnChanges {
   private popperContentClass = PopperContent;
   private popperContentRef: ComponentRef<PopperContent>;
   private shown: boolean = false;
+  private scheduledShowTimeout: any;
+  private scheduledHideTimeout: any;
 
   constructor(private viewContainerRef: ViewContainerRef,
               private resolver: ComponentFactoryResolver) {
@@ -104,7 +106,7 @@ export class PopperController implements OnInit, OnChanges {
     if (this.disabled || this.showTrigger !== Triggers.Hover) {
       return;
     }
-    this.scheduledHide($event, 200);
+    this.scheduledHide($event, 0);
   }
 
   ngOnInit(){
@@ -127,8 +129,10 @@ export class PopperController implements OnInit, OnChanges {
 
   show() {
     if (this.shown) {
+      this.overrideHideTimeout();
       return;
     }
+
     this.shown = true;
     const isTextContent = typeof this.content === 'string';
     const popperRef = isTextContent ? this.constructContent() : this.content as PopperContent;
@@ -144,6 +148,7 @@ export class PopperController implements OnInit, OnChanges {
 
   hide() {
     if (!this.shown) {
+      this.scheduledShowTimeout();
       return;
     }
 
@@ -158,16 +163,17 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   scheduledShow(delay: number = this.showDelay) {
-    setTimeout(() => {
+    this.overrideHideTimeout();
+    this.scheduledShowTimeout = setTimeout(() => {
       this.show();
     }, delay)
   }
 
   scheduledHide($event: MouseEvent, delay: number = 0) {
-    setTimeout(() => {
+    this.overrideShowTimeout();
+    this.scheduledHideTimeout = setTimeout(() => {
       const toElement = $event.toElement;
       const popperContentView = (this.content as PopperContent).popperViewRef.nativeElement;
-
       if (popperContentView === toElement || popperContentView.contains(toElement) || (this.content as PopperContent).isMouseOver) {
         return;
       }
@@ -177,6 +183,20 @@ export class PopperController implements OnInit, OnChanges {
 
   getElement() {
     return this.viewContainerRef.element.nativeElement;
+  }
+
+  private overrideShowTimeout(){
+    if(this.scheduledShowTimeout){
+      clearTimeout(this.scheduledShowTimeout);
+      this.scheduledHideTimeout = 0;
+    }
+  }
+
+  private overrideHideTimeout(){
+    if(this.scheduledHideTimeout){
+      clearTimeout(this.scheduledHideTimeout);
+      this.scheduledHideTimeout = 0;
+    }
   }
 
   private constructContent(): PopperContent {
