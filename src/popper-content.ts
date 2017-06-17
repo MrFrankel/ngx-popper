@@ -126,6 +126,11 @@ export class PopperContent implements OnDestroy {
     this.hide();
   }
 
+  @HostListener('document:resize')
+  onDocumemntResize() {
+    this.update();
+  }
+
   displayType: string = "none";
 
   constructor() {

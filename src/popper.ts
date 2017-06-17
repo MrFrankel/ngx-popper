@@ -23,6 +23,7 @@ export class PopperController implements OnInit, OnChanges {
   private shown: boolean = false;
   private scheduledShowTimeout: any;
   private scheduledHideTimeout: any;
+  private ignoreDocClick: boolean = false;
 
   constructor(private viewContainerRef: ViewContainerRef,
               private resolver: ComponentFactoryResolver) {
@@ -67,21 +68,21 @@ export class PopperController implements OnInit, OnChanges {
   @Output()
   popperOnHidden = new EventEmitter<PopperController>();
 
-
   @HostListener('click', ['$event'])
   showOrHideOnClick($event: MouseEvent): void {
     if (this.disabled || this.showTrigger !== Triggers.Click) {
       return;
     }
-    $event.stopPropagation();
+    this.ignoreDocClick = true;
     this.toggle();
   }
+
   @HostListener('mousedown', ['$event'])
   showOrHideOnMouseOver($event: MouseEvent): void {
     if (this.disabled || this.showTrigger !== Triggers.MouseDown) {
       return;
     }
-    $event.stopPropagation();
+    this.ignoreDocClick = true;
     this.toggle();
   }
 
@@ -95,6 +96,10 @@ export class PopperController implements OnInit, OnChanges {
 
   @HostListener("document:click", ['$event'])
   hideOnClick($event: MouseEvent): void {
+    if (this.ignoreDocClick) {
+      this.ignoreDocClick = false;
+      return;
+    }
     if (this.disabled || this.showTrigger !== Triggers.Click) {
       return;
     }
@@ -109,8 +114,14 @@ export class PopperController implements OnInit, OnChanges {
     this.scheduledHide($event, 0);
   }
 
-  ngOnInit(){
-    if(this.showOnStart){
+  ngOnInit() {
+    if (typeof this.content === 'string') {
+      const text = this.content;
+      this.content = this.constructContent();
+      this.content.content = text;
+    }
+
+    if (this.showOnStart) {
       this.show();
     }
   }
@@ -134,13 +145,8 @@ export class PopperController implements OnInit, OnChanges {
     }
 
     this.shown = true;
-    const isTextContent = typeof this.content === 'string';
-    const popperRef = isTextContent ? this.constructContent() : this.content as PopperContent;
+    const popperRef = this.content as PopperContent;
     popperRef.referenceObject = this.getElement();
-    if (isTextContent) {
-      popperRef.content = this.content as string;
-      this.content = popperRef;
-    }
     this.setContentProperties(popperRef);
     popperRef.show();
     this.popperOnShown.emit(this);
@@ -185,15 +191,15 @@ export class PopperController implements OnInit, OnChanges {
     return this.viewContainerRef.element.nativeElement;
   }
 
-  private overrideShowTimeout(){
-    if(this.scheduledShowTimeout){
+  private overrideShowTimeout() {
+    if (this.scheduledShowTimeout) {
       clearTimeout(this.scheduledShowTimeout);
       this.scheduledHideTimeout = 0;
     }
   }
 
-  private overrideHideTimeout(){
-    if(this.scheduledHideTimeout){
+  private overrideHideTimeout() {
+    if (this.scheduledHideTimeout) {
       clearTimeout(this.scheduledHideTimeout);
       this.scheduledHideTimeout = 0;
     }

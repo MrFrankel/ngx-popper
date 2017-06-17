@@ -42,6 +42,19 @@ node and npm are required to run this package.
        </popper-content>
   ```
 
+4. As text
+ ```
+<div class="example">
+      <div class="rel" id="example5reference1"
+           #popper5
+           [popper]="'As text'"
+           [popper-trigger]="'hover'"
+           [popper-placement]="'bottom'">
+        <p class="bold">Pop</p>
+        <p class="thin">on the bottom</p>
+      </div>
+    </div>
+ ```
 ### Demo
 <a href="https://mrfrankel.github.io/ngx-popper/">Demo</a>
 
