@@ -18,7 +18,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
      [style.display]="displayType"
      [style.opacity]="opacity"
      role="popper">        
-      <div class="ngxp__inner"><ng-content ></ng-content>  {{ popperOptions.text }} </div>
+      <div class="ngxp__inner"><ng-content ></ng-content>  {{ text }} </div>
       <div class="ngxp__arrow"></div>  
     
 </div>
