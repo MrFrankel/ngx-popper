@@ -7,8 +7,7 @@ import {
   HostListener,
 } from "@angular/core";
 import Popper from 'popper.js';
-import {Placement, Placements, Trigger, Triggers, PopperContentOptions} from './popper.model';
-import PopperOptions = Popper.PopperOptions;
+import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
 @Component({
   selector: "popper-content",
@@ -221,7 +220,7 @@ export class PopperContent implements OnDestroy {
       popperOptions,
     );
     (this.popperInstance as any).enableEventListeners();
-    this.toggleVisisbility(true);
+    this.toggleVisibility(true);
   }
 
   update(): void {
@@ -233,11 +232,11 @@ export class PopperContent implements OnDestroy {
   }
 
   hide(): void {
-    this.toggleVisisbility(false);
+    this.toggleVisibility(false);
     this.onHidden.emit();
   }
 
-  toggleVisisbility(state) {
+  toggleVisibility(state: boolean) {
     if (!state) {
       this.opacity = 0;
       this.displayType = "none";
