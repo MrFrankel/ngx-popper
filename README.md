@@ -64,14 +64,18 @@ node and npm are required to run this package.
  
 5. Attributes map:  
   
-    | Options              | Type             | Default  |
-    |:-------------------  |:---------------- |:-------- |
-    | disableAnimation     | boolean          | false    |
-    | disableDefaultStyling| boolean          | false    |
-    | placement            | Placement(string)| auto     |
-    | boundariesElement    | string(selector) | undefined|                             |               |        |
-    | trigger              | Trigger(string)  | hover    |
-    | popperModifiers      | popperModifier   | undefined|
+    | Options                  | Type             | Default  |
+    |:-------------------      |:---------------- |:-------- |
+    | popperDisableAnimation   | boolean          | false    |
+    | popperDisableStyle       | boolean          | false    |
+    | popperDisabled           | boolean          | false    |
+    | popperDelay              | number           | 0        |
+    | popperTimeout            | number           | 0        |
+    | popperPlacement          | Placement(string)| auto     |
+    | popperBoundaries         | string(selector) | undefined|  
+    | popperShowOnStart        | number           | 0        |                         
+    | popperTrigger            | Trigger(string)  | hover    |
+    | popperModifiers          | popperModifier   | undefined|
     
 6. Override default    
 ```JavaScript
