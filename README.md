@@ -6,13 +6,19 @@ ngx-popper is an angular wrapper for the [popperjs](https://popper.js.org/).
 
 node and npm are required to run this package.
 
-1. Use npm to install the package
+1. Use npm/yarn to install the package:
 
   ```terminal
   $ npm install ngx-popper --save 
   ```
+  
+  Or 
+  
+   ```terminal
+    $ yarn add ngx-popper --save 
+  ```
 
-2. You simply add into your module `NgxPopperModule`.
+2. You simply add into your module `NgxPopperModule`:
 
   ```typescript
   import {NgxPopperModule} from 'ngx-popper';
@@ -26,7 +32,7 @@ node and npm are required to run this package.
   })
   ```
 
-3. Add to view
+3. Add to view:
 
   ```HTML  
    <div #popper1
@@ -42,7 +48,7 @@ node and npm are required to run this package.
        </popper-content>
   ```
 
-4. As text
+4. As text:
  ```
 <div class="example">
       <div class="rel" id="example5reference1"
@@ -55,6 +61,26 @@ node and npm are required to run this package.
       </div>
     </div>
  ```
+ 
+5. Attributes map:  
+  
+    | Options              | Type             | Default  |
+    |:-------------------  |:---------------- |:-------- |
+    | disableAnimation     | boolean          | false    |
+    | disableDefaultStyling| boolean          | false    |
+    | placement            | Placement(string)| auto     |
+    | boundariesElement    | string(selector) | undefined|                             |               |        |
+    | trigger              | Trigger(string)  | hover    |
+    | popperModifiers      | popperModifier   | undefined|
+    
+6. Override default    
+```JavaScript
+// Simply override PopperController baseOptions, this will apply to all popper that do not have an attribute set
+constructor(private elem: ElementRef) {
+    PopperController.baseOptions.disableAnimation = true;
+  }
+```
+    
 ### Demo
 <a href="https://mrfrankel.github.io/ngx-popper/">Demo</a>
 
