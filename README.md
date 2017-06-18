@@ -49,7 +49,7 @@ node and npm are required to run this package.
   ```
 
 4. As text:
- ```
+ ```HTML
 <div class="example">
       <div class="rel" id="example5reference1"
            #popper5
