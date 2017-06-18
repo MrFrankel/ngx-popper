@@ -132,7 +132,7 @@ export class PopperController implements OnInit, OnChanges {
     if (typeof this.content === 'string') {
       const text = this.content;
       this.content = this.constructContent();
-      this.content.content = text;
+      this.content.text = text;
     }
 
     if (this.showOnStart) {

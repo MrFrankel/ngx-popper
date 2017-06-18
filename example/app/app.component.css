@@ -62,11 +62,11 @@ p.bold {
   align-items: center;
 }
 
-#example3reference1:hover {
+#example3 .reference1:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-#example4ngxp__container1 {
+#example4 .ngxp__container1 {
   height: 150px;
 }
 

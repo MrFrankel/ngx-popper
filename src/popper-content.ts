@@ -18,7 +18,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
      [style.display]="displayType"
      [style.opacity]="opacity"
      role="popper">        
-      <div class="ngxp__inner"><ng-content ></ng-content>  {{ popperOptions.content }} </div>
+      <div class="ngxp__inner"><ng-content ></ng-content>  {{ popperOptions.text }} </div>
       <div class="ngxp__arrow"></div>  
     
 </div>
@@ -33,10 +33,10 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
   padding: 10px;
 }
 .ngxp__container.ngxp__animation {
-   -webkit-animation: ngxp-fadeIn  200ms ease-out;
-    -moz-animation: ngxp-fadeIn  200ms ease-out;
-    -o-animation: ngxp-fadeIn  200ms ease-out;
-    animation: ngxp-fadeIn  200ms ease-out;
+   -webkit-animation: ngxp-fadeIn  150ms ease-out;
+    -moz-animation: ngxp-fadeIn  150ms ease-out;
+    -o-animation: ngxp-fadeIn  150ms ease-out;
+    animation: ngxp-fadeIn  150ms ease-out;
   
 }
 .ngxp__container .ngxp__arrow {
@@ -150,7 +150,7 @@ export class PopperContent implements OnDestroy {
 
   onHidden = new EventEmitter();
 
-  content: string;
+  text: string;
 
   private popperInstance: Popper;
 
@@ -167,7 +167,7 @@ export class PopperContent implements OnDestroy {
   }
 
   @HostListener('mouseleave')
-  showonleave() {
+  showOnLeave() {
     this.isMouseOver = false;
     if (this.popperOptions.trigger !== Triggers.Hover) {
       return;
@@ -176,7 +176,7 @@ export class PopperContent implements OnDestroy {
   }
 
   @HostListener('document:resize')
-  onDocumemntResize() {
+  onDocumentResize() {
     this.update();
   }
 
