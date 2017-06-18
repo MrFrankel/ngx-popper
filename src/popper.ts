@@ -11,7 +11,7 @@ import {
   EventEmitter, OnInit
 } from '@angular/core';
 import {PopperContent} from './popper-content';
-import {Placement, Placements, Trigger, Triggers} from './popper.model';
+import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';
 
 @Directive({
   selector: '[popper]',
@@ -29,38 +29,40 @@ export class PopperController implements OnInit, OnChanges {
               private resolver: ComponentFactoryResolver) {
   }
 
+  static baseOptions: PopperContentOptions = <PopperContentOptions>{};
+
   @Input('popper')
   content: string | PopperContent;
 
-  @Input('popper-disabled')
+  @Input('popperDisabled')
   disabled: boolean;
 
-  @Input('popper-animation')
-  animationClass: string;
-
-  @Input('popper-placement')
+  @Input('popperPlacement')
   placement: Placement = Placements.Auto;
 
-  @Input('popper-text')
-  contentText: string;
-
-  @Input('popper-trigger')
+  @Input('popperTrigger')
   showTrigger: Trigger;
 
-  @Input('popper-delay')
+  @Input('popperDelay')
   showDelay: number = 0;
 
-  @Input('popper-timeout')
+  @Input('popperTimeout')
   hideTimeout: number = 0;
 
-  @Input('popper-boundaries')
+  @Input('popperBoundaries')
   boundariesElement: string;
 
-  @Input('popper-show-onstart')
+  @Input('popperShowOnStart')
   showOnStart: boolean;
 
-  @Input('popper-modifiers')
+  @Input('popperModifiers')
   popperModifiers: {};
+
+  @Input('popperDisableStyle')
+  disableStyle: boolean;
+
+  @Input('popperDisableAnimation')
+  disableAnimation: boolean;
 
   @Output()
   popperOnShown = new EventEmitter<PopperController>();
@@ -112,6 +114,18 @@ export class PopperController implements OnInit, OnChanges {
       return;
     }
     this.scheduledHide($event, 0);
+  }
+
+  static assignDefined(target, ...sources) {
+    for (const source of sources) {
+      for (const key of Object.keys(source)) {
+        const val = source[key];
+        if (val !== undefined) {
+          target[key] = val;
+        }
+      }
+    }
+    return target;
   }
 
   ngOnInit() {
@@ -212,12 +226,14 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   private setContentProperties(popperRef: PopperContent) {
-    popperRef.placement = this.placement;
-    popperRef.animationClass = this.animationClass;
-    popperRef.text = this.contentText;
-    popperRef.trigger = this.showTrigger;
-    popperRef.boundariesElement = this.boundariesElement;
-    popperRef.popperModifiers = this.popperModifiers;
+    popperRef.popperOptions = PopperController.assignDefined(popperRef.popperOptions, PopperController.baseOptions, {
+      disableAnimation: this.disableAnimation,
+      disableDefaultStyling: this.disableStyle,
+      placement: this.placement,
+      boundariesElement: this.boundariesElement,
+      trigger: this.showTrigger,
+      popperModifiers: this.popperModifiers,
+    });
     popperRef.onHidden.subscribe(this.hide.bind(this));
     if (this.hideTimeout > 0)
       setTimeout(this.hide.bind(this), this.hideTimeout);

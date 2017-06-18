@@ -31,9 +31,9 @@ node and npm are required to run this package.
   ```HTML  
    <div #popper1
             [popper]="popper1Content"
-            [popper-show-onstart]="true"
-            [popper-trigger]="'click'"
-            [popper-placement]="'bottom'">
+            [popperShowOnstart]="true"
+            [popperTrigger]="'click'"
+            [popperPlacement]="'bottom'">
          <p class="bold">Hey!</p>
          <p class="thin">Choose where to put your popper!</p>         
        </div>
@@ -48,8 +48,8 @@ node and npm are required to run this package.
       <div class="rel" id="example5reference1"
            #popper5
            [popper]="'As text'"
-           [popper-trigger]="'hover'"
-           [popper-placement]="'bottom'">
+           [popperTrigger]="'hover'"
+           [popperPlacement]="'bottom'">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>

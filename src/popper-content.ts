@@ -1,6 +1,5 @@
 import {
   Component,
-  Input,
   ElementRef,
   OnDestroy,
   ViewChild,
@@ -8,22 +7,25 @@ import {
   HostListener,
 } from "@angular/core";
 import Popper from 'popper.js';
-import {Placement, Trigger, Triggers} from './popper.model';
+import {Placement, Placements, Trigger, Triggers, PopperContentOptions} from './popper.model';
+import PopperOptions = Popper.PopperOptions;
 
 @Component({
   selector: "popper-content",
   template: `
-<div #popperViewRef class="popper"  
-     [class.fade]="animationClass"
+<div #popperViewRef 
+     [class.ngxp__container]="!popperOptions.disableDefaultStyling"  
+     [class.ngxp__animation]="!popperOptions.disableAnimation"
      [style.display]="displayType"
+     [style.opacity]="opacity"
      role="popper">        
-      <div class="popper__inner"><ng-content ></ng-content>  {{ content }} </div>
-      <div class="popper__arrow"></div>  
+      <div class="ngxp__inner"><ng-content ></ng-content>  {{ popperOptions.content }} </div>
+      <div class="ngxp__arrow"></div>  
     
 </div>
 `,
   styles: [`
-.popper {
+.ngxp__container {
   display:none;
   position: absolute;    
   border-radius: 3px;
@@ -31,7 +33,14 @@ import {Placement, Trigger, Triggers} from './popper.model';
   box-shadow: 0 0 2px rgba(0,0,0,0.5);  
   padding: 10px;
 }
-.popper .popper__arrow {
+.ngxp__container.ngxp__animation {
+   -webkit-animation: ngxp-fadeIn  200ms ease-out;
+    -moz-animation: ngxp-fadeIn  200ms ease-out;
+    -o-animation: ngxp-fadeIn  200ms ease-out;
+    animation: ngxp-fadeIn  200ms ease-out;
+  
+}
+.ngxp__container .ngxp__arrow {
   width: 0;
   height: 0;
   border-style: solid;
@@ -39,17 +48,17 @@ import {Placement, Trigger, Triggers} from './popper.model';
   margin: 5px;
 }
 
-.popper[x-placement^="top"],
-.popper[x-placement^="bottom"],
-.popper[x-placement^="right"],
-.popper[x-placement^="left"]
+.ngxp__container[x-placement^="top"],
+.ngxp__container[x-placement^="bottom"],
+.ngxp__container[x-placement^="right"],
+.ngxp__container[x-placement^="left"]
 {
   display:block;
 }
-.popper[x-placement^="top"] {
+.ngxp__container[x-placement^="top"] {
   margin-bottom: 5px;
 }
-.popper[x-placement^="top"] .popper__arrow {
+.ngxp__container[x-placement^="top"] .ngxp__arrow {
   border-width: 5px 5px 0 5px;
   border-color: grey transparent transparent transparent;
   bottom: -5px;
@@ -57,10 +66,10 @@ import {Placement, Trigger, Triggers} from './popper.model';
   margin-top: 0;
   margin-bottom: 0;
 }
-.popper[x-placement^="bottom"] {
+.ngxp__container[x-placement^="bottom"] {
   margin-top: 5px;
 }
-.popper[x-placement^="bottom"] .popper__arrow {
+.ngxp__container[x-placement^="bottom"] .ngxp__arrow {
   border-width: 0 5px 5px 5px;
   border-color: transparent transparent grey transparent;
   top: -5px;
@@ -68,10 +77,10 @@ import {Placement, Trigger, Triggers} from './popper.model';
   margin-top: 0;
   margin-bottom: 0;
 }
-.popper[x-placement^="right"] {
+.ngxp__container[x-placement^="right"] {
   margin-left: 5px;
 }
-.popper[x-placement^="right"] .popper__arrow {
+.ngxp__container[x-placement^="right"] .ngxp__arrow {
   border-width: 5px 5px 5px 0;
   border-color: transparent grey transparent transparent;
   left: -5px;
@@ -79,38 +88,79 @@ import {Placement, Trigger, Triggers} from './popper.model';
   margin-left: 0;
   margin-right: 0;
 }
-.popper[x-placement^="left"] {
+.ngxp__container[x-placement^="left"] {
   margin-right: 5px;
 }
-.popper[x-placement^="left"] .popper__arrow {
+.ngxp__container[x-placement^="left"] .ngxp__arrow {
   border-width: 5px 0 5px 5px;
   border-color: transparent transparent transparent grey;
   right: -5px;
   top: calc(50% - 5px);
   margin-left: 0;
   margin-right: 0;
-}`]
+}
+@-webkit-keyframes ngxp-fadeIn { 
+ 0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes ngxp-fadeIn {
+  0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+`]
 })
 export class PopperContent implements OnDestroy {
 
-  @Input()
+  popperOptions: PopperContentOptions = <PopperContentOptions>{
+    disableAnimation: false,
+    disableDefaultStyling: false,
+    placement: Placements.Auto,
+    boundariesElement: '',
+    trigger: Triggers.Hover,
+    popperModifiers: {}
+  };
+
+  referenceObject: HTMLElement;
+
+  isMouseOver: boolean = false;
+
+  onHidden = new EventEmitter();
+
   content: string;
 
-  @Input()
-  placement: Placement;
+  private popperInstance: Popper;
 
-  text: string;
-  animationClass: string = '';
+  private displayType: string = "none";
+
+  private opacity: number = 0;
 
   @ViewChild("popperViewRef")
   popperViewRef: ElementRef;
-  boundariesElement: string;
-  referenceObject: HTMLElement;
-  popperInstance: Popper;
-  trigger: Trigger;
-  popperModifiers: {};
-  isMouseOver: boolean = false;
-  onHidden = new EventEmitter();
 
   @HostListener('mouseover')
   onMouseOver() {
@@ -120,7 +170,7 @@ export class PopperContent implements OnDestroy {
   @HostListener('mouseleave')
   showonleave() {
     this.isMouseOver = false;
-    if (this.trigger !== Triggers.Hover) {
+    if (this.popperOptions.trigger !== Triggers.Hover) {
       return;
     }
     this.hide();
@@ -131,13 +181,11 @@ export class PopperContent implements OnDestroy {
     this.update();
   }
 
-  displayType: string = "none";
-
   constructor() {
   }
 
   ngOnDestroy() {
-    if(!this.popperInstance){
+    if (!this.popperInstance) {
       return;
     }
     (this.popperInstance as any).disableEventListeners();
@@ -151,21 +199,21 @@ export class PopperContent implements OnDestroy {
     }
 
     let popperOptions: Popper.PopperOptions = <Popper.PopperOptions>{
-      placement: this.placement,
+      placement: this.popperOptions.placement,
       modifiers: {
         arrow: {
-          element: this.popperViewRef.nativeElement.querySelector('.popper__arrow')
+          element: this.popperViewRef.nativeElement.querySelector('.ngxp__arrow')
         }
       }
     };
 
-    if (this.boundariesElement) {
+    if (this.popperOptions.boundariesElement) {
       popperOptions.modifiers.preventOverflow = {
-        boundariesElement: document.querySelector(this.boundariesElement),
+        boundariesElement: document.querySelector(this.popperOptions.boundariesElement),
       };
     }
 
-    popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperModifiers);
+    popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
 
     this.popperInstance = new Popper(
       this.referenceObject,
@@ -173,7 +221,7 @@ export class PopperContent implements OnDestroy {
       popperOptions,
     );
     (this.popperInstance as any).enableEventListeners();
-    this.displayType = "block";
+    this.toggleVisisbility(true);
   }
 
   update(): void {
@@ -185,8 +233,19 @@ export class PopperContent implements OnDestroy {
   }
 
   hide(): void {
-    this.displayType = "none";
+    this.toggleVisisbility(false);
     this.onHidden.emit();
+  }
+
+  toggleVisisbility(state) {
+    if (!state) {
+      this.opacity = 0;
+      this.displayType = "none";
+    }
+    else {
+      this.opacity = 1;
+      this.displayType = "block";
+    }
   }
 
 }

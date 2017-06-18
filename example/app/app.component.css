@@ -21,7 +21,7 @@ p.bold {
   border-width: medium;
 }
 
-.popper {
+.ngxp__container {
   width: 150px;
   background: #FFC107;
   color: black;
@@ -33,19 +33,19 @@ p.bold {
   margin-top: 1em;
 }
 
-.popper[x-placement^="top"] .popper__arrow {
+.ngxp__container[x-placement^="top"] .ngxp__arrow {
   border-color: #FFC107 transparent transparent transparent!important;
 }
 
-.popper[x-placement^="bottom"] .popper__arrow {
+.ngxp__container[x-placement^="bottom"] .ngxp__arrow {
   border-color: transparent transparent #FFC107 transparent!important;;
 }
 
-.popper[x-placement^="right"] .popper__arrow {
+.ngxp__container[x-placement^="right"] .ngxp__arrow {
   border-color: transparent #FFC107 transparent transparent!important;;
 }
 
-.popper[x-placement^="left"] .popper__arrow {
+.ngxp__container[x-placement^="left"] .ngxp__arrow {
   border-color: transparent transparent transparent #FFC107!important;;
 }
 
@@ -66,7 +66,7 @@ p.bold {
   background: rgba(255, 255, 255, 0.2);
 }
 
-#example4popper1 {
+#example4ngxp__container1 {
   height: 150px;
 }
 
@@ -2230,7 +2230,7 @@ input[type="radio"] + label:before {
   color: #FFF;
 }
 
-.icon.popperjs {
+.icon.ngxp__containerjs {
   background-color: #E91E63;
   color: #FFF;
 }
@@ -3953,14 +3953,14 @@ body.is-mobile.landing #footer {
   background-color: #1d242a;
 }
 
-/* Demo fixed popper */
-#title-popper {
+/* Demo fixed ngxp__container */
+#title-ngxp__container {
   opacity: 0;
   transition: 0.3s opacity ease-out;
   z-index: 10001;
 }
 
-#header:not(.alt) ~ #title-popper {
+#header:not(.alt) ~ #title-ngxp__container {
   opacity: 1;
 }
 
@@ -6217,7 +6217,7 @@ input[type="radio"] + label:before {
   color: #FFF;
 }
 
-.icon.popperjs {
+.icon.ngxp__containerjs {
   background-color: #E91E63;
   color: #FFF;
 }
@@ -7940,14 +7940,14 @@ body.is-mobile.landing #footer {
   background-color: #1d242a;
 }
 
-/* Demo fixed popper */
-#title-popper {
+/* Demo fixed ngxp__container */
+#title-ngxp__container {
   opacity: 0;
   transition: 0.3s opacity ease-out;
   z-index: 10001;
 }
 
-#header:not(.alt) ~ #title-popper {
+#header:not(.alt) ~ #title-ngxp__container {
   opacity: 1;
 }
 

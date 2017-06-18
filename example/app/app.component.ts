@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewEncapsulation, OnInit, ViewChild} from '@angular/core';
 import {PopperContent} from '../../src/popper-content';
 import set = Reflect.set;
+import {PopperController} from '../../src/popper';
 /**
  * This class represents the main application component.
  */
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   @ViewChild('popper3Content') popper3Content: PopperContent;
 
   constructor(private elem: ElementRef) {
-
+    PopperController.baseOptions.disableAnimation = true;
   }
 
   ngOnInit() {
