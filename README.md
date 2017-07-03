@@ -5,7 +5,7 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/MrFrankel/ngx-popper/blob/master/LICENSE)
 
 
-ngx-popper is an angular wrapper for the [popperjs](https://popper.js.org/).
+ngx-popper is an angular wrapper for the [Popper.js](https://popper.js.org/) library.
 
 ### Installation
 
