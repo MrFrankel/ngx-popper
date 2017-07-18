@@ -220,7 +220,9 @@ export class PopperContent implements OnDestroy {
       popperOptions,
     );
     (this.popperInstance as any).enableEventListeners();
+    this.scheduleUpdate();
     this.toggleVisibility(true);
+
   }
 
   update(): void {
@@ -232,6 +234,7 @@ export class PopperContent implements OnDestroy {
   }
 
   hide(): void {
+    this.popperInstance.destroy();
     this.toggleVisibility(false);
     this.onHidden.emit();
   }
