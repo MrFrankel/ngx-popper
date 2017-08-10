@@ -152,11 +152,11 @@ export class PopperContent implements OnDestroy {
 
   text: string;
 
-  private popperInstance: Popper;
+  popperInstance: Popper;
 
-  private displayType: string = "none";
+  displayType: string = "none";
 
-  private opacity: number = 0;
+  opacity: number = 0;
 
   @ViewChild("popperViewRef")
   popperViewRef: ElementRef;
