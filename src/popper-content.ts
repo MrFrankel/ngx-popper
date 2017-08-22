@@ -206,10 +206,10 @@ export class PopperContent implements OnDestroy {
       }
     };
 
-    if (this.popperOptions.boundariesElement) {
-      popperOptions.modifiers.preventOverflow = {
-        boundariesElement: document.querySelector(this.popperOptions.boundariesElement),
-      };
+    let boundariesElement = this.popperOptions.boundariesElement && document.querySelector(this.popperOptions.boundariesElement);
+
+    if (popperOptions.modifiers && boundariesElement) {
+      popperOptions.modifiers.preventOverflow = { boundariesElement };
     }
 
     popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
