@@ -61,6 +61,7 @@ node and npm are required to run this package.
            [popper]="'As text'"
            [popperTrigger]="'hover'"
            [popperPlacement]="'bottom'">
+           [popperOnShown]="onShown($event)">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
@@ -81,9 +82,8 @@ node and npm are required to run this package.
     | popperShowOnStart        | number            | 0        |                         
     | popperTrigger            | Trigger(string)   | hover    |
     | popperModifiers          | popperModifier    | undefined|
-    | popperOnShown            | EventEmitter<void>| undefined|
-    | popperOnShown            | EventEmitter<void>| undefined|
-    | popperOnHidden           | EventEmitter<void>| undefined|
+    | popperOnShown            | EventEmitter<void>| $event   |    
+    | popperOnHidden           | EventEmitter<void>| $event   |
     
 6. Override default    
 ```JavaScript
