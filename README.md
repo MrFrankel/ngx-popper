@@ -69,18 +69,21 @@ node and npm are required to run this package.
  
 5. Attributes map:  
   
-    | Options                  | Type             | Default  |
-    |:-------------------      |:---------------- |:-------- |
-    | popperDisableAnimation   | boolean          | false    |
-    | popperDisableStyle       | boolean          | false    |
-    | popperDisabled           | boolean          | false    |
-    | popperDelay              | number           | 0        |
-    | popperTimeout            | number           | 0        |
-    | popperPlacement          | Placement(string)| auto     |
-    | popperBoundaries         | string(selector) | undefined|  
-    | popperShowOnStart        | number           | 0        |                         
-    | popperTrigger            | Trigger(string)  | hover    |
-    | popperModifiers          | popperModifier   | undefined|
+    | Options                  | Type              | Default  |
+    |:-------------------      |:----------------  |:-------- |
+    | popperDisableAnimation   | boolean           | false    |
+    | popperDisableStyle       | boolean           | false    |
+    | popperDisabled           | boolean           | false    |
+    | popperDelay              | number            | 0        |
+    | popperTimeout            | number            | 0        |
+    | popperPlacement          | Placement(string) | auto     |
+    | popperBoundaries         | string(selector)  | undefined|  
+    | popperShowOnStart        | number            | 0        |                         
+    | popperTrigger            | Trigger(string)   | hover    |
+    | popperModifiers          | popperModifier    | undefined|
+    | popperOnShown            | EventEmitter<void>| undefined|
+    | popperOnShown            | EventEmitter<void>| undefined|
+    | popperOnHidden           | EventEmitter<void>| undefined|
     
 6. Override default    
 ```JavaScript
