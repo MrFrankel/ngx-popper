@@ -98,9 +98,8 @@ constructor(private elem: ElementRef) {
 
 ### Contribute
  
-    terminal
+    ```terminal
       $ yarn install
-      $ npm run dev 
-      
-
+      $ npm run dev      
+    ```
 
