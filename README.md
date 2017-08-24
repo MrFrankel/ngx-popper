@@ -97,7 +97,8 @@ constructor(private elem: ElementRef) {
 <a href="https://mrfrankel.github.io/ngx-popper/">Demo</a>
 
 ### Contribute
-
+  Hell ya!!!
+  
 ```terminal
   $ yarn install
   $ npm run dev  
