@@ -60,8 +60,8 @@ node and npm are required to run this package.
            #popper5
            [popper]="'As text'"
            [popperTrigger]="'hover'"
-           [popperPlacement]="'bottom'">
-           [popperOnShown]="onShown($event)">
+           [popperPlacement]="'bottom'"
+           (popperOnShown)="onShown($event)">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
