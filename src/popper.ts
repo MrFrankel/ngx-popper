@@ -134,6 +134,9 @@ export class PopperController implements OnInit, OnChanges {
       this.content = this.constructContent();
       this.content.text = text;
     }
+    const popperRef = this.content as PopperContent;
+    popperRef.referenceObject = this.getElement();
+    this.setContentProperties(popperRef);
 
     if (this.showOnStart) {
       this.show();
@@ -160,8 +163,6 @@ export class PopperController implements OnInit, OnChanges {
 
     this.shown = true;
     const popperRef = this.content as PopperContent;
-    popperRef.referenceObject = this.getElement();
-    this.setContentProperties(popperRef);
     popperRef.show();
     this.popperOnShown.emit(this);
   }

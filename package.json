@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "main": "src/index.js",
   "module": "esm/index.js",
