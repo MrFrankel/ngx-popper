@@ -70,7 +70,7 @@ node and npm are required to run this package.
  
 5. Attributes map:  
   
-    | Options                  | Type              | Default  |
+    | Option                   | Type              | Default  |
     |:-------------------      |:----------------  |:-------- |
     | popperDisableAnimation   | boolean           | false    |
     | popperDisableStyle       | boolean           | false    |
@@ -92,15 +92,15 @@ constructor(private elem: ElementRef) {
     PopperController.baseOptions.disableAnimation = true;
   }
 ```
-
-    | Options                  | Type              | Default  |
-    |:-------------------      |:----------------  |:-------- |
-    | disableAnimation         | boolean           | false    |
-    | disableDefaultStyling    | boolean           | false    |        
-    | placement                | Placement(string) | auto     |
-    | boundariesElement        | string(selector)  | undefined|  
-    | trigger                  | Trigger(string)   | hover    |    
-    | popperModifiers          | popperModifier    | undefined|
+  
+   | Options                  | Type              | Default  |
+   |:-------------------      |:----------------  |:-------- |
+   | disableAnimation         | boolean           | false    |
+   | disableDefaultStyling    | boolean           | false    |        
+   | placement                | Placement(string) | auto     |
+   | boundariesElement        | string(selector)  | undefined|  
+   | trigger                  | Trigger(string)   | hover    |    
+   | popperModifiers          | popperModifier    | undefined|
     
 
 7. popperPlacement:
