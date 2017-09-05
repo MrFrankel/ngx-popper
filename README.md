@@ -88,6 +88,7 @@ node and npm are required to run this package.
 6. Override default    
 ```JavaScript
 // Simply override PopperController baseOptions, this will apply to all popper that do not have an attribute set
+// This is a static reference and should run ASAP, preferably before the application is bootstrapped
 constructor(private elem: ElementRef) {
     PopperController.baseOptions.disableAnimation = true;
   }
@@ -129,7 +130,7 @@ constructor(private elem: ElementRef) {
   | 'click'
   | 'mousedown'
   | 'hover'
-  | 'none';
+  | 'none'
   
     
 ### Demo
