@@ -1,12 +1,14 @@
 export type Trigger =
   | 'click'
   | 'mousedown'
-  | 'hover';
+  | 'hover'
+  | 'none' ;
 
 export class Triggers {
-  static Click: Trigger = 'click';
-  static Hover: Trigger = 'hover';
-  static MouseDown: Trigger = 'mousedown';
+  static CLICK: Trigger = 'click';
+  static HOVER: Trigger = 'hover';
+  static MOUSEDOWN: Trigger = 'mousedown';
+  static NONE: Trigger = 'none';
 }
 
 export type Placement =

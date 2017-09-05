@@ -92,6 +92,44 @@ constructor(private elem: ElementRef) {
     PopperController.baseOptions.disableAnimation = true;
   }
 ```
+
+    | Options                  | Type              | Default  |
+    |:-------------------      |:----------------  |:-------- |
+    | disableAnimation         | boolean           | false    |
+    | disableDefaultStyling    | boolean           | false    |        
+    | placement                | Placement(string) | auto     |
+    | boundariesElement        | string(selector)  | undefined|  
+    | trigger                  | Trigger(string)   | hover    |    
+    | popperModifiers          | popperModifier    | undefined|
+    
+
+7. popperPlacement:
+
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-start'
+  | 'bottom-start'
+  | 'left-start'
+  | 'right-start'
+  | 'top-end'
+  | 'bottom-end'
+  | 'left-end'
+  | 'right-end'
+  | 'auto'
+  | 'auto-top'
+  | 'auto-bottom'
+  | 'auto-left'
+  | 'auto-right'
+  | Function
+  
+8. popperTrigger:
+  | 'click'
+  | 'mousedown'
+  | 'hover';
+  | 'none';
+  
     
 ### Demo
 <a href="https://mrfrankel.github.io/ngx-popper/">Demo</a>

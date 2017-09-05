@@ -24,6 +24,7 @@ export class PopperController implements OnInit, OnChanges {
   private scheduledShowTimeout: any;
   private scheduledHideTimeout: any;
   private ignoreDocClick: boolean = false;
+  private subscriptions: any[] = [];
 
   constructor(private viewContainerRef: ViewContainerRef,
               private resolver: ComponentFactoryResolver) {
@@ -72,7 +73,7 @@ export class PopperController implements OnInit, OnChanges {
 
   @HostListener('click', ['$event'])
   showOrHideOnClick($event: MouseEvent): void {
-    if (this.disabled || this.showTrigger !== Triggers.Click) {
+    if (this.disabled || this.showTrigger !== Triggers.CLICK) {
       return;
     }
     this.ignoreDocClick = true;
@@ -81,7 +82,7 @@ export class PopperController implements OnInit, OnChanges {
 
   @HostListener('mousedown', ['$event'])
   showOrHideOnMouseOver($event: MouseEvent): void {
-    if (this.disabled || this.showTrigger !== Triggers.MouseDown) {
+    if (this.disabled || this.showTrigger !== Triggers.MOUSEDOWN) {
       return;
     }
     this.ignoreDocClick = true;
@@ -90,7 +91,7 @@ export class PopperController implements OnInit, OnChanges {
 
   @HostListener('mouseenter')
   showOnHover(): void {
-    if (this.disabled || this.showTrigger !== Triggers.Hover) {
+    if (this.disabled || this.showTrigger !== Triggers.HOVER) {
       return;
     }
     this.scheduledShow();
@@ -102,7 +103,7 @@ export class PopperController implements OnInit, OnChanges {
       this.ignoreDocClick = false;
       return;
     }
-    if (this.disabled || this.showTrigger !== Triggers.Click) {
+    if (this.disabled || this.showTrigger !== Triggers.CLICK) {
       return;
     }
     this.scheduledHide($event, 0);
@@ -110,7 +111,7 @@ export class PopperController implements OnInit, OnChanges {
 
   @HostListener('mouseleave', ['$event'])
   hideOnLeave($event: MouseEvent): void {
-    if (this.disabled || this.showTrigger !== Triggers.Hover) {
+    if (this.disabled || this.showTrigger !== Triggers.HOVER) {
       return;
     }
     this.scheduledHide($event, 0);
@@ -149,6 +150,11 @@ export class PopperController implements OnInit, OnChanges {
         this.hide();
       }
     }
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach(sub => sub.unsubscribe && sub.unsubscribe());
+    this.subscriptions.length = 0;
   }
 
   toggle() {
@@ -235,7 +241,7 @@ export class PopperController implements OnInit, OnChanges {
       trigger: this.showTrigger,
       popperModifiers: this.popperModifiers,
     });
-    popperRef.onHidden.subscribe(this.hide.bind(this));
+    this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
     if (this.hideTimeout > 0)
       setTimeout(this.hide.bind(this), this.hideTimeout);
   }
