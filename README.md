@@ -128,7 +128,7 @@ constructor(private elem: ElementRef) {
 
   | 'click'
   | 'mousedown'
-  | 'hover';
+  | 'hover'
   | 'none';
   
     
