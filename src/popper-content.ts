@@ -140,7 +140,7 @@ export class PopperContent implements OnDestroy {
     disableDefaultStyling: false,
     placement: Placements.Auto,
     boundariesElement: '',
-    trigger: Triggers.Hover,
+    trigger: Triggers.HOVER,
     popperModifiers: {}
   };
 
@@ -169,7 +169,7 @@ export class PopperContent implements OnDestroy {
   @HostListener('mouseleave')
   showOnLeave() {
     this.isMouseOver = false;
-    if (this.popperOptions.trigger !== Triggers.Hover) {
+    if (this.popperOptions.trigger !== Triggers.HOVER) {
       return;
     }
     this.hide();
