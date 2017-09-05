@@ -125,6 +125,7 @@ constructor(private elem: ElementRef) {
   | Function
   
 8. popperTrigger:
+
   | 'click'
   | 'mousedown'
   | 'hover';
