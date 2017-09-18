@@ -11,6 +11,7 @@
     "noUnusedLocals": true,
     "suppressImplicitAnyIndexErrors": false,
     "declaration": true,
+    "skipLibCheck": true,
     "lib": [
       "es7",
       "dom",

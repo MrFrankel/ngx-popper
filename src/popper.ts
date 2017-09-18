@@ -169,6 +169,10 @@ export class PopperController implements OnInit, OnChanges {
 
     this.shown = true;
     const popperRef = this.content as PopperContent;
+    const element = this.getElement();
+    if(popperRef.referenceObject !== element){
+      popperRef.referenceObject = element;
+    }
     popperRef.show();
     this.popperOnShown.emit(this);
   }

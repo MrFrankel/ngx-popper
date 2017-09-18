@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "outDir": "esm",
+    "skipLibCheck": true,
     "lib": [
       "es7",
       "dom",
