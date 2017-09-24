@@ -36,6 +36,41 @@ node and npm are required to run this package.
    ]
   })
   ```
+  
+SystemJS 
+```
+    System.config({
+        paths: {
+            // paths serve as alias
+            'npm:': 'libs/'
+        },
+        // map tells the System loader where to look for things
+        map: {
+            ... ,
+            'ngx-popper': 'npm:ngx-popper',
+            'popper.js': 'npm:ngx-popper',
+            'popper.module': 'npm:ngx-popper',
+        },
+        // packages tells the System loader how to load when no filename and/or no extension
+        packages: {
+            ... ,
+            'ngx-popper': {
+                main: 'index.js',
+                defaultExtension: 'js'
+            },
+            'popper.js': {
+                main: 'popper.js',
+                defaultExtension: 'js'
+            },
+            'popper.module': {
+                main: './popper.module.js',
+                defaultExtension: 'js'
+            }
+        }
+    });
+
+```
+  
 
 3. Add to view:
 
