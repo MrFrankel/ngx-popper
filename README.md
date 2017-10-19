@@ -77,7 +77,7 @@ SystemJS
   ```HTML  
    <div #popper1
             [popper]="popper1Content"
-            [popperShowOnstart]="true"
+            [popperShowOnStart]="true"
             [popperTrigger]="'click'"
             [popperPlacement]="'bottom'">
          <p class="bold">Hey!</p>
