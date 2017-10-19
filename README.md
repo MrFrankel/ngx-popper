@@ -48,7 +48,7 @@ SystemJS
         map: {
             ... ,
             'ngx-popper': 'npm:ngx-popper',
-            'popper.js': 'npm:ngx-popper',
+            'popper-directive.js': 'npm:ngx-popper',
             'popper.module': 'npm:ngx-popper',
         },
         // packages tells the System loader how to load when no filename and/or no extension
@@ -59,7 +59,7 @@ SystemJS
                 defaultExtension: 'js'
             },
             'popper.js': {
-                main: 'popper.js',
+                main: 'popper-directive.js',
                 defaultExtension: 'js'
             },
             'popper.module': {
