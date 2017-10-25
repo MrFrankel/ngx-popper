@@ -7,8 +7,6 @@ import '@angular/forms';
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
 import 'rxjs';
-import 'popper.js/dist/umd/popper.js';
-import 'popper.js/dist/umd/popper-utils.js';
 
 import { enableProdMode } from '@angular/core';
 // The browser platform with a compiler

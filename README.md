@@ -103,7 +103,25 @@ SystemJS
     </div>
  ```
  
-5. Attributes map:  
+ 5. Specific target:
+  ```HTML
+ <div class="example">
+       <div #popperTargetElement>The popper will show when hovering over this element</div>
+       <div>bla bla bla bla</div>
+       <div class="rel" id="example5reference1"
+            #popper5
+            [popper]="'As text'"
+            [popperTrigger]="'hover'"
+            [popperPlacement]="'bottom'"
+            [popperTarget]="popperTargetElement"
+            (popperOnShown)="onShown($event)">
+         <p class="bold">Pop</p>
+         <p class="thin">on the bottom</p>
+       </div>
+     </div>
+  ```
+ 
+6. Attributes map:  
   
     | Option                   | Type              | Default  |
     |:-------------------      |:----------------  |:-------- |
@@ -113,6 +131,7 @@ SystemJS
     | popperDelay              | number            | 0        |
     | popperTimeout            | number            | 0        |
     | popperPlacement          | Placement(string) | auto     |
+    | popperTarget             | HtmlElement       | auto     |
     | popperBoundaries         | string(selector)  | undefined|  
     | popperShowOnStart        | number            | 0        |                         
     | popperTrigger            | Trigger(string)   | hover    |
@@ -120,11 +139,11 @@ SystemJS
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
     
-6. Override default    
+7. Override default    
 ```JavaScript
 // Simply override PopperController baseOptions, this will apply to all popper that do not have an attribute set
-// This is a static reference and should run ASAP, preferably before the application is bootstrapped
-constructor(private elem: ElementRef) {
+// This is a static reference and should run ASAP, preferably before the angular application is bootstrapped
+constructor() {
     PopperController.baseOptions.disableAnimation = true;
   }
 ```
@@ -139,7 +158,7 @@ constructor(private elem: ElementRef) {
    | popperModifiers          | popperModifier    | undefined|
     
 
-7. popperPlacement:
+8. popperPlacement:
 
   | 'top'
   | 'bottom'
@@ -160,7 +179,7 @@ constructor(private elem: ElementRef) {
   | 'auto-right'
   | Function
   
-8. popperTrigger:
+9. popperTrigger:
 
   | 'click'
   | 'mousedown'

@@ -44,6 +44,9 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperTrigger')
   showTrigger: Trigger;
 
+  @Input('popperTarget')
+  targetElement: HTMLElement;
+
   @Input('popperDelay')
   showDelay: number = 0;
 
@@ -136,7 +139,7 @@ export class PopperController implements OnInit, OnChanges {
       this.content.text = text;
     }
     const popperRef = this.content as PopperContent;
-    popperRef.referenceObject = this.getElement();
+    popperRef.referenceObject = this.getRefElement();
     this.setContentProperties(popperRef);
 
     if (this.showOnStart) {
@@ -169,7 +172,7 @@ export class PopperController implements OnInit, OnChanges {
 
     this.shown = true;
     const popperRef = this.content as PopperContent;
-    const element = this.getElement();
+    const element = this.getRefElement();
     if(popperRef.referenceObject !== element){
       popperRef.referenceObject = element;
     }
@@ -212,8 +215,8 @@ export class PopperController implements OnInit, OnChanges {
     }, delay)
   }
 
-  getElement() {
-    return this.viewContainerRef.element.nativeElement;
+  getRefElement() {
+    return this.targetElement || this.viewContainerRef.element.nativeElement;
   }
 
   private overrideShowTimeout() {
