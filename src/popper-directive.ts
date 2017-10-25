@@ -143,7 +143,7 @@ export class PopperController implements OnInit, OnChanges {
     this.setContentProperties(popperRef);
 
     if (this.showOnStart) {
-      this.show();
+      this.scheduledShow();
     }
   }
 
