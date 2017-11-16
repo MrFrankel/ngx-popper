@@ -234,7 +234,9 @@ export class PopperContent implements OnDestroy {
   }
 
   hide(): void {
-    this.popperInstance.destroy();
+    if (this.popperInstance) {
+      this.popperInstance.destroy();
+    }
     this.toggleVisibility(false);
     this.onHidden.emit();
   }
