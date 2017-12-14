@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/out-tsc",
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
