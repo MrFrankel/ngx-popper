@@ -57,5 +57,6 @@ export interface PopperContentOptions {
   placement: Placement;
   boundariesElement: string;
   trigger: Trigger;
+  positionFixed: boolean;
   popperModifiers: {};
 }

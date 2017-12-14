@@ -59,6 +59,9 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperShowOnStart')
   showOnStart: boolean;
 
+  @Input('popperPositionFixed')
+  positionFixed: boolean;
+
   @Input('popperModifiers')
   popperModifiers: {};
 
@@ -246,6 +249,7 @@ export class PopperController implements OnInit, OnChanges {
       placement: this.placement,
       boundariesElement: this.boundariesElement,
       trigger: this.showTrigger,
+      positionFixed: this.positionFixed,
       popperModifiers: this.popperModifiers,
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));

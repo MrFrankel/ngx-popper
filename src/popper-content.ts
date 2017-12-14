@@ -141,6 +141,7 @@ export class PopperContent implements OnDestroy {
     placement: Placements.Auto,
     boundariesElement: '',
     trigger: Triggers.HOVER,
+    positionFixed: false,
     popperModifiers: {}
   };
 
@@ -199,6 +200,7 @@ export class PopperContent implements OnDestroy {
 
     let popperOptions: Popper.PopperOptions = <Popper.PopperOptions>{
       placement: this.popperOptions.placement,
+      positionFixed: this.popperOptions.positionFixed,
       modifiers: {
         arrow: {
           element: this.popperViewRef.nativeElement.querySelector('.ngxp__arrow')

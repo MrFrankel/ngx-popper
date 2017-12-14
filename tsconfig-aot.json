@@ -9,6 +9,7 @@
     "removeComments": false,
     "noImplicitAny": true,
     "noUnusedLocals": true,
+    "outDir": "dist/esm",
     "suppressImplicitAnyIndexErrors": false,
     "declaration": true,
     "skipLibCheck": true,

@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "esm",
+    "outDir": "dist/umd",
     "skipLibCheck": true,
     "lib": [
       "es7",

@@ -6,6 +6,7 @@
            [popperShowOnStart]="true"
            [popperTrigger]="'click'"
            [popperTarget]="popper1"
+           [popperPositionFixed]="true"
            [popperPlacement]="example1select" class="rel" id="example10reference1">
         <p class="bold">Hey!</p>
         <p class="thin">Choose where to put your popper!</p>
@@ -44,7 +45,8 @@
           <div class="rel" id="example2reference1"
                #popper2
                [popper]="popper2Content"
-               [popperShowOnStart]="true">
+               [popperPositionFixed]="true"
+               [popperTrigger]="'click'">
             <p class="bold">Scroll me</p>
             <p class="thin">up and down</p>
           </div>
@@ -127,6 +129,8 @@
            [popper]="popper5Content"
            [popperTrigger]="'hover'"
            [popperShowOnStart]="true"
+
+           [popperPositionFixed]="true"
            [popperPlacement]="'bottom'">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
