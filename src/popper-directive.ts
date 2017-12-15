@@ -124,7 +124,7 @@ export class PopperController implements OnInit, OnChanges {
     if (this.disabled || this.showTrigger !== Triggers.HOVER) {
       return;
     }
-    this.scheduledHide($event, 0);
+    this.scheduledHide($event, this.hideTimeout);
   }
 
   static assignDefined(target: any, ...sources: any[]) {
