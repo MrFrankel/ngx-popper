@@ -53,11 +53,17 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperTimeout')
   hideTimeout: number = 0;
 
+  @Input('popperTimeoutAfterShow')
+  timeoutAfterShow: number = 0;
+
   @Input('popperBoundaries')
   boundariesElement: string;
 
   @Input('popperShowOnStart')
   showOnStart: boolean;
+
+  @Input('popperCloseOnClickOutside')
+  closeOnClickOutside: boolean = true;
 
   @Input('popperPositionFixed')
   positionFixed: boolean;
@@ -107,25 +113,27 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   @HostListener("document:click", ['$event'])
-  hideOnClick($event: MouseEvent): void {
+  hideOnClickOutside($event: MouseEvent): void {
     if (this.ignoreDocClick) {
       this.ignoreDocClick = false;
       return;
     }
-    if (this.disabled || this.showTrigger !== Triggers.CLICK) {
+    if (this.disabled || !this.closeOnClickOutside) {
       return;
     }
-    this.scheduledHide($event, 0);
+    this.scheduledHide($event, this.hideTimeout);
   }
-  @HostListener('touchend', ['$event'])     // don't use these as they are added dynamically
-  @HostListener('touchcancel', ['$event']) // don't use these as they are added dynamically
+
+  @HostListener('touchend', ['$event'])
+  @HostListener('touchcancel', ['$event'])
   @HostListener('mouseleave', ['$event'])
   hideOnLeave($event: MouseEvent): void {
     if (this.disabled || this.showTrigger !== Triggers.HOVER) {
       return;
     }
-    this.scheduledHide($event, 0);
+    this.scheduledHide(null, this.hideTimeout);
   }
+
 
   static assignDefined(target: any, ...sources: any[]) {
     for (const source of sources) {
@@ -168,7 +176,7 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   toggle() {
-    this.shown ? this.hide() : this.scheduledShow();
+    this.shown ? this.scheduledHide(null, this.hideTimeout) : this.scheduledShow();
   }
 
   show() {
@@ -185,6 +193,9 @@ export class PopperController implements OnInit, OnChanges {
     }
     popperRef.show();
     this.popperOnShown.emit(this);
+    if(this.timeoutAfterShow > 0){
+      this.scheduledHide(null, this.timeoutAfterShow);
+    }
   }
 
   hide() {
@@ -210,10 +221,10 @@ export class PopperController implements OnInit, OnChanges {
     }, delay)
   }
 
-  scheduledHide($event: MouseEvent, delay: number = 0) {
+  scheduledHide($event: any = null, delay: number = 0) {
     this.overrideShowTimeout();
     this.scheduledHideTimeout = setTimeout(() => {
-      const toElement = $event.toElement;
+      const toElement = $event ? $event.toElement : null;
       const popperContentView = (this.content as PopperContent).popperViewRef ? (this.content as PopperContent).popperViewRef.nativeElement : false;
       if (!popperContentView || popperContentView === toElement || popperContentView.contains(toElement) || (this.content as PopperContent).isMouseOver) {
         return;
@@ -257,8 +268,6 @@ export class PopperController implements OnInit, OnChanges {
       popperModifiers: this.popperModifiers,
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
-    if (this.hideTimeout > 0)
-      setTimeout(this.hide.bind(this), this.hideTimeout);
   }
 
 }
