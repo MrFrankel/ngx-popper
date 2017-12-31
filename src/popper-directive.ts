@@ -8,7 +8,7 @@ import {
   OnChanges,
   SimpleChange,
   Output,
-  EventEmitter, OnInit
+  EventEmitter, OnInit, ChangeDetectionStrategy, ElementRef, Renderer2
 } from '@angular/core';
 import {PopperContent} from './popper-content';
 import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';
@@ -25,9 +25,11 @@ export class PopperController implements OnInit, OnChanges {
   private scheduledHideTimeout: any;
   private ignoreDocClick: boolean = false;
   private subscriptions: any[] = [];
+  private globalClick: any;
 
   constructor(private viewContainerRef: ViewContainerRef,
-              private resolver: ComponentFactoryResolver) {
+              private resolver: ComponentFactoryResolver,
+              private renderer: Renderer2) {
   }
 
   static baseOptions: PopperContentOptions = <PopperContentOptions>{};
@@ -112,7 +114,6 @@ export class PopperController implements OnInit, OnChanges {
     this.scheduledShow();
   }
 
-  @HostListener("document:click", ['$event'])
   hideOnClickOutside($event: MouseEvent): void {
     if (this.ignoreDocClick) {
       this.ignoreDocClick = false;
@@ -173,6 +174,7 @@ export class PopperController implements OnInit, OnChanges {
   ngOnDestroy(){
     this.subscriptions.forEach(sub => sub.unsubscribe && sub.unsubscribe());
     this.subscriptions.length = 0;
+    this.clearGlobalClick();
   }
 
   toggle() {
@@ -196,6 +198,7 @@ export class PopperController implements OnInit, OnChanges {
     if(this.timeoutAfterShow > 0){
       this.scheduledHide(null, this.timeoutAfterShow);
     }
+    this.globalClick = this.renderer.listen('document', 'click', this.hideOnClickOutside.bind(this))
   }
 
   hide() {
@@ -212,6 +215,7 @@ export class PopperController implements OnInit, OnChanges {
       (this.content as PopperContent).hide();
     }
     this.popperOnHidden.emit(this);
+    this.clearGlobalClick();
   }
 
   scheduledShow(delay: number = this.showDelay) {
@@ -235,6 +239,10 @@ export class PopperController implements OnInit, OnChanges {
 
   getRefElement() {
     return this.targetElement || this.viewContainerRef.element.nativeElement;
+  }
+
+  private clearGlobalClick(){
+    this.globalClick && typeof this.globalClick === 'function' && this.globalClick();
   }
 
   private overrideShowTimeout() {

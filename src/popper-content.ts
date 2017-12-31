@@ -4,7 +4,7 @@ import {
   OnDestroy,
   ViewChild,
   EventEmitter,
-  HostListener,
+  HostListener, ChangeDetectionStrategy, Renderer2,
 } from "@angular/core";
 import Popper from 'popper.js';
 import {Placements, Triggers, PopperContentOptions} from './popper.model';
@@ -159,6 +159,8 @@ export class PopperContent implements OnDestroy {
 
   opacity: number = 0;
 
+  private globalResize: any;
+
   @ViewChild("popperViewRef")
   popperViewRef: ElementRef;
 
@@ -176,12 +178,11 @@ export class PopperContent implements OnDestroy {
     this.hide();
   }
 
-  @HostListener('document:resize')
   onDocumentResize() {
     this.update();
   }
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
   }
 
   ngOnDestroy() {
@@ -224,7 +225,7 @@ export class PopperContent implements OnDestroy {
     (this.popperInstance as any).enableEventListeners();
     this.scheduleUpdate();
     this.toggleVisibility(true);
-
+    this.globalResize = this.renderer.listen('document', 'resize', this.onDocumentResize.bind(this))
   }
 
   update(): void {
@@ -252,6 +253,10 @@ export class PopperContent implements OnDestroy {
       this.opacity = 1;
       this.displayType = "block";
     }
+  }
+
+  private clearGlobalResize(){
+    this.globalResize && typeof this.globalResize === 'function' && this.globalResize();
   }
 
 }
