@@ -161,13 +161,20 @@ SystemJS
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
     
-8. Override default    
+8. Override default
+    Ngx-popper comes with a few default properties you can override in default to effect all instances
+    These are overridden by any child attributes.
 ```JavaScript
-// Simply override PopperController baseOptions, this will apply to all popper that do not have an attribute set
-// This is a static reference and should run ASAP, preferably before the angular application is bootstrapped
-constructor() {
-    PopperController.baseOptions.disableAnimation = true;
-  }
+NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    NgxPopperModule.forRoot({placement: 'bottom'})],
+  declarations: [AppComponent],
+  providers: [],
+  bootstrap: [AppComponent]
+
+})
 ```
   
    | Options                  | Type              | Default  |
@@ -178,7 +185,7 @@ constructor() {
    | boundariesElement        | string(selector)  | undefined|  
    | trigger                  | Trigger(string)   | hover    |    
    | popperModifiers          | popperModifier    | undefined|
-    
+   | positionFixed            | boolean           | false    |
 
 9. popperPlacement:
 

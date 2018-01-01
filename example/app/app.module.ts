@@ -10,7 +10,7 @@ import { Draggable } from 'ng2draggable/draggable.directive';
   imports: [
     BrowserModule,
     FormsModule,
-    NgxPopperModule],
+    NgxPopperModule.forRoot({positionFixed: false})],
   declarations: [
     testComponent,
     Draggable,

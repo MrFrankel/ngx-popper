@@ -52,11 +52,11 @@ export class Placements {
 }
 
 export interface PopperContentOptions {
-  disableAnimation: boolean;
-  disableDefaultStyling: boolean;
-  placement: Placement;
-  boundariesElement: string;
-  trigger: Trigger;
-  positionFixed: boolean;
-  popperModifiers: {};
+  disableAnimation?: boolean;
+  disableDefaultStyling?: boolean;
+  placement?: Placement;
+  boundariesElement?: string;
+  trigger?: Trigger;
+  positionFixed?: boolean;
+  popperModifiers?: {};
 }
