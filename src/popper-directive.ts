@@ -8,7 +8,7 @@ import {
   OnChanges,
   SimpleChange,
   Output,
-  EventEmitter, OnInit, ChangeDetectionStrategy, ElementRef, Renderer2
+  EventEmitter, OnInit, Renderer2
 } from '@angular/core';
 import {PopperContent} from './popper-content';
 import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';

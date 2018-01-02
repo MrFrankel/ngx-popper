@@ -44,8 +44,9 @@
           <div class="rel" id="example2reference1"
                #popper2
                [popper]="popper2Content"
-               [popperPositionFixed]="true"
-               [popperTrigger]="'click'">
+               [popperShowOnStart]="true"
+               [popperCloseOnClickOutside]="false"
+               [popperTrigger]="'none'">
             <p class="bold">Scroll me</p>
             <p class="thin">up and down</p>
           </div>
@@ -75,6 +76,8 @@
           #popper3
           [popper]="popper3Content"
           [popperShowOnStart]="true"
+          [popperCloseOnClickOutside]="false"
+          [popperTrigger]="'none'"
           [popperPlacement]="'right'"
           [popperBoundaries]="'#example3Container'"
           [popperModifiers]="example3modifiers"

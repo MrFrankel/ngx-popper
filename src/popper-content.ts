@@ -4,7 +4,7 @@ import {
   OnDestroy,
   ViewChild,
   EventEmitter,
-  HostListener, ChangeDetectionStrategy, Renderer2,
+  HostListener, Renderer2,
 } from "@angular/core";
 import Popper from 'popper.js';
 import {Placements, Triggers, PopperContentOptions} from './popper.model';
