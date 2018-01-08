@@ -91,7 +91,7 @@ export class PopperController implements OnInit, OnChanges {
     if (this.disabled || this.showTrigger !== Triggers.CLICK) {
       return;
     }
-    this.ignoreDocClick = true;
+    debugger;
     this.toggle();
   }
 
@@ -101,7 +101,6 @@ export class PopperController implements OnInit, OnChanges {
     if (this.disabled || this.showTrigger !== Triggers.MOUSEDOWN) {
       return;
     }
-    this.ignoreDocClick = true;
     this.toggle();
   }
 
@@ -115,10 +114,6 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   hideOnClickOutside($event: MouseEvent): void {
-    if (this.ignoreDocClick) {
-      this.ignoreDocClick = false;
-      return;
-    }
     if (this.disabled || !this.closeOnClickOutside) {
       return;
     }
