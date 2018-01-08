@@ -91,7 +91,6 @@ export class PopperController implements OnInit, OnChanges {
     if (this.disabled || this.showTrigger !== Triggers.CLICK) {
       return;
     }
-    debugger;
     this.toggle();
   }
 
