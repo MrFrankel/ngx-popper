@@ -8,7 +8,7 @@ import {
   OnChanges,
   SimpleChange,
   Output,
-  EventEmitter, OnInit, Renderer2
+  EventEmitter, OnInit, Renderer2, ChangeDetectorRef
 } from '@angular/core';
 import {PopperContent} from './popper-content';
 import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';
@@ -23,11 +23,11 @@ export class PopperController implements OnInit, OnChanges {
   private shown: boolean = false;
   private scheduledShowTimeout: any;
   private scheduledHideTimeout: any;
-  private ignoreDocClick: boolean = false;
   private subscriptions: any[] = [];
   private globalClick: any;
 
   constructor(private viewContainerRef: ViewContainerRef,
+              private changeDetectorRef: ChangeDetectorRef,
               private resolver: ComponentFactoryResolver,
               private renderer: Renderer2) {
   }
@@ -216,6 +216,7 @@ export class PopperController implements OnInit, OnChanges {
     this.overrideHideTimeout();
     this.scheduledShowTimeout = setTimeout(() => {
       this.show();
+      this.changeDetectorRef.markForCheck();
     }, delay)
   }
 
@@ -228,6 +229,7 @@ export class PopperController implements OnInit, OnChanges {
         return;
       }
       this.hide();
+      this.changeDetectorRef.markForCheck();
     }, delay)
   }
 
