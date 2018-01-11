@@ -25,6 +25,7 @@ export class PopperController implements OnInit, OnChanges {
   private scheduledHideTimeout: any;
   private subscriptions: any[] = [];
   private globalClick: any;
+  private globalScroll: any;
 
   constructor(private viewContainerRef: ViewContainerRef,
               private changeDetectorRef: ChangeDetectorRef,
@@ -66,6 +67,12 @@ export class PopperController implements OnInit, OnChanges {
 
   @Input('popperCloseOnClickOutside')
   closeOnClickOutside: boolean = true;
+
+  @Input('popperHideOnClickOutside')
+  hideOnClickOutside: boolean;
+
+  @Input('popperHideOnScroll')
+  hideOnScroll: boolean = false;
 
   @Input('popperPositionFixed')
   positionFixed: boolean;
@@ -114,8 +121,15 @@ export class PopperController implements OnInit, OnChanges {
     this.scheduledShow();
   }
 
-  hideOnClickOutside($event: MouseEvent): void {
-    if (this.disabled || !this.closeOnClickOutside) {
+  hideOnClickOutsideHandler($event: MouseEvent): void {
+    if (this.disabled || !this.hideOnClickOutside) {
+      return;
+    }
+    this.scheduledHide($event, this.hideTimeout);
+  }
+
+  hideOnScrollHandler($event: MouseEvent): void {
+    if (this.disabled || !this.hideOnScroll) {
       return;
     }
     this.scheduledHide($event, this.hideTimeout);
@@ -144,6 +158,10 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    //Support legacy prop
+    this.hideOnClickOutside = typeof this.hideOnClickOutside === 'undefined' ?
+      this.closeOnClickOutside : this.hideOnClickOutside;
+
     if (typeof this.content === 'string') {
       const text = this.content;
       this.content = this.constructContent();
@@ -170,7 +188,7 @@ export class PopperController implements OnInit, OnChanges {
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe && sub.unsubscribe());
     this.subscriptions.length = 0;
-    this.clearGlobalClick();
+    this.clearEventListeners();
   }
 
   toggle() {
@@ -194,7 +212,8 @@ export class PopperController implements OnInit, OnChanges {
     if (this.timeoutAfterShow > 0) {
       this.scheduledHide(null, this.timeoutAfterShow);
     }
-    this.globalClick = this.renderer.listen('document', 'click', this.hideOnClickOutside.bind(this))
+    this.globalClick = this.renderer.listen('document', 'click', this.hideOnClickOutsideHandler.bind(this));
+    this.globalScroll = this.renderer.listen(this.getScrollParent(this.getRefElement()), 'scroll', this.hideOnScrollHandler.bind(this));
   }
 
   hide() {
@@ -211,7 +230,7 @@ export class PopperController implements OnInit, OnChanges {
       (this.content as PopperContent).hide();
     }
     this.popperOnHidden.emit(this);
-    this.clearGlobalClick();
+    this.clearEventListeners();
   }
 
   scheduledShow(delay: number = this.showDelay) {
@@ -251,8 +270,9 @@ export class PopperController implements OnInit, OnChanges {
     this.showTrigger = this.showTrigger || PopperController.baseOptions.trigger;
   }
 
-  private clearGlobalClick() {
+  private clearEventListeners() {
     this.globalClick && typeof this.globalClick === 'function' && this.globalClick();
+    this.globalScroll && typeof this.globalScroll === 'function' && this.globalScroll();
   }
 
   private overrideShowTimeout() {
@@ -287,5 +307,20 @@ export class PopperController implements OnInit, OnChanges {
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
   }
+
+  private getScrollParent(node) {
+    const isElement = node instanceof HTMLElement;
+    const overflowY = isElement && window.getComputedStyle(node).overflowY;
+    const isScrollable = overflowY !== 'visible' && overflowY !== 'hidden';
+
+    if (!node) {
+      return null;
+    } else if (isScrollable && node.scrollHeight >= node.clientHeight) {
+      return node;
+    }
+
+    return this.getScrollParent(node.parentNode) || document;
+  }
+
 
 }
