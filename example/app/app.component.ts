@@ -31,10 +31,9 @@ export class AppComponent implements OnInit {
 
 
   private changeExample1(popperRef: PopperContent) {
-    popperRef.hide();
     setTimeout(() => {
       this.elem.nativeElement.querySelector('#example10reference1').dispatchEvent(new Event('click'));
-    })
+    }, 100)
 
   }
 

@@ -207,6 +207,7 @@ export class PopperController implements OnInit, OnChanges {
     if (popperRef.referenceObject !== element) {
       popperRef.referenceObject = element;
     }
+    this.setContentProperties(popperRef);
     popperRef.show();
     this.popperOnShown.emit(this);
     if (this.timeoutAfterShow > 0) {
