@@ -237,7 +237,6 @@ export class PopperController implements OnInit, OnChanges {
     this.overrideHideTimeout();
     this.scheduledShowTimeout = setTimeout(() => {
       this.show();
-      this.changeDetectorRef.markForCheck();
       this.applyChanges();
     }, delay)
   }
