@@ -79,7 +79,7 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperDisableAnimation')
   disableAnimation: boolean;
 
-    @Input('popperForceDetection')
+  @Input('popperForceDetection')
   forceDetection: boolean;
 
   @Output()
