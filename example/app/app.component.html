@@ -3,12 +3,13 @@
     <div class="example">
       <div #popper1
            [popper]="popper1Content"
-           [popper-show-onstart]="true"
-           [popper-trigger]="'click'"
-           [popper-placement]="example1select" class="rel" id="example10reference1">
+           [popperTrigger]="'click'"
+           [popperTarget]="popper1"
+           [popperShowOnStart]="true"
+           [popperPlacement]="example1select" class="rel" id="example10reference1">
         <p class="bold">Hey!</p>
         <p class="thin">Choose where to put your popper!</p>
-        <select [(ngModel)]="example1select" (ngModelChange)="changeExample1(popper1Content)"
+        <select [(ngModel)]="example1select" (change)="changeExample1(popper1Content)"
                 id="example10positionSelector">
           <option value="top">Top</option>
           <option value="right">Right</option>
@@ -43,7 +44,9 @@
           <div class="rel" id="example2reference1"
                #popper2
                [popper]="popper2Content"
-               [popper-show-onstart]="true">
+               [popperShowOnStart]="true"
+               [popperCloseOnClickOutside]="false"
+               [popperTrigger]="'none'">
             <p class="bold">Scroll me</p>
             <p class="thin">up and down</p>
           </div>
@@ -72,10 +75,12 @@
       <div
           #popper3
           [popper]="popper3Content"
-          [popper-show-onstart]="true"
-          [popper-placement]="'right'"
-          [popper-boundaries]="'#example3Container'"
-          [popper-modifiers]="example3modifiers"
+          [popperShowOnStart]="true"
+          [popperCloseOnClickOutside]="false"
+          [popperTrigger]="'none'"
+          [popperPlacement]="'right'"
+          [popperBoundaries]="'#example3Container'"
+          [popperModifiers]="example3modifiers"
           [ng2-draggable]
           (mouseover)="popper3Content.update()" class="rel" id="example3reference1">
         <p class="bold">Drag me</p>
@@ -101,12 +106,13 @@
       <div class="rel" id="example4reference1"
            #popper4
            [popper]="popper4Content"
-           [popper-show-onstart]="true"
-           [popper-placement]="'left-start'">
+           [popperShowOnStart]="true"
+           [popperHideOnClickOutside]="false"
+           [popperPlacement]="'left-start'">
         <p class="bold">Reference</p>
       </div>
       <popper-content #popper4Content>
-        <div id="example4popper1">
+        <div style="height: 150px" id="example4popper1">
           <p class="bold">Shifted popper</p>
           <p class="thin">on start</p>
         </div>
@@ -124,8 +130,11 @@
       <div class="rel" id="example5reference1"
            #popper5
            [popper]="popper5Content"
-           [popper-show-onstart]="true"
-           [popper-placement]="'bottom'">
+           [popperTrigger]="'hover'"
+           [popperShowOnStart]="true"
+
+           [popperPositionFixed]="true"
+           [popperPlacement]="'bottom'">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>

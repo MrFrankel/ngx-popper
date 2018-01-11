@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
+    "outDir": "./dist-tsc",
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
     "lib": [
       "es7",
       "dom",
@@ -23,5 +28,8 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true
+  }
 }

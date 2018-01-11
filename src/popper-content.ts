@@ -1,67 +1,45 @@
 import {
   Component,
-  Input,
-  AfterViewInit,
   ElementRef,
-  ChangeDetectorRef,
   OnDestroy,
   ViewChild,
   EventEmitter,
-  Renderer2, HostListener
+  HostListener, Renderer2,
 } from "@angular/core";
-import PopperOptions = Popper.PopperOptions;
-import {Placement, Trigger, Triggers} from './popper.model';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import Popper from 'popper.js';
+import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
 @Component({
   selector: "popper-content",
   template: `
-<div #popperViewRef class="popper"  
-     [class.fade]="animationClass"
+<div #popperViewRef 
+     [class.ngxp__container]="!popperOptions.disableDefaultStyling"  
+     [class.ngxp__animation]="!popperOptions.disableAnimation"
      [style.display]="displayType"
+     [style.opacity]="opacity"
      role="popper">        
-      <div class="popper__inner"><ng-content ></ng-content>  {{ content }} </div>
-      <div class="popper__arrow"></div>  
+      <div class="ngxp__inner"><ng-content ></ng-content>  {{ text }} </div>
+      <div class="ngxp__arrow"></div>  
     
 </div>
 `,
   styles: [`
-p.thin {
-  font-weight: 100;
-  margin: 0;
-  line-height: 1.2em;
-}
-
-p.bold {
-  font-weight: 900;
-  margin: 0;
-  margin-top: -5px;
-}
-
-.rel {
-  width: 30%;
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
-  padding: 20px;
-  border-style: dotted;
-  border-color: white;
-  border-width: medium;
-}
-
-.popper {
+.ngxp__container {
   display:none;
-  position: absolute;
-  background: #FFC107;
-  color: black;
-  width: 150px;
+  position: absolute;    
   border-radius: 3px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  border: 1px solid grey;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);  
   padding: 10px;
-  text-align: center;
 }
-.popper .popper__arrow {
+.ngxp__container.ngxp__animation {
+   -webkit-animation: ngxp-fadeIn  150ms ease-out;
+    -moz-animation: ngxp-fadeIn  150ms ease-out;
+    -o-animation: ngxp-fadeIn  150ms ease-out;
+    animation: ngxp-fadeIn  150ms ease-out;
+  
+}
+.ngxp__container .ngxp__arrow {
   width: 0;
   height: 0;
   border-style: solid;
@@ -69,78 +47,122 @@ p.bold {
   margin: 5px;
 }
 
-.popper[x-placement^="top"],
-.popper[x-placement^="bottom"],
-.popper[x-placement^="right"],
-.popper[x-placement^="left"]
+.ngxp__container[x-placement^="top"],
+.ngxp__container[x-placement^="bottom"],
+.ngxp__container[x-placement^="right"],
+.ngxp__container[x-placement^="left"]
 {
   display:block;
 }
-.popper[x-placement^="top"] {
+.ngxp__container[x-placement^="top"] {
   margin-bottom: 5px;
 }
-.popper[x-placement^="top"] .popper__arrow {
+.ngxp__container[x-placement^="top"] .ngxp__arrow {
   border-width: 5px 5px 0 5px;
-  border-color: #FFC107 transparent transparent transparent;
+  border-color: grey transparent transparent transparent;
   bottom: -5px;
   left: calc(50% - 5px);
   margin-top: 0;
   margin-bottom: 0;
 }
-.popper[x-placement^="bottom"] {
+.ngxp__container[x-placement^="bottom"] {
   margin-top: 5px;
 }
-.popper[x-placement^="bottom"] .popper__arrow {
+.ngxp__container[x-placement^="bottom"] .ngxp__arrow {
   border-width: 0 5px 5px 5px;
-  border-color: transparent transparent #FFC107 transparent;
+  border-color: transparent transparent grey transparent;
   top: -5px;
   left: calc(50% - 5px);
   margin-top: 0;
   margin-bottom: 0;
 }
-.popper[x-placement^="right"] {
+.ngxp__container[x-placement^="right"] {
   margin-left: 5px;
 }
-.popper[x-placement^="right"] .popper__arrow {
+.ngxp__container[x-placement^="right"] .ngxp__arrow {
   border-width: 5px 5px 5px 0;
-  border-color: transparent #FFC107 transparent transparent;
+  border-color: transparent grey transparent transparent;
   left: -5px;
   top: calc(50% - 5px);
   margin-left: 0;
   margin-right: 0;
 }
-.popper[x-placement^="left"] {
+.ngxp__container[x-placement^="left"] {
   margin-right: 5px;
 }
-.popper[x-placement^="left"] .popper__arrow {
+.ngxp__container[x-placement^="left"] .ngxp__arrow {
   border-width: 5px 0 5px 5px;
-  border-color: transparent transparent transparent #FFC107;
+  border-color: transparent transparent transparent grey;
   right: -5px;
   top: calc(50% - 5px);
   margin-left: 0;
   margin-right: 0;
-}`]
+}
+@-webkit-keyframes ngxp-fadeIn { 
+ 0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes ngxp-fadeIn {
+  0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+`]
 })
 export class PopperContent implements OnDestroy {
 
-  @Input()
-  content: string;
+  popperOptions: PopperContentOptions = <PopperContentOptions>{
+    disableAnimation: false,
+    disableDefaultStyling: false,
+    placement: Placements.Auto,
+    boundariesElement: '',
+    trigger: Triggers.HOVER,
+    positionFixed: false,
+    popperModifiers: {}
+  };
 
-  @Input()
-  placement: Placement;
+  referenceObject: HTMLElement;
+
+  isMouseOver: boolean = false;
+
+  onHidden = new EventEmitter();
 
   text: string;
-  animationClass: string = '';
+
+  popperInstance: Popper;
+
+  displayType: string = "none";
+
+  opacity: number = 0;
+
+  private globalResize: any;
 
   @ViewChild("popperViewRef")
   popperViewRef: ElementRef;
-  boundariesElement: string;
-  referenceObject: HTMLElement;
-  popperInstance: Popper;
-  trigger: Trigger;
-  popperModifiers: {};
-  isMouseOver: boolean = false;
-  onHidden = new EventEmitter();
 
   @HostListener('mouseover')
   onMouseOver() {
@@ -148,20 +170,25 @@ export class PopperContent implements OnDestroy {
   }
 
   @HostListener('mouseleave')
-  showonleave() {
+  showOnLeave() {
     this.isMouseOver = false;
-    if (this.trigger !== Triggers.Hover) {
+    if (this.popperOptions.trigger !== Triggers.HOVER) {
       return;
     }
     this.hide();
   }
 
-  displayType: string = "none";
+  onDocumentResize() {
+    this.update();
+  }
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
   }
 
   ngOnDestroy() {
+    if (!this.popperInstance) {
+      return;
+    }
     (this.popperInstance as any).disableEventListeners();
     this.popperInstance.destroy();
 
@@ -172,22 +199,23 @@ export class PopperContent implements OnDestroy {
       return;
     }
 
-    let popperOptions: PopperOptions = <PopperOptions>{
-      placement: this.placement,
+    let popperOptions: Popper.PopperOptions = <Popper.PopperOptions>{
+      placement: this.popperOptions.placement,
+      positionFixed: this.popperOptions.positionFixed,
       modifiers: {
         arrow: {
-          element: this.popperViewRef.nativeElement.querySelector('.popper__arrow')
+          element: this.popperViewRef.nativeElement.querySelector('.ngxp__arrow')
         }
       }
     };
 
-    if (this.boundariesElement) {
-      popperOptions.modifiers.preventOverflow = {
-        boundariesElement: document.querySelector(this.boundariesElement),
-      };
+    let boundariesElement = this.popperOptions.boundariesElement && document.querySelector(this.popperOptions.boundariesElement);
+
+    if (popperOptions.modifiers && boundariesElement) {
+      popperOptions.modifiers.preventOverflow = { boundariesElement };
     }
 
-    popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperModifiers);
+    popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
 
     this.popperInstance = new Popper(
       this.referenceObject,
@@ -195,7 +223,9 @@ export class PopperContent implements OnDestroy {
       popperOptions,
     );
     (this.popperInstance as any).enableEventListeners();
-    this.displayType = "block";
+    this.scheduleUpdate();
+    this.toggleVisibility(true);
+    this.globalResize = this.renderer.listen('document', 'resize', this.onDocumentResize.bind(this))
   }
 
   update(): void {
@@ -207,8 +237,26 @@ export class PopperContent implements OnDestroy {
   }
 
   hide(): void {
-    this.displayType = "none";
+    if (this.popperInstance) {
+      this.popperInstance.destroy();
+    }
+    this.toggleVisibility(false);
     this.onHidden.emit();
+  }
+
+  toggleVisibility(state: boolean) {
+    if (!state) {
+      this.opacity = 0;
+      this.displayType = "none";
+    }
+    else {
+      this.opacity = 1;
+      this.displayType = "block";
+    }
+  }
+
+  private clearGlobalResize(){
+    this.globalResize && typeof this.globalResize === 'function' && this.globalResize();
   }
 
 }

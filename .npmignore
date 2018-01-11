@@ -1,0 +1,7 @@
+.idea
+example
+node_modules
+/src
+/*.*
+dist/dist-tsc
+dist/example
