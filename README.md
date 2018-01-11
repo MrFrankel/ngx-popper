@@ -155,7 +155,8 @@ SystemJS
     | popperShowOnStart        | number            | 0        |                         
     | popperTrigger            | Trigger(string)   | hover    |
     | popperPositionFixed      | boolean           | false    |
-    | popperCloseOnClickOutside| boolean           | true     |    
+    | popperCloseOnClickOutside| boolean           | true     |
+    | popperForceDetection     | boolean           | false    |
     | popperTrigger            | Trigger(string)   | hover    |
     | popperModifiers          | popperModifier    | undefined|
     | popperOnShown            | EventEmitter<void>| $event   |    

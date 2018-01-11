@@ -152,6 +152,7 @@ export class PopperController implements OnInit, OnChanges {
     const popperRef = this.content as PopperContent;
     popperRef.referenceObject = this.getRefElement();
     this.setContentProperties(popperRef);
+    this.setDefaults();
 
     if (this.showOnStart) {
       this.scheduledShow();
@@ -244,6 +245,10 @@ export class PopperController implements OnInit, OnChanges {
     if (this.forceDetection) {
       this.changeDetectorRef.detectChanges();
     }
+  }
+
+  private setDefaults(){
+    this.showTrigger = this.showTrigger || PopperController.baseOptions.trigger;
   }
 
   private clearGlobalClick() {
