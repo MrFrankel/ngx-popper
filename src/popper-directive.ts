@@ -79,6 +79,9 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperDisableAnimation')
   disableAnimation: boolean;
 
+    @Input('popperForceDetection')
+  forceDetection: boolean;
+
   @Output()
   popperOnShown = new EventEmitter<PopperController>();
 
@@ -102,7 +105,6 @@ export class PopperController implements OnInit, OnChanges {
     }
     this.toggle();
   }
-
 
   @HostListener('mouseenter', ['$event'])
   showOnHover(): void {
@@ -128,7 +130,6 @@ export class PopperController implements OnInit, OnChanges {
     }
     this.scheduledHide(null, this.hideTimeout);
   }
-
 
   static assignDefined(target: any, ...sources: any[]) {
     for (const source of sources) {
@@ -165,7 +166,7 @@ export class PopperController implements OnInit, OnChanges {
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe && sub.unsubscribe());
     this.subscriptions.length = 0;
     this.clearGlobalClick();
@@ -184,12 +185,12 @@ export class PopperController implements OnInit, OnChanges {
     this.shown = true;
     const popperRef = this.content as PopperContent;
     const element = this.getRefElement();
-    if(popperRef.referenceObject !== element){
+    if (popperRef.referenceObject !== element) {
       popperRef.referenceObject = element;
     }
     popperRef.show();
     this.popperOnShown.emit(this);
-    if(this.timeoutAfterShow > 0){
+    if (this.timeoutAfterShow > 0) {
       this.scheduledHide(null, this.timeoutAfterShow);
     }
     this.globalClick = this.renderer.listen('document', 'click', this.hideOnClickOutside.bind(this))
@@ -217,6 +218,7 @@ export class PopperController implements OnInit, OnChanges {
     this.scheduledShowTimeout = setTimeout(() => {
       this.show();
       this.changeDetectorRef.markForCheck();
+      this.applyChanges();
     }, delay)
   }
 
@@ -229,7 +231,7 @@ export class PopperController implements OnInit, OnChanges {
         return;
       }
       this.hide();
-      this.changeDetectorRef.markForCheck();
+      this.applyChanges();
     }, delay)
   }
 
@@ -237,7 +239,14 @@ export class PopperController implements OnInit, OnChanges {
     return this.targetElement || this.viewContainerRef.element.nativeElement;
   }
 
-  private clearGlobalClick(){
+  private applyChanges() {
+    this.changeDetectorRef.markForCheck();
+    if (this.forceDetection) {
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  private clearGlobalClick() {
     this.globalClick && typeof this.globalClick === 'function' && this.globalClick();
   }
 
