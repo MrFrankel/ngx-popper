@@ -22,8 +22,7 @@ import {PopperContentOptions} from './popper.model';
 })
 export class NgxPopperModule {
   ngDoBootstrap(){}
-  public static forRoot(popperBaseOptions?: PopperContentOptions): ModuleWithProviders {
-    PopperController.baseOptions = Object.assign(PopperController.baseOptions, popperBaseOptions || {});
-    return {ngModule: NgxPopperModule, providers: []};
+  public static forRoot(popperBaseOptions: PopperContentOptions = {}): ModuleWithProviders {
+    return {ngModule: NgxPopperModule, providers: [{provide: 'popperDefaults', useValue: popperBaseOptions}]};
   }
 }

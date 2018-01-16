@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "1.9.0",
+  "version": "1.9.4",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "directories": {
     "test": "test"
@@ -8,7 +8,7 @@
   "scripts": {
     "test": "",
     "build": "ng-packagr -p ng-package.json",
-    "deploy": "npm run build && standard-version && npm publish --access=public dist",
+    "deploy": "npm run build && npm publish --access=public dist",
     "dev": "webpack-dev-server"
   },
   "repository": {

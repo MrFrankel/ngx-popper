@@ -5,7 +5,6 @@
            [popper]="popper1Content"
            [popperTrigger]="'click'"
            [popperTarget]="popper1"
-           [popperCloseOnClickOutside]="false"
            [popperShowOnStart]="true"
            [popperPlacement]="example1select" class="rel" id="example10reference1">
         <p class="bold">Hey!</p>
@@ -45,9 +44,7 @@
           <div class="rel" id="example2reference1"
                #popper2
                [popper]="popper2Content"
-               [popperShowOnStart]="true"
-               [popperCloseOnClickOutside]="false"
-               [popperTrigger]="'none'">
+               [popperShowOnStart]="true">
             <p class="bold">Scroll me</p>
             <p class="thin">up and down</p>
           </div>
@@ -77,8 +74,6 @@
           #popper3
           [popper]="popper3Content"
           [popperShowOnStart]="true"
-          [popperCloseOnClickOutside]="false"
-          [popperTrigger]="'none'"
           [popperPlacement]="'right'"
           [popperBoundaries]="'#example3Container'"
           [popperModifiers]="example3modifiers"
@@ -108,8 +103,6 @@
            #popper4
            [popper]="popper4Content"
            [popperShowOnStart]="true"
-           [popperTrigger]="'none'"
-           [popperHideOnClickOutside]="false"
            [popperPlacement]="'left-start'">
         <p class="bold">Reference</p>
       </div>
@@ -132,9 +125,7 @@
       <div class="rel" id="example5reference1"
            #popper5
            [popper]="popper5Content"
-           [popperTrigger]="'none'"
            [popperShowOnStart]="true"
-           [popperHideOnClickOutside]="false"
            [popperPlacement]="'bottom'">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>

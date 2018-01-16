@@ -8,7 +8,7 @@ import {
   OnChanges,
   SimpleChange,
   Output,
-  EventEmitter, OnInit, Renderer2, ChangeDetectorRef
+  EventEmitter, OnInit, Renderer2, ChangeDetectorRef, Inject
 } from '@angular/core';
 import {PopperContent} from './popper-content';
 import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';
@@ -30,10 +30,12 @@ export class PopperController implements OnInit, OnChanges {
   constructor(private viewContainerRef: ViewContainerRef,
               private changeDetectorRef: ChangeDetectorRef,
               private resolver: ComponentFactoryResolver,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              @Inject('popperDefaults') private popperDefaults: PopperContentOptions) {
+    PopperController.baseOptions = {...this.popperDefaults, ...PopperController.baseOptions}
   }
 
-  static baseOptions: PopperContentOptions = <PopperContentOptions>{};
+  public static baseOptions: PopperContentOptions = <PopperContentOptions>{};
 
   @Input('popper')
   content: string | PopperContent;
@@ -45,7 +47,7 @@ export class PopperController implements OnInit, OnChanges {
   placement: Placement = Placements.Auto;
 
   @Input('popperTrigger')
-  showTrigger: Trigger;
+  showTrigger: Trigger | undefined;
 
   @Input('popperTarget')
   targetElement: HTMLElement;
@@ -66,13 +68,13 @@ export class PopperController implements OnInit, OnChanges {
   showOnStart: boolean;
 
   @Input('popperCloseOnClickOutside')
-  closeOnClickOutside: boolean = true;
+  closeOnClickOutside: boolean;
 
   @Input('popperHideOnClickOutside')
-  hideOnClickOutside: boolean;
+  hideOnClickOutside: boolean | undefined;
 
   @Input('popperHideOnScroll')
-  hideOnScroll: boolean = false;
+  hideOnScroll: boolean | undefined;
 
   @Input('popperPositionFixed')
   positionFixed: boolean;
@@ -267,7 +269,9 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   private setDefaults(){
-    this.showTrigger = this.showTrigger || PopperController.baseOptions.trigger;
+    this.showTrigger = typeof this.showTrigger === 'undefined' ?  PopperController.baseOptions.trigger : this.showTrigger;
+    this.hideOnClickOutside = typeof this.hideOnClickOutside === 'undefined' ?  PopperController.baseOptions.hideOnClickOutside : this.hideOnClickOutside;
+    this.hideOnScroll = typeof this.hideOnScroll === 'undefined' ?  PopperController.baseOptions.hideOnScroll : this.hideOnScroll;
   }
 
   private clearEventListeners() {

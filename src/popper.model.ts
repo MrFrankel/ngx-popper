@@ -58,5 +58,7 @@ export interface PopperContentOptions {
   boundariesElement?: string;
   trigger?: Trigger;
   positionFixed?: boolean;
+  hideOnClickOutside?: boolean;
+  hideOnScroll?: boolean;
   popperModifiers?: {};
 }

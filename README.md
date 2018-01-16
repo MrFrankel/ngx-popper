@@ -188,6 +188,8 @@ NgModule({
    | trigger                  | Trigger(string)   | hover    |    
    | popperModifiers          | popperModifier    | undefined|
    | positionFixed            | boolean           | false    |
+   | hideOnClickOutside       | boolean           | true     |
+   | hideOnScroll             | boolean           | false    |
 
 9. popperPlacement:
 
