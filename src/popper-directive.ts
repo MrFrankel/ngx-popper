@@ -32,10 +32,15 @@ export class PopperController implements OnInit, OnChanges {
               private resolver: ComponentFactoryResolver,
               private renderer: Renderer2,
               @Inject('popperDefaults') private popperDefaults: PopperContentOptions) {
-    PopperController.baseOptions = {...this.popperDefaults, ...PopperController.baseOptions}
+    PopperController.baseOptions = {...PopperController.baseOptions, ...this.popperDefaults}
   }
 
-  public static baseOptions: PopperContentOptions = <PopperContentOptions>{};
+  public static baseOptions: PopperContentOptions = <PopperContentOptions>{
+    placement: Placements.Auto,
+    hideOnClickOutside: true,
+    hideOnScroll: false,
+    showTrigger: Triggers.HOVER
+  };
 
   @Input('popper')
   content: string | PopperContent;
@@ -44,7 +49,7 @@ export class PopperController implements OnInit, OnChanges {
   disabled: boolean;
 
   @Input('popperPlacement')
-  placement: Placement = Placements.Auto;
+  placement: Placement;
 
   @Input('popperTrigger')
   showTrigger: Trigger | undefined;
