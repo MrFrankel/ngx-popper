@@ -31,7 +31,7 @@ export class PopperController implements OnInit, OnChanges {
               private changeDetectorRef: ChangeDetectorRef,
               private resolver: ComponentFactoryResolver,
               private renderer: Renderer2,
-              @Inject('popperDefaults') private popperDefaults: PopperContentOptions) {
+              @Inject('popperDefaults') private popperDefaults: PopperContentOptions = {}) {
     PopperController.baseOptions = {...PopperController.baseOptions, ...this.popperDefaults}
   }
 
