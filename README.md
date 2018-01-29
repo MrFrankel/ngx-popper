@@ -75,8 +75,7 @@ SystemJS
 3. Add to view:
 
   ```HTML  
-   <div #popper1
-            [popper]="popper1Content"
+   <div     [popper]="popper1Content"
             [popperShowOnStart]="true"
             [popperTrigger]="'click'"
             [popperPlacement]="'bottom'">
@@ -90,53 +89,35 @@ SystemJS
 
 4. As text:
  ```HTML
-<div class="example">
-      <div class="rel" id="example5reference1"
-           #popper5
-           [popper]="'As text'"
+      <div [popper]="'As text'"
            [popperTrigger]="'hover'"
            [popperPlacement]="'bottom'"
            (popperOnShown)="onShown($event)">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
-    </div>
  ```
  
   5. Position fixed, breaking overflow:
    ```HTML
-  <div class="example">
-        <div #popperTargetElement>The popper will show when hovering over this element</div>
-        <div>bla bla bla bla</div>
-        <div class="rel" id="example5reference1"
-             #popper5
-             [popper]="'As text'"
+        <div [popper]="'As text'"
              [popperTrigger]="'hover'"
              [popperPlacement]="'bottom'"
              [popperPositionFixed]="true"
              (popperOnShown)="onShown($event)">
-          <p class="bold">Pop</p>
-          <p class="thin">on the bottom</p>
         </div>
-      </div>
    ```
  
  6. Specific target:
   ```HTML
  <div class="example">
-       <div #popperTargetElement>The popper will show when hovering over this element</div>
-       <div>bla bla bla bla</div>
-       <div class="rel" id="example5reference1"
-            #popper5
-            [popper]="'As text'"
+       <div #popperTargetElement></div>
+       <div [popper]="'As text'"
             [popperTrigger]="'hover'"
             [popperPlacement]="'bottom'"
             [popperTarget]="popperTargetElement"
             (popperOnShown)="onShown($event)">
-         <p class="bold">Pop</p>
-         <p class="thin">on the bottom</p>
        </div>
-     </div>
   ```
  
 7. Attributes map:  
@@ -228,6 +209,7 @@ NgModule({
   
 ```terminal
   $ yarn install
-  $ npm run dev  
+  $ yarn run build
+  $ yarn run dev  
 ```
 
