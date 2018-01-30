@@ -4,17 +4,18 @@ import '@angular/common';
 import '@angular/compiler';
 import '@angular/core';
 import '@angular/forms';
-import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
+import '@angular/platform-browser';
 import 'rxjs';
 
 import { enableProdMode } from '@angular/core';
 // The browser platform with a compiler
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {platformBrowser} from '@angular/platform-browser';
+//import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 // The app module
 import { AppModule } from './app.module';
 
-if (String('<%= BUILD_TYPE %>') === 'prod') { enableProdMode(); }
+enableProdMode();
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowser().bootstrapModule(AppModule);

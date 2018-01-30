@@ -27,9 +27,12 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "example-cli"
   ],
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true
+    "fullTemplateTypeCheck": true,
+    "preserveWhiteSpace": false
+
   }
 }

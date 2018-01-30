@@ -5,6 +5,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const chalk = require('chalk');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 
 module.exports = {
   entry: './example/app/index.ts',
@@ -18,10 +19,11 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      {
-        test: /\.ts?$/,
-        use: ['awesome-typescript-loader', 'angular2-template-loader']
-      },
+        // {
+        //   test: /\.ts?$/,
+        //   use: ['awesome-typescript-loader', 'angular2-template-loader']
+        // },
+      { test: /\.ts$/, loaders: ['@ngtools/webpack'] },
       /* Embed files. */
       {
         test: /\.(html|css)$/,
@@ -31,6 +33,12 @@ module.exports = {
   },
   plugins: [
     new CheckerPlugin(),
+    new AngularCompilerPlugin({
+      tsConfigPath: './tsconfig.json',
+      entryModule: 'example/app/app.module#AppModule',
+      sourceMap: true
+    }),
+
     new HtmlWebpackPlugin({
       inject: true,
       template: 'example/index.html'

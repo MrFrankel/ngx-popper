@@ -18,10 +18,16 @@ import {PopperContentOptions} from './popper.model';
   ],
   entryComponents: [
     PopperContent
-  ]
+  ],
+  providers: [
+    {
+      provide: 'popperDefaults', useValue: {}
+    }]
 })
 export class NgxPopperModule {
-  ngDoBootstrap(){}
+  ngDoBootstrap() {
+  }
+
   public static forRoot(popperBaseOptions: PopperContentOptions = {}): ModuleWithProviders {
     return {ngModule: NgxPopperModule, providers: [{provide: 'popperDefaults', useValue: popperBaseOptions}]};
   }

@@ -102,25 +102,25 @@ export class PopperController implements OnInit, OnChanges {
   @Output()
   popperOnHidden = new EventEmitter<PopperController>();
 
-  @HostListener('touchstart', ['$event'])
-  @HostListener('click', ['$event'])
-  showOrHideOnClick($event: MouseEvent): void {
+  @HostListener('touchstart')
+  @HostListener('click')
+  showOrHideOnClick(): void {
     if (this.disabled || this.showTrigger !== Triggers.CLICK) {
       return;
     }
     this.toggle();
   }
 
-  @HostListener('touchstart', ['$event'])
-  @HostListener('mousedown', ['$event'])
-  showOrHideOnMouseOver($event: MouseEvent): void {
+  @HostListener('touchstart')
+  @HostListener('mousedown')
+  showOrHideOnMouseOver(): void {
     if (this.disabled || this.showTrigger !== Triggers.MOUSEDOWN) {
       return;
     }
     this.toggle();
   }
 
-  @HostListener('mouseenter', ['$event'])
+  @HostListener('mouseenter')
   showOnHover(): void {
     if (this.disabled || this.showTrigger !== Triggers.HOVER) {
       return;
@@ -142,10 +142,10 @@ export class PopperController implements OnInit, OnChanges {
     this.scheduledHide($event, this.hideTimeout);
   }
 
-  @HostListener('touchend', ['$event'])
-  @HostListener('touchcancel', ['$event'])
-  @HostListener('mouseleave', ['$event'])
-  hideOnLeave($event: MouseEvent): void {
+  @HostListener('touchend')
+  @HostListener('touchcancel')
+  @HostListener('mouseleave')
+  hideOnLeave(): void {
     if (this.disabled || this.showTrigger !== Triggers.HOVER) {
       return;
     }
