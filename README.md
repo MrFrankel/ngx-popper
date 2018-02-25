@@ -161,7 +161,8 @@ SystemJS
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
     
-9. Override default
+9. Override defaults:
+
     Ngx-popper comes with a few default properties you can override in default to effect all instances
     These are overridden by any child attributes.
 ```JavaScript
