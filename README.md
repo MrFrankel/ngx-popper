@@ -120,8 +120,24 @@ SystemJS
             (popperOnShown)="onShown($event)">
        </div>
   ```
+  
+7. hide/show programmatically:
+  ```HTML
+   <div [popper]="tooltipcontent"
+           [popperTrigger]="'hover'"
+           [popperPlacement]="'bottom'">
+        <p class="bold">Pop</p>
+        <p class="thin">on the bottom</p>
+      </div>
+      <popper-content #tooltipcontent>
+        <div>
+          <p>This is a tooltip with text</p>
+          <span (click)="tooltipcontent.hide()">Close</div>
+        </div>
+      </popper-content>
+  ```
  
-7. Attributes map:  
+8. Attributes map:  
   
     | Option                   | Type              | Default  |
     |:-------------------      |:----------------  |:-------- |
@@ -145,7 +161,7 @@ SystemJS
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
     
-8. Override default
+9. Override default
     Ngx-popper comes with a few default properties you can override in default to effect all instances
     These are overridden by any child attributes.
 ```JavaScript
@@ -173,7 +189,7 @@ NgModule({
    | hideOnClickOutside       | boolean           | true     |
    | hideOnScroll             | boolean           | false    |
 
-9. popperPlacement:
+10. popperPlacement:
 
   | 'top'
   | 'bottom'
@@ -194,7 +210,7 @@ NgModule({
   | 'auto-right'
   | Function
   
-10. popperTrigger:
+11. popperTrigger:
 
   | 'click'
   | 'mousedown'
