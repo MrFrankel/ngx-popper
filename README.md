@@ -156,7 +156,6 @@ SystemJS
     | popperHideOnClickOutside | boolean           | true     |
     | popperHideOnScroll       | boolean           | false    |
     | popperForceDetection     | boolean           | false    |
-    | popperTrigger            | Trigger(string)   | hover    |
     | popperModifiers          | popperModifier    | undefined|
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
