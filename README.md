@@ -150,7 +150,7 @@ SystemJS
     | popperPlacement          | Placement(string) | auto     |
     | popperTarget             | HtmlElement       | auto     |
     | popperBoundaries         | string(selector)  | undefined|  
-    | popperShowOnStart        | number            | 0        |                         
+    | popperShowOnStart        | boolean           | false    |                         
     | popperTrigger            | Trigger(string)   | hover    |
     | popperPositionFixed      | boolean           | false    |
     | popperHideOnClickOutside | boolean           | true     |
