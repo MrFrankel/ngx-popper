@@ -3,7 +3,8 @@
 [![npm](https://img.shields.io/npm/v/ngx-popper.svg?style=flat-square)](https://www.npmjs.com/package/ngx-popper) 
 [![npm](https://img.shields.io/npm/dm/ngx-popper.svg?style=flat-square)](https://www.npmjs.com/package/ngx-popper) 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/MrFrankel/ngx-popper/blob/master/LICENSE)
-
+  <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@2.0.1/ngx-popper.js?compression=brotli" alt="Stable Release Size"/>
+  <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@2.0.1/ngx-popper.js?compression=gzip" alt="Stable Release Size"/>
 
 ngx-popper is an angular wrapper for the [Popper.js](https://popper.js.org/) library.
 
@@ -119,8 +120,24 @@ SystemJS
             (popperOnShown)="onShown($event)">
        </div>
   ```
+  
+7. hide/show programmatically:
+  ```HTML
+   <div [popper]="tooltipcontent"
+           [popperTrigger]="'hover'"
+           [popperPlacement]="'bottom'">
+        <p class="bold">Pop</p>
+        <p class="thin">on the bottom</p>
+      </div>
+      <popper-content #tooltipcontent>
+        <div>
+          <p>This is a tooltip with text</p>
+          <span (click)="tooltipcontent.hide()">Close</div>
+        </div>
+      </popper-content>
+  ```
  
-7. Attributes map:  
+8. Attributes map:  
   
     | Option                   | Type              | Default  |
     |:-------------------      |:----------------  |:-------- |
@@ -133,18 +150,18 @@ SystemJS
     | popperPlacement          | Placement(string) | auto     |
     | popperTarget             | HtmlElement       | auto     |
     | popperBoundaries         | string(selector)  | undefined|  
-    | popperShowOnStart        | number            | 0        |                         
+    | popperShowOnStart        | boolean           | false    |                         
     | popperTrigger            | Trigger(string)   | hover    |
     | popperPositionFixed      | boolean           | false    |
     | popperHideOnClickOutside | boolean           | true     |
     | popperHideOnScroll       | boolean           | false    |
     | popperForceDetection     | boolean           | false    |
-    | popperTrigger            | Trigger(string)   | hover    |
     | popperModifiers          | popperModifier    | undefined|
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
     
-8. Override default
+9. Override defaults:
+
     Ngx-popper comes with a few default properties you can override in default to effect all instances
     These are overridden by any child attributes.
 ```JavaScript
@@ -172,7 +189,7 @@ NgModule({
    | hideOnClickOutside       | boolean           | true     |
    | hideOnScroll             | boolean           | false    |
 
-9. popperPlacement:
+10. popperPlacement:
 
   | 'top'
   | 'bottom'
@@ -193,7 +210,7 @@ NgModule({
   | 'auto-right'
   | Function
   
-10. popperTrigger:
+11. popperTrigger:
 
   | 'click'
   | 'mousedown'
