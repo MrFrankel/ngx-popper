@@ -11,8 +11,7 @@ import {Draggable} from 'ng2draggable/draggable.directive';
     FormsModule,
     NgxPopperModule.forRoot({
       trigger: Triggers.NONE,
-      hideOnClickOutside: false,
-      disableAnimation: true
+      hideOnClickOutside: false
     })],
   declarations: [
     Draggable,

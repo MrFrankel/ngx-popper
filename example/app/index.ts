@@ -10,12 +10,12 @@ import 'rxjs';
 
 import { enableProdMode } from '@angular/core';
 // The browser platform with a compiler
-import {platformBrowser} from '@angular/platform-browser';
-//import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+//import {platformBrowser} from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 // The app module
 import { AppModule } from './app.module';
 
 enableProdMode();
 
-platformBrowser().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(AppModule);

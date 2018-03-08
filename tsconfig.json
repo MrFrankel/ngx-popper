@@ -31,7 +31,7 @@
     "example-cli"
   ],
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+  //  "fullTemplateTypeCheck": true,
     "preserveWhiteSpace": false
 
   }
