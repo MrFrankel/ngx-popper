@@ -38,6 +38,7 @@ export class PopperController implements OnInit, OnChanges {
   public static baseOptions: PopperContentOptions = <PopperContentOptions>{
     placement: Placements.Auto,
     hideOnClickOutside: true,
+    hideOnMouseLeave: false,
     hideOnScroll: false,
     showTrigger: Triggers.HOVER
   };
@@ -80,6 +81,9 @@ export class PopperController implements OnInit, OnChanges {
 
   @Input('popperHideOnScroll')
   hideOnScroll: boolean | undefined;
+
+  @Input('popperHideOnMouseLeave')
+  hideOnMouseLeave: boolean | undefined;
 
   @Input('popperPositionFixed')
   positionFixed: boolean;
@@ -146,7 +150,7 @@ export class PopperController implements OnInit, OnChanges {
   @HostListener('touchcancel')
   @HostListener('mouseleave')
   hideOnLeave(): void {
-    if (this.disabled || this.showTrigger !== Triggers.HOVER) {
+    if (this.disabled || (this.showTrigger !== Triggers.HOVER && !this.hideOnMouseLeave)) {
       return;
     }
     this.scheduledHide(null, this.hideTimeout);
@@ -277,6 +281,7 @@ export class PopperController implements OnInit, OnChanges {
     this.showTrigger = typeof this.showTrigger === 'undefined' ?  PopperController.baseOptions.trigger : this.showTrigger;
     this.hideOnClickOutside = typeof this.hideOnClickOutside === 'undefined' ?  PopperController.baseOptions.hideOnClickOutside : this.hideOnClickOutside;
     this.hideOnScroll = typeof this.hideOnScroll === 'undefined' ?  PopperController.baseOptions.hideOnScroll : this.hideOnScroll;
+    this.hideOnMouseLeave = typeof this.hideOnMouseLeave === 'undefined' ?  PopperController.baseOptions.hideOnMouseLeave : this.hideOnMouseLeave;
   }
 
   private clearEventListeners() {

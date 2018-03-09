@@ -172,7 +172,7 @@ export class PopperContent implements OnDestroy {
   @HostListener('mouseleave')
   showOnLeave() {
     this.isMouseOver = false;
-    if (this.popperOptions.trigger !== Triggers.HOVER) {
+    if (this.popperOptions.trigger !== Triggers.HOVER && !this.popperOptions.hideOnMouseLeave) {
       return;
     }
     this.hide();
