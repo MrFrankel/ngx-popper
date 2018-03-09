@@ -19,11 +19,11 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-        // {
-        //   test: /\.ts?$/,
-        //   use: ['awesome-typescript-loader', 'angular2-template-loader']
-        // },
-      { test: /\.ts$/, loaders: ['@ngtools/webpack'] },
+        {
+          test: /\.ts?$/,
+          use: ['awesome-typescript-loader', 'angular2-template-loader']
+        },
+    //  { test: /\.ts$/, loaders: ['@ngtools/webpack'] },
       /* Embed files. */
       {
         test: /\.(html|css)$/,
