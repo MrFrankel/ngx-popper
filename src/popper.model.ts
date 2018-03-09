@@ -59,6 +59,7 @@ export interface PopperContentOptions {
   trigger?: Trigger;
   positionFixed?: boolean;
   hideOnClickOutside?: boolean;
+  hideOnMouseLeave?: boolean;
   hideOnScroll?: boolean;
   popperModifiers?: {};
 }
