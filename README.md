@@ -155,6 +155,7 @@ SystemJS
     | popperPositionFixed      | boolean           | false    |
     | popperHideOnClickOutside | boolean           | true     |
     | popperHideOnScroll       | boolean           | false    |
+    | popperHideOnMouseLeave   | boolean           | false    |
     | popperForceDetection     | boolean           | false    |
     | popperModifiers          | popperModifier    | undefined|
     | popperOnShown            | EventEmitter<void>| $event   |    
@@ -187,6 +188,7 @@ NgModule({
    | popperModifiers          | popperModifier    | undefined|
    | positionFixed            | boolean           | false    |
    | hideOnClickOutside       | boolean           | true     |
+   | hideOnMouseLeave         | boolean           | false    |
    | hideOnScroll             | boolean           | false    |
 
 10. popperPlacement:
