@@ -5,7 +5,8 @@
            [popper]="popper1Content"
            [popperTrigger]="'click'"
            [popperTarget]="popper1"
-           [popperShowOnStart]="true" class="rel" id="example10reference1">
+           [popperShowOnStart]="true"
+           [popperPlacement]="example1select" class="rel" id="example10reference1">
         <p class="bold">Hey!</p>
         <p class="thin">Choose where to put your popper!</p>
         <select [(ngModel)]="example1select" (change)="changeExample1(popper1Content)"

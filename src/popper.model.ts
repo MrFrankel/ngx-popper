@@ -62,4 +62,5 @@ export interface PopperContentOptions {
   hideOnMouseLeave?: boolean;
   hideOnScroll?: boolean;
   popperModifiers?: {};
+  applyClass?: string;
 }

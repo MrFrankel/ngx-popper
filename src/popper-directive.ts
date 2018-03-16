@@ -26,6 +26,7 @@ export class PopperController implements OnInit, OnChanges {
   private subscriptions: any[] = [];
   private globalClick: any;
   private globalScroll: any;
+  private popperContent: PopperContent;
 
   constructor(private viewContainerRef: ViewContainerRef,
               private changeDetectorRef: ChangeDetectorRef,
@@ -99,6 +100,9 @@ export class PopperController implements OnInit, OnChanges {
 
   @Input('popperForceDetection')
   forceDetection: boolean;
+
+  @Input('popperApplyClass')
+  applyClass: string;
 
   @Output()
   popperOnShown = new EventEmitter<PopperController>();
@@ -175,10 +179,13 @@ export class PopperController implements OnInit, OnChanges {
 
     if (typeof this.content === 'string') {
       const text = this.content;
-      this.content = this.constructContent();
-      this.content.text = text;
+      this.popperContent = this.constructContent();
+      this.popperContent.text = text;
     }
-    const popperRef = this.content as PopperContent;
+    else {
+      this.popperContent = this.content;
+    }
+    const popperRef = this.popperContent;
     popperRef.referenceObject = this.getRefElement();
     this.setContentProperties(popperRef);
     this.setDefaults();
@@ -189,10 +196,19 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    if (changes['popperDisabled']) {
-      if (changes['popperDisabled'].currentValue) {
-        this.hide();
-      }
+    if (changes['popperDisabled'] && changes['popperDisabled'].currentValue) {
+      this.hide();
+    }
+    if (changes['content']
+      && !changes['content'].firstChange
+      && typeof changes['content'].currentValue === 'string') {
+      this.popperContent.text = changes['content'].currentValue;
+    }
+
+    if (changes['applyClass']
+      && !changes['applyClass'].firstChange
+      && typeof changes['applyClass'].currentValue === 'string') {
+      this.popperContent.popperOptions.applyClass = changes['applyClass'].currentValue;
     }
   }
 
@@ -213,7 +229,7 @@ export class PopperController implements OnInit, OnChanges {
     }
 
     this.shown = true;
-    const popperRef = this.content as PopperContent;
+    const popperRef = this.popperContent;
     const element = this.getRefElement();
     if (popperRef.referenceObject !== element) {
       popperRef.referenceObject = element;
@@ -239,7 +255,7 @@ export class PopperController implements OnInit, OnChanges {
       this.popperContentRef.instance.hide();
     }
     else {
-      (this.content as PopperContent).hide();
+      this.popperContent.hide();
     }
     this.popperOnHidden.emit(this);
     this.clearEventListeners();
@@ -257,7 +273,7 @@ export class PopperController implements OnInit, OnChanges {
     this.overrideShowTimeout();
     this.scheduledHideTimeout = setTimeout(() => {
       const toElement = $event ? $event.toElement : null;
-      const popperContentView = (this.content as PopperContent).popperViewRef ? (this.content as PopperContent).popperViewRef.nativeElement : false;
+      const popperContentView = this.popperContent.popperViewRef ? this.popperContent.popperViewRef.nativeElement : false;
       if (!popperContentView || popperContentView === toElement || popperContentView.contains(toElement) || (this.content as PopperContent).isMouseOver) {
         return;
       }
@@ -277,11 +293,11 @@ export class PopperController implements OnInit, OnChanges {
     }
   }
 
-  private setDefaults(){
-    this.showTrigger = typeof this.showTrigger === 'undefined' ?  PopperController.baseOptions.trigger : this.showTrigger;
-    this.hideOnClickOutside = typeof this.hideOnClickOutside === 'undefined' ?  PopperController.baseOptions.hideOnClickOutside : this.hideOnClickOutside;
-    this.hideOnScroll = typeof this.hideOnScroll === 'undefined' ?  PopperController.baseOptions.hideOnScroll : this.hideOnScroll;
-    this.hideOnMouseLeave = typeof this.hideOnMouseLeave === 'undefined' ?  PopperController.baseOptions.hideOnMouseLeave : this.hideOnMouseLeave;
+  private setDefaults() {
+    this.showTrigger = typeof this.showTrigger === 'undefined' ? PopperController.baseOptions.trigger : this.showTrigger;
+    this.hideOnClickOutside = typeof this.hideOnClickOutside === 'undefined' ? PopperController.baseOptions.hideOnClickOutside : this.hideOnClickOutside;
+    this.hideOnScroll = typeof this.hideOnScroll === 'undefined' ? PopperController.baseOptions.hideOnScroll : this.hideOnScroll;
+    this.hideOnMouseLeave = typeof this.hideOnMouseLeave === 'undefined' ? PopperController.baseOptions.hideOnMouseLeave : this.hideOnMouseLeave;
   }
 
   private clearEventListeners() {
@@ -318,6 +334,7 @@ export class PopperController implements OnInit, OnChanges {
       trigger: this.showTrigger,
       positionFixed: this.positionFixed,
       popperModifiers: this.popperModifiers,
+      applyClass: this.applyClass
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
   }
@@ -335,6 +352,5 @@ export class PopperController implements OnInit, OnChanges {
 
     return this.getScrollParent(node.parentNode) || document;
   }
-
 
 }

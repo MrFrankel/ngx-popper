@@ -98,6 +98,16 @@ SystemJS
         <p class="thin">on the bottom</p>
       </div>
  ```
+
+  ```HTML
+       <div popper="{{someTextProperty}}"
+            [popperTrigger]="'hover'"
+            [popperPlacement]="'bottom'"
+            (popperOnShown)="onShown($event)">
+         <p class="bold">Pop</p>
+         <p class="thin">on the bottom</p>
+       </div>
+  ```
  
   5. Position fixed, breaking overflow:
    ```HTML
@@ -126,6 +136,7 @@ SystemJS
    <div [popper]="tooltipcontent"
            [popperTrigger]="'hover'"
            [popperPlacement]="'bottom'">
+           [applyClass]="'popperSpecialStyle'"
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
@@ -160,6 +171,7 @@ SystemJS
     | popperModifiers          | popperModifier    | undefined|
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
+    | applyClass               | string            | undefined|
     
 9. Override defaults:
 
@@ -190,6 +202,7 @@ NgModule({
    | hideOnClickOutside       | boolean           | true     |
    | hideOnMouseLeave         | boolean           | false    |
    | hideOnScroll             | boolean           | false    |
+   | applyClass               | string            | undefined|
 
 10. popperPlacement:
 
