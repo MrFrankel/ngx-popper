@@ -136,7 +136,7 @@ SystemJS
    <div [popper]="tooltipcontent"
            [popperTrigger]="'hover'"
            [popperPlacement]="'bottom'">
-           [applyClass]="'popperSpecialStyle'"
+           [popperApplyClass]="'popperSpecialStyle'"
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
@@ -171,7 +171,7 @@ SystemJS
     | popperModifiers          | popperModifier    | undefined|
     | popperOnShown            | EventEmitter<void>| $event   |    
     | popperOnHidden           | EventEmitter<void>| $event   |
-    | applyClass               | string            | undefined|
+    | popperApplyClass         | string            | undefined|
     
 9. Override defaults:
 
@@ -202,7 +202,7 @@ NgModule({
    | hideOnClickOutside       | boolean           | true     |
    | hideOnMouseLeave         | boolean           | false    |
    | hideOnScroll             | boolean           | false    |
-   | applyClass               | string            | undefined|
+   | popperApplyClass         | string            | undefined|
 
 10. popperPlacement:
 
