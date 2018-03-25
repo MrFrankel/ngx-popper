@@ -150,28 +150,32 @@ SystemJS
  
 8. Attributes map:  
   
-    | Option                   | Type              | Default  |
-    |:-------------------      |:----------------  |:-------- |
-    | popperDisableAnimation   | boolean           | false    |
-    | popperDisableStyle       | boolean           | false    |
-    | popperDisabled           | boolean           | false    |
-    | popperDelay              | number            | 0        |
-    | popperTimeout            | number            | 0        |
-    | popperTimeoutAfterShow   | number            | 0        |
-    | popperPlacement          | Placement(string) | auto     |
-    | popperTarget             | HtmlElement       | auto     |
-    | popperBoundaries         | string(selector)  | undefined|  
-    | popperShowOnStart        | boolean           | false    |                         
-    | popperTrigger            | Trigger(string)   | hover    |
-    | popperPositionFixed      | boolean           | false    |
-    | popperHideOnClickOutside | boolean           | true     |
-    | popperHideOnScroll       | boolean           | false    |
-    | popperHideOnMouseLeave   | boolean           | false    |
-    | popperForceDetection     | boolean           | false    |
-    | popperModifiers          | popperModifier    | undefined|
-    | popperOnShown            | EventEmitter<void>| $event   |    
-    | popperOnHidden           | EventEmitter<void>| $event   |
-    | popperApplyClass         | string            | undefined|
+    | Option                   | Type              | Default   | Description                                                                                              |
+    |:-------------------      |:----------------  |:--------- | :------------------------------------------------------------------------------------------------------  |
+    | popperDisableAnimation   | boolean           | false     | Disable the default animation on show/hide                                                               |
+    | popperDisableStyle       | boolean           | false     | Disable the default styling                                                                              |
+    | popperDisabled           | boolean           | false     | Disable the popper, ignore all events                                                                    |
+    | popperDelay              | number            | 0         | Delay time until popper it shown                                                                         |
+    | popperTimeout            | number            | 0         | Set delay before the popper is hidden                                                                    |
+    | popperTimeoutAfterShow   | number            | 0         | Set a time on which the popper will be hidden after it is shown                                          |
+    | popperPlacement          | Placement(string) | auto      | The placement to show the popper relative to the reference element                                       |
+    | popperTarget             | HtmlElement       | auto      | Specify a different reference element other the the one hosting the directive                            |
+    | popperBoundaries         | string(selector)  | undefined | Specify a selector to serve as the boundaries of the element                                             |
+    | popperShowOnStart        | boolean           | false     | Popper default to show                                                                                   |
+    | popperTrigger            | Trigger(string)   | hover     | Trigger/Event on which to show/hide the popper                                                           |
+    | popperPositionFixed      | boolean           | false     | Set the popper element to use position: fixed                                                            |
+    | popperHideOnClickOutside | boolean           | true      | Popper will hide on a click outside                                                                      |
+    | popperHideOnScroll       | boolean           | false     | Popper will hide on scroll                                                                               |
+    | popperHideOnMouseLeave   | boolean           | false     | Popper will hide on mouse leave                                                                          |
+    | popperForceDetection     | boolean           | false     | Force the popper to trigger detection event, in case the parent component use onPush strategy            |
+    | popperModifiers          | popperModifier    | undefined | popper.js custom modifiers hock                                                                          |
+    | popperApplyClass         | string            | undefined |                                                                                                          |
+    | popperOnShown            | EventEmitter<void>| $event    | Event handler when popper is shown                                                                       |
+    | popperOnHidden           | EventEmitter<void>| $event    | Event handler when popper is hidden                                                                      |
+    | popperAriaDescribeBy     | string            | undefined | Define value for aria-describeby attribute                                                               |
+    | popperAriaRole           | string            | popper    | Define value for aria-role attribute                                                                     |
+
+
 
 9. Override defaults:
 
@@ -190,19 +194,21 @@ NgModule({
 })
 ```
   
-   | Options                  | Type              | Default  |
-   |:-------------------      |:----------------  |:-------- |
-   | disableAnimation         | boolean           | false    |
-   | disableDefaultStyling    | boolean           | false    |        
-   | placement                | Placement(string) | auto     |
-   | boundariesElement        | string(selector)  | undefined|  
-   | trigger                  | Trigger(string)   | hover    |    
-   | popperModifiers          | popperModifier    | undefined|
-   | positionFixed            | boolean           | false    |
-   | hideOnClickOutside       | boolean           | true     |
-   | hideOnMouseLeave         | boolean           | false    |
-   | hideOnScroll             | boolean           | false    |
-   | popperApplyClass         | string            | undefined|
+   | Options                  | Type              | Default   |
+   |:-------------------      |:----------------  |:--------- |
+   | disableAnimation         | boolean           | false     |
+   | disableDefaultStyling    | boolean           | false     |
+   | placement                | Placement(string) | auto      |
+   | boundariesElement        | string(selector)  | undefined |
+   | trigger                  | Trigger(string)   | hover     |
+   | popperModifiers          | popperModifier    | undefined |
+   | positionFixed            | boolean           | false     |
+   | hideOnClickOutside       | boolean           | true      |
+   | hideOnMouseLeave         | boolean           | false     |
+   | hideOnScroll             | boolean           | false     |
+   | ApplyClass               | string            | undefined |
+   | ariaDescribeBy           | string            | undefined |
+   | ariaRole                 | string
 
 10. popperPlacement:
 
