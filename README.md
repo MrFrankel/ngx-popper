@@ -136,7 +136,7 @@ SystemJS
    <div [popper]="tooltipcontent"
            [popperTrigger]="'hover'"
            [popperPlacement]="'bottom'">
-           [applyClass]="'popperSpecialStyle'"
+           [popperApplyClass]="'popperSpecialStyle'"
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
@@ -150,29 +150,29 @@ SystemJS
  
 8. Attributes map:  
   
-    | Option                   | Type              | Default  | Description |
-    |:-------------------      |:----------------  |:-------- |             |
-    | popperDisableAnimation   | boolean           | false    |             |
-    | popperDisableStyle       | boolean           | false    |             |
-    | popperDisabled           | boolean           | false    |             |
-    | popperDelay              | number            | 0        |             |
-    | popperTimeout            | number            | 0        |             |
-    | popperTimeoutAfterShow   | number            | 0        |             |
-    | popperPlacement          | Placement(string) | auto     |             |
-    | popperTarget             | HtmlElement       | auto     |             |
-    | popperBoundaries         | string(selector)  | undefined|             |
-    | popperShowOnStart        | boolean           | false    |             |
-    | popperTrigger            | Trigger(string)   | hover    |             |
-    | popperPositionFixed      | boolean           | false    |             |
-    | popperHideOnClickOutside | boolean           | true     |             |
-    | popperHideOnScroll       | boolean           | false    |             |
-    | popperHideOnMouseLeave   | boolean           | false    |             |
-    | popperForceDetection     | boolean           | false    |             |
-    | popperModifiers          | popperModifier    | undefined|             |
-    | popperOnShown            | EventEmitter<void>| $event   |             |
-    | popperOnHidden           | EventEmitter<void>| $event   |             |
-    | applyClass               | string            | undefined|             |
-    
+    | Option                   | Type              | Default  |
+    |:-------------------      |:----------------  |:-------- |
+    | popperDisableAnimation   | boolean           | false    |
+    | popperDisableStyle       | boolean           | false    |
+    | popperDisabled           | boolean           | false    |
+    | popperDelay              | number            | 0        |
+    | popperTimeout            | number            | 0        |
+    | popperTimeoutAfterShow   | number            | 0        |
+    | popperPlacement          | Placement(string) | auto     |
+    | popperTarget             | HtmlElement       | auto     |
+    | popperBoundaries         | string(selector)  | undefined|  
+    | popperShowOnStart        | boolean           | false    |                         
+    | popperTrigger            | Trigger(string)   | hover    |
+    | popperPositionFixed      | boolean           | false    |
+    | popperHideOnClickOutside | boolean           | true     |
+    | popperHideOnScroll       | boolean           | false    |
+    | popperHideOnMouseLeave   | boolean           | false    |
+    | popperForceDetection     | boolean           | false    |
+    | popperModifiers          | popperModifier    | undefined|
+    | popperOnShown            | EventEmitter<void>| $event   |    
+    | popperOnHidden           | EventEmitter<void>| $event   |
+    | popperApplyClass         | string            | undefined|
+
 9. Override defaults:
 
     Ngx-popper comes with a few default properties you can override in default to effect all instances
@@ -202,7 +202,7 @@ NgModule({
    | hideOnClickOutside       | boolean           | true     |
    | hideOnMouseLeave         | boolean           | false    |
    | hideOnScroll             | boolean           | false    |
-   | applyClass               | string            | undefined|
+   | popperApplyClass         | string            | undefined|
 
 10. popperPlacement:
 
