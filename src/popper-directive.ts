@@ -104,6 +104,12 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperApplyClass')
   applyClass: string;
 
+  @Input('popperAriaDescribeBy')
+  ariaDescribe: string = '';
+
+  @Input('popperAriaRole')
+  popperAriaRole: string = 'popper';
+
   @Output()
   popperOnShown = new EventEmitter<PopperController>();
 
@@ -334,6 +340,8 @@ export class PopperController implements OnInit, OnChanges {
       trigger: this.showTrigger,
       positionFixed: this.positionFixed,
       popperModifiers: this.popperModifiers,
+      ariaDescribe: this.ariaDescribe,
+      popperAriaRole: this.popperAriaRole,
       applyClass: this.applyClass
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));

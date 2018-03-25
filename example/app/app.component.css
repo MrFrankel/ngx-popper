@@ -34,19 +34,19 @@ p.bold {
 }
 
 .ngxp__container[x-placement^="top"] .ngxp__arrow {
-  border-color: #FFC107 transparent transparent transparent!important;
+  border-color: #FFC107 transparent transparent transparent !important;
 }
 
 .ngxp__container[x-placement^="bottom"] .ngxp__arrow {
-  border-color: transparent transparent #FFC107 transparent!important;;
+  border-color: transparent transparent #FFC107 transparent !important;;
 }
 
 .ngxp__container[x-placement^="right"] .ngxp__arrow {
-  border-color: transparent #FFC107 transparent transparent!important;;
+  border-color: transparent #FFC107 transparent transparent !important;;
 }
 
 .ngxp__container[x-placement^="left"] .ngxp__arrow {
-  border-color: transparent transparent transparent #FFC107!important;;
+  border-color: transparent transparent transparent #FFC107 !important;;
 }
 
 .example2__fake-body {
@@ -157,8 +157,8 @@ body {
 body.is-loading *, body.is-loading *:before, body.is-loading *:after {
   -moz-animation: none !important;
   -webkit-animation: none !important;
-  -ms-animation: none !important;å
-  animation: none !important;
+  -ms-animation: none !important;
+  å animation: none !important;
   -moz-transition: none !important;
   -webkit-transition: none !important;
   -ms-transition: none !important;
@@ -388,8 +388,6 @@ label {
   margin: 0 0 1em 0;
 }
 
-
-
 @media screen and (max-width: 736px) {
   .wrapper.style1 .features li {
     border-top-color: rgba(0, 0, 0, 0.125);
@@ -440,6 +438,7 @@ select {
   color: rgba(255, 255, 255, 0.5) !important;
   opacity: 1.0;
 }
+
 /* Spotlight */
 .spotlight {
   display: -moz-flex;

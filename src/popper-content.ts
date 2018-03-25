@@ -4,6 +4,7 @@ import {
   OnDestroy,
   ViewChild,
   EventEmitter,
+  ViewEncapsulation,
   HostListener, Renderer2,
 } from "@angular/core";
 import Popper from 'popper.js';
@@ -11,6 +12,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
 @Component({
   selector: "popper-content",
+  encapsulation: ViewEncapsulation.None,
   template: `
     <div #popperViewRef
          [class.ngxp__container]="!popperOptions.disableDefaultStyling"
@@ -18,7 +20,9 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
          [style.display]="displayType"
          [style.opacity]="opacity"
          [ngClass]="extractAppliedClassListExpr(popperOptions.applyClass)"
-         role="popper">
+         [attr.aria-hidden]="state"
+         [attr.desctibeby]="popperOptions.ariaDescribe"
+         [attr.role]="popperOptions.popperAriaRole">
       <div class="ngxp__inner">
         <ng-content></ng-content>
         {{ text }}

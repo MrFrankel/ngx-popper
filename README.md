@@ -150,28 +150,28 @@ SystemJS
  
 8. Attributes map:  
   
-    | Option                   | Type              | Default  |
-    |:-------------------      |:----------------  |:-------- |
-    | popperDisableAnimation   | boolean           | false    |
-    | popperDisableStyle       | boolean           | false    |
-    | popperDisabled           | boolean           | false    |
-    | popperDelay              | number            | 0        |
-    | popperTimeout            | number            | 0        |
-    | popperTimeoutAfterShow   | number            | 0        |
-    | popperPlacement          | Placement(string) | auto     |
-    | popperTarget             | HtmlElement       | auto     |
-    | popperBoundaries         | string(selector)  | undefined|  
-    | popperShowOnStart        | boolean           | false    |                         
-    | popperTrigger            | Trigger(string)   | hover    |
-    | popperPositionFixed      | boolean           | false    |
-    | popperHideOnClickOutside | boolean           | true     |
-    | popperHideOnScroll       | boolean           | false    |
-    | popperHideOnMouseLeave   | boolean           | false    |
-    | popperForceDetection     | boolean           | false    |
-    | popperModifiers          | popperModifier    | undefined|
-    | popperOnShown            | EventEmitter<void>| $event   |    
-    | popperOnHidden           | EventEmitter<void>| $event   |
-    | applyClass               | string            | undefined|
+    | Option                   | Type              | Default  | Description |
+    |:-------------------      |:----------------  |:-------- |             |
+    | popperDisableAnimation   | boolean           | false    |             |
+    | popperDisableStyle       | boolean           | false    |             |
+    | popperDisabled           | boolean           | false    |             |
+    | popperDelay              | number            | 0        |             |
+    | popperTimeout            | number            | 0        |             |
+    | popperTimeoutAfterShow   | number            | 0        |             |
+    | popperPlacement          | Placement(string) | auto     |             |
+    | popperTarget             | HtmlElement       | auto     |             |
+    | popperBoundaries         | string(selector)  | undefined|             |
+    | popperShowOnStart        | boolean           | false    |             |
+    | popperTrigger            | Trigger(string)   | hover    |             |
+    | popperPositionFixed      | boolean           | false    |             |
+    | popperHideOnClickOutside | boolean           | true     |             |
+    | popperHideOnScroll       | boolean           | false    |             |
+    | popperHideOnMouseLeave   | boolean           | false    |             |
+    | popperForceDetection     | boolean           | false    |             |
+    | popperModifiers          | popperModifier    | undefined|             |
+    | popperOnShown            | EventEmitter<void>| $event   |             |
+    | popperOnHidden           | EventEmitter<void>| $event   |             |
+    | applyClass               | string            | undefined|             |
     
 9. Override defaults:
 
