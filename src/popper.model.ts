@@ -52,6 +52,7 @@ export class Placements {
 }
 
 export interface PopperContentOptions {
+  showDelay?: number;
   disableAnimation?: boolean;
   disableDefaultStyling?: boolean;
   placement?: Placement;

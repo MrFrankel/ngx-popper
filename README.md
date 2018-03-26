@@ -196,6 +196,7 @@ NgModule({
   
    | Options                  | Type              | Default   |
    |:-------------------      |:----------------  |:--------- |
+   | showDelay                | number            | 0         |
    | disableAnimation         | boolean           | false     |
    | disableDefaultStyling    | boolean           | false     |
    | placement                | Placement(string) | auto      |

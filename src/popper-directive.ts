@@ -37,6 +37,7 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   public static baseOptions: PopperContentOptions = <PopperContentOptions>{
+    showDelay: 0,
     placement: Placements.Auto,
     hideOnClickOutside: true,
     hideOnMouseLeave: false,
@@ -62,7 +63,7 @@ export class PopperController implements OnInit, OnChanges {
   targetElement: HTMLElement;
 
   @Input('popperDelay')
-  showDelay: number = 0;
+  showDelay: number | undefined;
 
   @Input('popperTimeout')
   hideTimeout: number = 0;
@@ -269,7 +270,7 @@ export class PopperController implements OnInit, OnChanges {
     this.clearEventListeners();
   }
 
-  scheduledShow(delay: number = this.showDelay) {
+  scheduledShow(delay: number | undefined = this.showDelay) {
     this.overrideHideTimeout();
     this.scheduledShowTimeout = setTimeout(() => {
       this.show();
@@ -302,6 +303,7 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   private setDefaults() {
+    this.showDelay = typeof this.showDelay === 'undefined' ? PopperController.baseOptions.showDelay : this.showDelay;
     this.showTrigger = typeof this.showTrigger === 'undefined' ? PopperController.baseOptions.trigger : this.showTrigger;
     this.hideOnClickOutside = typeof this.hideOnClickOutside === 'undefined' ? PopperController.baseOptions.hideOnClickOutside : this.hideOnClickOutside;
     this.hideOnScroll = typeof this.hideOnScroll === 'undefined' ? PopperController.baseOptions.hideOnScroll : this.hideOnScroll;
@@ -337,6 +339,7 @@ export class PopperController implements OnInit, OnChanges {
 
   private setContentProperties(popperRef: PopperContent) {
     popperRef.popperOptions = PopperController.assignDefined(popperRef.popperOptions, PopperController.baseOptions, {
+      showDelay: this.showDelay,
       disableAnimation: this.disableAnimation,
       disableDefaultStyling: this.disableStyle,
       placement: this.placement,
