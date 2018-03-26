@@ -4,6 +4,7 @@ import {
   OnDestroy,
   ViewChild,
   EventEmitter,
+  ViewEncapsulation,
   HostListener, Renderer2,
 } from "@angular/core";
 import Popper from 'popper.js';
@@ -11,6 +12,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
 @Component({
   selector: "popper-content",
+  encapsulation: ViewEncapsulation.None,
   template: `
     <div #popperViewRef
          [class.ngxp__container]="!popperOptions.disableDefaultStyling"
@@ -18,7 +20,9 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
          [style.display]="displayType"
          [style.opacity]="opacity"
          [ngClass]="extractAppliedClassListExpr(popperOptions.applyClass)"
-         role="popper">
+         attr.aria-hidden="{{ariaHidden}}"
+         attr.aria-describedby="{{popperOptions.ariaDescribe}}"
+         attr.role="{{popperOptions.ariaRole}}">
       <div class="ngxp__inner">
         <ng-content></ng-content>
         {{ text }}
@@ -173,6 +177,8 @@ export class PopperContent implements OnDestroy {
 
   opacity: number = 0;
 
+  ariaHidden: string = 'false';
+
   private globalResize: any;
 
   @ViewChild("popperViewRef")
@@ -262,10 +268,12 @@ export class PopperContent implements OnDestroy {
     if (!state) {
       this.opacity = 0;
       this.displayType = "none";
+      this.ariaHidden = 'true';
     }
     else {
       this.opacity = 1;
       this.displayType = "block";
+      this.ariaHidden = 'false';
     }
   }
 
