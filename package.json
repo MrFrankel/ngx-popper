@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "2.4.0",
+  "version": "2.6.0",
   "description": "ngx-popper is an angular wrapper for popper.js",
   "directories": {
     "test": "test"
@@ -34,6 +34,7 @@
   },
   "homepage": "",
   "devDependencies": {
+    "@angular/cli": "^1.6.6",
     "@angular/common": "^5.2.2",
     "@angular/compiler": "^5.2.2",
     "@angular/compiler-cli": "^5.2.2",
@@ -42,7 +43,6 @@
     "@angular/platform-browser": "^5.2.2",
     "@angular/platform-browser-dynamic": "^5.2.2",
     "@angular/platform-server": "^5.2.2",
-    "@angular/cli": "^1.6.6",
     "@ngtools/webpack": "^1.9.6",
     "@types/node": "^9.4.0",
     "angular2-template-loader": "^0.6.2",
@@ -68,6 +68,6 @@
     "zone.js": "^0.8.20"
   },
   "dependencies": {
-    "popper.js": "1.13.0-next.1"
+    "popper.js": "^1.14.1"
   }
 }
