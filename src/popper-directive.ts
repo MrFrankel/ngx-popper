@@ -107,6 +107,9 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperApplyClass')
   applyClass: string;
 
+  @Input('popperApplyArrowClass')
+  applyArrowClass: string;
+
   @Input('popperAriaDescribeBy')
   ariaDescribe: string | undefined;
 
@@ -218,6 +221,12 @@ export class PopperController implements OnInit, OnChanges {
       && !changes['applyClass'].firstChange
       && typeof changes['applyClass'].currentValue === 'string') {
       this.popperContent.popperOptions.applyClass = changes['applyClass'].currentValue;
+    }
+
+    if (changes['applyArrowClass']
+      && !changes['applyArrowClass'].firstChange
+      && typeof changes['applyArrowClass'].currentValue === 'string') {
+      this.popperContent.popperOptions.applyArrowClass = changes['applyArrowClass'].currentValue;
     }
   }
 
@@ -349,7 +358,8 @@ export class PopperController implements OnInit, OnChanges {
       popperModifiers: this.popperModifiers,
       ariaDescribe: this.ariaDescribe,
       ariaRole: this.ariaRole,
-      applyClass: this.applyClass
+      applyClass: this.applyClass,
+      applyArrowClass: this.applyArrowClass
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
   }

@@ -27,7 +27,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
         <ng-content></ng-content>
         {{ text }}
       </div>
-      <div class="ngxp__arrow"></div>
+      <div class="ngxp__arrow" [ngClass]="extractAppliedClassListExpr(popperOptions.applyArrowClass)"></div>
 
     </div>
   `,
