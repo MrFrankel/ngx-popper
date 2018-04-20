@@ -135,8 +135,8 @@ SystemJS
   ```HTML
    <div [popper]="tooltipcontent"
            [popperTrigger]="'hover'"
-           [popperPlacement]="'bottom'">
-           [popperApplyClass]="'popperSpecialStyle'"
+           [popperPlacement]="'bottom'"
+           [popperApplyClass]="'popperSpecialStyle'">
         <p class="bold">Pop</p>
         <p class="thin">on the bottom</p>
       </div>
