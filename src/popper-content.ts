@@ -13,7 +13,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
 @Component({
   selector: "popper-content",
   encapsulation: ViewEncapsulation.None,
-  template: `
+  template: ` 
     <div #popperViewRef
          [class.ngxp__container]="!popperOptions.disableDefaultStyling"
          [class.ngxp__animation]="!popperOptions.disableAnimation"
@@ -21,7 +21,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
          [style.opacity]="opacity"
          [ngClass]="extractAppliedClassListExpr(popperOptions.applyClass)"
          attr.aria-hidden="{{ariaHidden}}"
-         attr.aria-describedby="{{popperOptions.ariaDescribe}}"
+         [attr.aria-describedby]="popperOptions.ariaDescribe || null"
          attr.role="{{popperOptions.ariaRole}}">
       <div class="ngxp__inner">
         <ng-content></ng-content>
@@ -177,7 +177,7 @@ export class PopperContent implements OnDestroy {
 
   opacity: number = 0;
 
-  ariaHidden: string = 'false';
+  ariaHidden: string = 'true';
 
   private globalResize: any;
 
