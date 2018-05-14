@@ -25,10 +25,8 @@ export type Placement =
   | 'left-end'
   | 'right-end'
   | 'auto'
-  | 'auto-top'
-  | 'auto-bottom'
-  | 'auto-left'
-  | 'auto-right'
+  | 'auto-start'
+  | 'auto-end'
   | Function
 
 export class Placements {
@@ -45,10 +43,8 @@ export class Placements {
   static LeftEnd: Placement = 'left-end';
   static RightEnd: Placement = 'right-end';
   static Auto: Placement = 'auto';
-  static AutoTop: Placement = 'auto-top';
-  static AutoBottom: Placement = 'auto-bottom';
-  static AutoLeft: Placement = 'auto-left';
-  static AutoRight: Placement = 'auto-right';
+  static AutoStart: Placement = 'auto-start';
+  static AutoEnd: Placement = 'auto-end';
 }
 
 export interface PopperContentOptions {

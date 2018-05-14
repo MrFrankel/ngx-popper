@@ -228,10 +228,8 @@ NgModule({
   | 'left-end'
   | 'right-end'
   | 'auto'
-  | 'auto-top'
-  | 'auto-bottom'
-  | 'auto-left'
-  | 'auto-right'
+  | 'auto-start'
+  | 'auto-end'
   | Function
   
 11. popperTrigger:
