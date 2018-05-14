@@ -237,11 +237,18 @@ export class PopperContent implements OnDestroy {
 
     popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
 
+    
+
     this.popperInstance = new Popper(
       this.referenceObject,
       this.popperViewRef.nativeElement,
       popperOptions,
     );
+
+    this.popperInstance.scheduleUpdate = function () {
+      return setTimeout( () => this.update(), 0);
+    };
+
     (this.popperInstance as any).enableEventListeners();
     this.scheduleUpdate();
     this.toggleVisibility(true);
