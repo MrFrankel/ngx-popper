@@ -19,6 +19,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
          [class.ngxp__animation]="!popperOptions.disableAnimation"
          [style.display]="displayType"
          [style.opacity]="opacity"
+         [ngStyle]="popperOptions.styles"
          [ngClass]="extractAppliedClassListExpr(popperOptions.applyClass)"
          attr.aria-hidden="{{ariaHidden}}"
          [attr.aria-describedby]="popperOptions.ariaDescribe || null"

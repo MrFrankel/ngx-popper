@@ -170,6 +170,7 @@ SystemJS
     | popperForceDetection     | boolean           | false     | Force the popper to trigger detection event, in case the parent component use onPush strategy            |
     | popperModifiers          | popperModifier    | undefined | popper.js custom modifiers hock                                                                          |
     | popperApplyClass         | string            | undefined | list of comma separated class to apply on ngpx__container                                                |
+    | popperStyles             | Object            | undefined | Apply the styles object, aligned with ngStyles                                                           |
     | popperApplyArrowClass    | string            | undefined | list of comma separated class to apply on ngpx__arrow                                                    |
     | popperOnShown            | EventEmitter<void>| $event    | Event handler when popper is shown                                                                       |
     | popperOnHidden           | EventEmitter<void>| $event    | Event handler when popper is hidden                                                                      |
@@ -209,6 +210,7 @@ NgModule({
    | hideOnMouseLeave         | boolean           | false     |
    | hideOnScroll             | boolean           | false     |
    | applyClass               | string            | undefined |
+   | styles                   | Object            | undefined |
    | applyArrowClass          | string            | undefined |
    | ariaDescribeBy           | string            | undefined |
    | ariaRole                 | string            | undefined |
