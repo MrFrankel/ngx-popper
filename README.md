@@ -79,6 +79,8 @@ SystemJS
    <div     [popper]="popper1Content"
             [popperShowOnStart]="true"
             [popperTrigger]="'click'"
+            [popperHideOnClickOutside]="true"
+            [popperHideOnScroll]="true"
             [popperPlacement]="'bottom'">
          <p class="bold">Hey!</p>
          <p class="thin">Choose where to put your popper!</p>         
@@ -103,6 +105,7 @@ SystemJS
        <div popper="{{someTextProperty}}"
             [popperTrigger]="'hover'"
             [popperPlacement]="'bottom'"
+            [popperStyles]="{'background-color: 'blue''}",
             (popperOnShown)="onShown($event)">
          <p class="bold">Pop</p>
          <p class="thin">on the bottom</p>
