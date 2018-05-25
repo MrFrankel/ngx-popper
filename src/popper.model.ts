@@ -63,4 +63,5 @@ export interface PopperContentOptions {
   ariaDescribe?: string;
   applyClass?: string;
   applyArrowClass?: string;
+  styles?: Object;
 }

@@ -44,7 +44,8 @@ export class PopperController implements OnInit, OnChanges {
     hideOnScroll: false,
     showTrigger: Triggers.HOVER,
     ariaRole: 'popper',
-    ariaDescribe: ''
+    ariaDescribe: '',
+    styles: {}
   };
 
   @Input('popper')
@@ -115,6 +116,9 @@ export class PopperController implements OnInit, OnChanges {
 
   @Input('popperAriaRole')
   ariaRole: string | undefined;
+
+  @Input('popperStyles')
+  styles: Object | undefined;
 
   @Output()
   popperOnShown = new EventEmitter<PopperController>();
@@ -320,6 +324,7 @@ export class PopperController implements OnInit, OnChanges {
     this.hideOnMouseLeave = typeof this.hideOnMouseLeave === 'undefined' ? PopperController.baseOptions.hideOnMouseLeave : this.hideOnMouseLeave;
     this.ariaRole = typeof this.ariaRole === 'undefined' ? PopperController.baseOptions.ariaRole : this.ariaRole;
     this.ariaDescribe = typeof this.ariaDescribe === 'undefined' ? PopperController.baseOptions.ariaDescribe : this.ariaDescribe;
+    this.styles = typeof this.styles === 'undefined' ? PopperController.baseOptions.styles : this.styles;
   }
 
   private clearEventListeners() {
@@ -370,7 +375,8 @@ export class PopperController implements OnInit, OnChanges {
       ariaRole: this.ariaRole,
       applyClass: this.applyClass,
       applyArrowClass: this.applyArrowClass,
-      hideOnMouseLeave: this.hideOnMouseLeave
+      hideOnMouseLeave: this.hideOnMouseLeave,
+      styles: this.styles
     });
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
   }
