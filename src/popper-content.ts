@@ -28,7 +28,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
         <ng-content></ng-content>
         {{ text }}
       </div>
-      <div class="ngxp__arrow" [ngClass]="extractAppliedClassListExpr(popperOptions.applyArrowClass)"></div>
+      <div class="ngxp__arrow" [style.border-color]="arrowColor" [class.__force-arrow]="arrowColor" [ngClass]="extractAppliedClassListExpr(popperOptions.applyArrowClass)"></div>
 
     </div>
   `,
@@ -51,6 +51,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
     }
 
     .ngxp__container .ngxp__arrow {
+      border-color: grey;
       width: 0;
       height: 0;
       border-style: solid;
@@ -70,12 +71,20 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
     }
 
     .ngxp__container[x-placement^="top"] .ngxp__arrow {
-      border-width: 5px 5px 0 5px;
-      border-color: grey transparent transparent transparent;
+      border-width: 5px 5px 0 5px;      
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;      
       bottom: -5px;
       left: calc(50% - 5px);
       margin-top: 0;
       margin-bottom: 0;
+    }
+    
+    .ngxp__container[x-placement^="top"] .ngxp__arrow.__force-arrow {
+      border-right-color: transparent!important;
+      border-bottom-color: transparent!important;
+      border-left-color: transparent!important;
     }
 
     .ngxp__container[x-placement^="bottom"] {
@@ -84,11 +93,19 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
     .ngxp__container[x-placement^="bottom"] .ngxp__arrow {
       border-width: 0 5px 5px 5px;
-      border-color: transparent transparent grey transparent;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-left-color: transparent;
       top: -5px;
       left: calc(50% - 5px);
       margin-top: 0;
       margin-bottom: 0;
+    }
+
+    .ngxp__container[x-placement^="bottom"] .ngxp__arrow.__force-arrow {
+      border-top-color: transparent!important;
+      border-right-color: transparent!important;
+      border-left-color: transparent!important;
     }
 
     .ngxp__container[x-placement^="right"] {
@@ -97,11 +114,19 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
     .ngxp__container[x-placement^="right"] .ngxp__arrow {
       border-width: 5px 5px 5px 0;
-      border-color: transparent grey transparent transparent;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;      
       left: -5px;
       top: calc(50% - 5px);
       margin-left: 0;
       margin-right: 0;
+    }
+
+    .ngxp__container[x-placement^="right"] .ngxp__arrow.__force-arrow {
+      border-top-color: transparent!important;
+      border-bottom-color: transparent!important;
+      border-left-color: transparent!important;
     }
 
     .ngxp__container[x-placement^="left"] {
@@ -110,11 +135,19 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
 
     .ngxp__container[x-placement^="left"] .ngxp__arrow {
       border-width: 5px 0 5px 5px;
-      border-color: transparent transparent transparent grey;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-right-color: transparent;      
       right: -5px;
       top: calc(50% - 5px);
       margin-left: 0;
       margin-right: 0;
+    }
+
+    .ngxp__container[x-placement^="left"] .ngxp__arrow.__force-arrow {
+      border-top-color: transparent!important;
+      border-bottom-color: transparent!important;
+      border-right-color: transparent!important;
     }
 
     @-webkit-keyframes ngxp-fadeIn {
@@ -180,6 +213,8 @@ export class PopperContent implements OnDestroy {
 
   ariaHidden: string = 'true';
 
+  arrowColor: string | null = null;
+
   private globalResize: any;
 
   @ViewChild("popperViewRef")
@@ -237,12 +272,13 @@ export class PopperContent implements OnDestroy {
     }
 
     popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
-
+    this.arrowColor = this.popperOptions.styles && this.popperOptions.styles.hasOwnProperty('background-color') ? this.popperOptions.styles['background-color'] : this.arrowColor;
     this.popperInstance = new Popper(
       this.referenceObject,
       this.popperViewRef.nativeElement,
       popperOptions,
     );
+
     (this.popperInstance as any).enableEventListeners();
     this.scheduleUpdate();
     this.toggleVisibility(true);

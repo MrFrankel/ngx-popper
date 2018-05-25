@@ -34,19 +34,19 @@ p.bold {
 }
 
 .ngxp__container[x-placement^="top"] .ngxp__arrow {
-  border-color: #FFC107 transparent transparent transparent !important;
+  border-color: #FFC107 transparent transparent transparent
 }
 
 .ngxp__container[x-placement^="bottom"] .ngxp__arrow {
-  border-color: transparent transparent #FFC107 transparent !important;;
+  border-color: transparent transparent #FFC107 transparent
 }
 
 .ngxp__container[x-placement^="right"] .ngxp__arrow {
-  border-color: transparent #FFC107 transparent transparent !important;;
+  border-color: transparent #FFC107 transparent transparent
 }
 
 .ngxp__container[x-placement^="left"] .ngxp__arrow {
-  border-color: transparent transparent transparent #FFC107 !important;;
+  border-color: transparent transparent transparent #FFC107
 }
 
 .example2__fake-body {
