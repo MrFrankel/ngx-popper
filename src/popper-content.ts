@@ -270,9 +270,9 @@ export class PopperContent implements OnDestroy {
     if (popperOptions.modifiers && boundariesElement) {
       popperOptions.modifiers.preventOverflow = {boundariesElement};
     }
-
+    this.determineArrowColor();
     popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
-    this.arrowColor = this.popperOptions.styles && this.popperOptions.styles.hasOwnProperty('background-color') ? this.popperOptions.styles['background-color'] : this.arrowColor;
+
     this.popperInstance = new Popper(
       this.referenceObject,
       this.popperViewRef.nativeElement,
@@ -283,6 +283,19 @@ export class PopperContent implements OnDestroy {
     this.scheduleUpdate();
     this.toggleVisibility(true);
     this.globalResize = this.renderer.listen('document', 'resize', this.onDocumentResize.bind(this))
+  }
+
+  private determineArrowColor(){
+    ['background-color', 'backgroundColor'].some((clr) => {
+      if(!this.popperOptions.styles){
+        return false;
+      }
+      if( this.popperOptions.styles.hasOwnProperty(clr)){
+        this.arrowColor = this.popperOptions.styles[clr];
+        return true;
+      }
+      return false;
+    })
   }
 
   update(): void {
