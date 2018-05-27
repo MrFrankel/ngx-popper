@@ -1,0 +1,15 @@
+test-app > div {
+  display: none;
+}
+
+.popperTarget {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background: green;
+}
+
+popper-content .ngxp__container {
+  background-color: blue;
+  color: white;
+}

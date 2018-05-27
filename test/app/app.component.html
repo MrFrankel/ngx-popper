@@ -1,0 +1,26 @@
+<p>ngx-popper testing started...</p>
+<div>
+  <div class="popperTarget" popper="testing" popperPlacement="bottom" [popperShowOnStart]="true">popper</div>
+</div>
+<div>
+  <div class="popperTarget" popper="testing" popperPlacement="bottom" [popperTrigger]="'click'">click</div>
+</div>
+<div>
+  <div class="popperTarget" popper="testing" [popperTrigger]="'click'" [popperPlacement]="'right'">click</div>
+</div>
+<div>
+  <div class="popperTarget" popper="testing" [popperTrigger]="'click'" [popperPlacement]="'top'">click</div>
+</div>
+<div>
+  <div class="popperTarget" popper="testing" [popperTrigger]="'click'" [popperPlacement]="'left'">click</div>
+</div>
+<div>
+  <div class="popperTarget" popper="testing" [popperTrigger]="'hover'" [popperPlacement]="'right'">click</div>
+</div>
+<div>
+  <div class="popperTarget" popper="testing" [popperTrigger]="'none'" [popperPlacement]="'right'">click</div>
+</div>
+<div>
+  <div class="popperTarget" [popper]="popper1" [popperTrigger]="'click'" [popperPlacement]="'right'">click</div>
+  <popper-content #popper1>testing</popper-content>
+</div>

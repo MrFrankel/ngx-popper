@@ -6,12 +6,13 @@ const chalk = require('chalk');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
-  entry: './example/app/index.ts',
+  entry: './test/app/index.ts',
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'test_dist')
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.html', '.css']
@@ -22,12 +23,12 @@ module.exports = {
       {
         test: /\.ts?$/,
         use: ['awesome-typescript-loader', 'angular2-template-loader'],
-        exclude: ['node_modules']
+        exclude: ['node_modules', /__tests__/]
       },
       {
         test: /\.(html|css)$/,
         use: 'raw-loader',
-        exclude: ['node_modules']
+        exclude: ['node_modules', /__tests__/]
       }
     ]
   },
@@ -35,13 +36,13 @@ module.exports = {
     new CheckerPlugin(),
     new AngularCompilerPlugin({
       tsConfigPath: './tsconfig.json',
-      entryModule: 'example/app/app.module#AppModule',
+      entryModule: 'test/app/app.module#AppModule',
       sourceMap: true
     }),
 
     new HtmlWebpackPlugin({
       inject: true,
-      template: 'example/index.html'
+      template: 'test/index.html'
     }),
     new ProgressBarPlugin({
       format: '  build [' + chalk.blue.bold(':bar') + ']' + chalk.green.bold(':percent') + ' (:elapsed seconds) => :msg...  ',
@@ -59,7 +60,7 @@ module.exports = {
     port: 8888,
     inline: true,
     historyApiFallback: {
-      index: './example/'
+      index: './test/'
     },
     open: false
   }
