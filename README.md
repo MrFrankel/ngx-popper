@@ -254,6 +254,7 @@ NgModule({
 ```terminal
   $ yarn install
   $ yarn run build
-  $ yarn run dev  
+  $ yarn run dev  //run example
+  $ yarn run start_test  //run tests
 ```
 
