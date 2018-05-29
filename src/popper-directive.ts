@@ -1,6 +1,5 @@
 import {
   Directive,
-  HostListener,
   ComponentRef,
   ViewContainerRef,
   ComponentFactoryResolver,
@@ -8,7 +7,7 @@ import {
   OnChanges,
   SimpleChange,
   Output,
-  EventEmitter, OnInit, Renderer2, ChangeDetectorRef, Inject
+  EventEmitter, OnInit, Renderer2, ChangeDetectorRef, Inject, ElementRef
 } from '@angular/core';
 import {PopperContent} from './popper-content';
 import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';
@@ -24,13 +23,14 @@ export class PopperController implements OnInit, OnChanges {
   private scheduledShowTimeout: any;
   private scheduledHideTimeout: any;
   private subscriptions: any[] = [];
-  private globalClick: any;
-  private globalScroll: any;
+  private eventListeners: any[] = [];
+  private globalEventListeners: any[] = [];
   private popperContent: PopperContent;
 
   constructor(private viewContainerRef: ViewContainerRef,
               private changeDetectorRef: ChangeDetectorRef,
               private resolver: ComponentFactoryResolver,
+              private elementRef: ElementRef,
               private renderer: Renderer2,
               @Inject('popperDefaults') private popperDefaults: PopperContentOptions = {}) {
     PopperController.baseOptions = {...PopperController.baseOptions, ...this.popperDefaults}
@@ -126,32 +126,6 @@ export class PopperController implements OnInit, OnChanges {
   @Output()
   popperOnHidden = new EventEmitter<PopperController>();
 
-  @HostListener('touchstart')
-  @HostListener('click')
-  showOrHideOnClick(): void {
-    if (this.disabled || this.showTrigger !== Triggers.CLICK) {
-      return;
-    }
-    this.toggle();
-  }
-
-  @HostListener('touchstart')
-  @HostListener('mousedown')
-  showOrHideOnMouseOver(): void {
-    if (this.disabled || this.showTrigger !== Triggers.MOUSEDOWN) {
-      return;
-    }
-    this.toggle();
-  }
-
-  @HostListener('mouseenter')
-  showOnHover(): void {
-    if (this.disabled || this.showTrigger !== Triggers.HOVER) {
-      return;
-    }
-    this.scheduledShow();
-  }
-
   hideOnClickOutsideHandler($event: MouseEvent): void {
     if (this.disabled || !this.hideOnClickOutside) {
       return;
@@ -166,14 +140,28 @@ export class PopperController implements OnInit, OnChanges {
     this.scheduledHide($event, this.hideTimeout);
   }
 
-  @HostListener('touchend')
-  @HostListener('touchcancel')
-  @HostListener('mouseleave')
-  hideOnLeave(): void {
-    if (this.disabled || (this.showTrigger !== Triggers.HOVER && !this.hideOnMouseLeave)) {
-      return;
+  applyTriggerListeners() {
+    switch (this.showTrigger) {
+      case Triggers.CLICK:
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'click', this.toggle.bind(this)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchstart', this.toggle.bind(this)));
+        break;
+      case Triggers.MOUSEDOWN:
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mousedown', this.toggle.bind(this)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchstart', this.toggle.bind(this)));
+        break;
+      case Triggers.HOVER:
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', this.scheduledShow.bind(this)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, this.hideTimeout)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, this.hideTimeout)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, this.hideTimeout)));
+        break;
     }
-    this.scheduledHide(null, this.hideTimeout);
+    if(this.showTrigger !== Triggers.HOVER && this.hideOnMouseLeave){
+      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, this.hideTimeout)));
+      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, this.hideTimeout)));
+      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, this.hideTimeout)));
+    }
   }
 
   static assignDefined(target: any, ...sources: any[]) {
@@ -205,7 +193,7 @@ export class PopperController implements OnInit, OnChanges {
     popperRef.referenceObject = this.getRefElement();
     this.setContentProperties(popperRef);
     this.setDefaults();
-
+    this.applyTriggerListeners();
     if (this.showOnStart) {
       this.scheduledShow();
     }
@@ -238,9 +226,13 @@ export class PopperController implements OnInit, OnChanges {
     this.subscriptions.forEach(sub => sub.unsubscribe && sub.unsubscribe());
     this.subscriptions.length = 0;
     this.clearEventListeners();
+    this.clearGlobalEventListeners();
   }
 
   toggle() {
+    if (this.disabled) {
+      return;
+    }
     this.shown ? this.scheduledHide(null, this.hideTimeout) : this.scheduledShow();
   }
 
@@ -262,11 +254,14 @@ export class PopperController implements OnInit, OnChanges {
     if (this.timeoutAfterShow > 0) {
       this.scheduledHide(null, this.timeoutAfterShow);
     }
-    this.globalClick = this.renderer.listen('document', 'click', this.hideOnClickOutsideHandler.bind(this));
-    this.globalScroll = this.renderer.listen(this.getScrollParent(this.getRefElement()), 'scroll', this.hideOnScrollHandler.bind(this));
+    this.globalEventListeners.push(this.renderer.listen('document', 'click', this.hideOnClickOutsideHandler.bind(this)));
+    this.globalEventListeners.push(this.renderer.listen(this.getScrollParent(this.getRefElement()), 'scroll', this.hideOnScrollHandler.bind(this)));
   }
 
   hide() {
+    if(this.disabled){
+      return;
+    }
     if (!this.shown) {
       this.overrideShowTimeout();
       return;
@@ -280,10 +275,13 @@ export class PopperController implements OnInit, OnChanges {
       this.popperContent.hide();
     }
     this.popperOnHidden.emit(this);
-    this.clearEventListeners();
+    this.clearGlobalEventListeners();
   }
 
   scheduledShow(delay: number | undefined = this.showDelay) {
+    if(this.disabled){
+      return;
+    }
     this.overrideHideTimeout();
     this.scheduledShowTimeout = setTimeout(() => {
       this.show();
@@ -292,6 +290,9 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   scheduledHide($event: any = null, delay: number = 0) {
+    if(this.disabled){
+      return;
+    }
     this.overrideShowTimeout();
     this.scheduledHideTimeout = setTimeout(() => {
       const toElement = $event ? $event.toElement : null;
@@ -327,8 +328,17 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   private clearEventListeners() {
-    this.globalClick && typeof this.globalClick === 'function' && this.globalClick();
-    this.globalScroll && typeof this.globalScroll === 'function' && this.globalScroll();
+    this.eventListeners.forEach(evt => {
+      evt && typeof evt === 'function' && evt();
+    });
+    this.eventListeners.length = 0;
+  }
+
+  private clearGlobalEventListeners() {
+    this.globalEventListeners.forEach(evt => {
+      evt && typeof evt === 'function' && evt();
+    });
+    this.eventListeners.length = 0;
   }
 
   private overrideShowTimeout() {
