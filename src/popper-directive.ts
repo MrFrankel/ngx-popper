@@ -151,16 +151,16 @@ export class PopperController implements OnInit, OnChanges {
         this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchstart', this.toggle.bind(this)));
         break;
       case Triggers.HOVER:
-        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', this.scheduledShow.bind(this)));
-        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, this.hideTimeout)));
-        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, this.hideTimeout)));
-        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, this.hideTimeout)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', this.scheduledShow.bind(this, this.showDelay)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, null, this.hideTimeout)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, null, this.hideTimeout)));
+        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, null, this.hideTimeout)));
         break;
     }
     if(this.showTrigger !== Triggers.HOVER && this.hideOnMouseLeave){
-      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, this.hideTimeout)));
-      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, this.hideTimeout)));
-      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, this.hideTimeout)));
+      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, null, this.hideTimeout)));
+      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, null, this.hideTimeout)));
+      this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, null, this.hideTimeout)));
     }
   }
 
@@ -289,7 +289,7 @@ export class PopperController implements OnInit, OnChanges {
     }, delay)
   }
 
-  scheduledHide($event: any = null, delay: number = 0) {
+  scheduledHide($event: any = null, delay: number = this.hideTimeout) {
     if(this.disabled){
       return;
     }

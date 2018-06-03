@@ -3,8 +3,8 @@
     <div class="example">
       <div #popper1
            [popper]="popper1Content"
-           [popperTarget]="popper1"
-           [popperHideOnScroll]="true"
+           [popperTrigger]="'click'"
+           [popperShowOnStart]="true"
            [popperPlacement]="example1select" class="rel" id="example10reference1">
         <p class="bold">Hey!</p>
         <p class="thin">Choose where to put your popper!</p>
