@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
-import {NgxPopperModule, Triggers} from '../../dist/ngx-popper.js';
+import {NgxPopperModule, Triggers} from '../../dist';
 import {Draggable} from 'ng2draggable/draggable.directive';
 
 @NgModule({

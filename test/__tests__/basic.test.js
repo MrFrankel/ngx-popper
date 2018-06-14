@@ -4,7 +4,7 @@ let testCounter = 0;
 
 jest.setTimeout(timeout);
 describe(
-  '/ (Home Page)',
+  '/basic tests',
   () => {
     let page;
 
