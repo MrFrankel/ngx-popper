@@ -26,7 +26,7 @@
     "node"
   ],
   "include": [
-    "example"
+    "src"
   ],
   "exclude": [
     "node_modules",

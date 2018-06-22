@@ -21,7 +21,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts?$/,
-        use: ['awesome-typescript-loader', 'angular2-template-loader'],
+        use: ['awesome-typescript-loader?configFileName="./tsconfig.json"', 'angular2-template-loader'],
         exclude: ['node_modules', 'dist', 'dist-tsc', 'test', 'public_api']
       },
       {
@@ -33,15 +33,9 @@ module.exports = {
   },
   plugins: [
     new CheckerPlugin(),
-    new AngularCompilerPlugin({
-      tsConfigPath: './example/tsconfig.json',
-      entryModule: 'example/app/app.module#AppModule',
-      sourceMap: true
-    }),
-
     new HtmlWebpackPlugin({
       inject: true,
-      template: 'example/index.html'
+      template: './example/index.html'
     }),
     new ProgressBarPlugin({
       format: '  build [' + chalk.blue.bold(':bar') + ']' + chalk.green.bold(':percent') + ' (:elapsed seconds) => :msg...  ',

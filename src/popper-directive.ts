@@ -9,8 +9,8 @@ import {
   Output,
   EventEmitter, OnInit, Renderer2, ChangeDetectorRef, Inject, ElementRef
 } from '@angular/core';
+import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper-model';
 import {PopperContent} from './popper-content';
-import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper.model';
 
 @Directive({
   selector: '[popper]',
@@ -338,7 +338,7 @@ export class PopperController implements OnInit, OnChanges {
     this.globalEventListeners.forEach(evt => {
       evt && typeof evt === 'function' && evt();
     });
-    this.eventListeners.length = 0;
+    this.globalEventListeners.length = 0;
   }
 
   private overrideShowTimeout() {

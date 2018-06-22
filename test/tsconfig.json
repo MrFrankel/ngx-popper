@@ -18,8 +18,8 @@
     ]
   },
   "typeRoots": [
-    "./node_modules/@types",
-    "./node_modules"
+    "../node_modules/@types",
+    "../node_modules"
   ],
   "types": [
     "node"
@@ -28,11 +28,11 @@
     "."
   ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "dist-tsc",
-    "example",
-    "example-cli"
+    "../node_modules",
+    "../dist",
+    "../dist-tsc",
+    "../example",
+    "../example-cli"
   ],
   "angularCompilerOptions": {
     "preserveWhiteSpace": false

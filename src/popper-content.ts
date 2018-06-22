@@ -8,7 +8,7 @@ import {
   HostListener, Renderer2,
 } from "@angular/core";
 import Popper from 'popper.js';
-import {Placements, Triggers, PopperContentOptions} from './popper.model';
+import {Placements, Triggers, PopperContentOptions} from './popper-model';
 
 @Component({
   selector: "popper-content",
@@ -24,9 +24,11 @@ import {Placements, Triggers, PopperContentOptions} from './popper.model';
          attr.aria-hidden="{{ariaHidden}}"
          [attr.aria-describedby]="popperOptions.ariaDescribe || null"
          attr.role="{{popperOptions.ariaRole}}">
-      <div class="ngxp__inner">
+      <div class="ngxp__inner" *ngIf="text" [innerHTML]="text">
         <ng-content></ng-content>
-        {{ text }}
+      </div>
+      <div class="ngxp__inner" *ngIf="!text">
+        <ng-content></ng-content>
       </div>
       <div class="ngxp__arrow" [style.border-color]="arrowColor" [class.__force-arrow]="arrowColor" [ngClass]="extractAppliedClassListExpr(popperOptions.applyArrowClass)"></div>
 

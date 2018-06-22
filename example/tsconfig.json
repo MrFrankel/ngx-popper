@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist-tsc",
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
@@ -18,8 +19,8 @@
     ]
   },
   "typeRoots": [
-    "./node_modules/@types",
-    "./node_modules"
+    "../node_modules/@types",
+    "../node_modules"
   ],
   "types": [
     "node"
@@ -28,11 +29,9 @@
     "."
   ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "dist-tsc",
-    "test",
-    "example-cli"
+    "../dist",
+    "../dist-tsc",
+    "../test"
   ],
   "angularCompilerOptions": {
     "preserveWhiteSpace": false

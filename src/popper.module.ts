@@ -1,8 +1,8 @@
 import {CommonModule} from "@angular/common";
 import {ModuleWithProviders, NgModule} from "@angular/core";
+import {PopperContentOptions} from './popper-model';
 import {PopperController} from './popper-directive';
 import {PopperContent} from './popper-content';
-import {PopperContentOptions} from './popper.model';
 
 @NgModule({
   imports: [
