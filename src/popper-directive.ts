@@ -121,10 +121,13 @@ export class PopperController implements OnInit, OnChanges {
   styles: Object | undefined;
 
   @Output()
-  popperOnShown = new EventEmitter<PopperController>();
+  popperOnShown: EventEmitter<PopperController> = new EventEmitter<PopperController>();
 
   @Output()
-  popperOnHidden = new EventEmitter<PopperController>();
+  popperOnHidden: EventEmitter<PopperController> = new EventEmitter<PopperController>();
+
+  @Output()
+  popperOnUpdate: EventEmitter<any> = new EventEmitter<any>();
 
   hideOnClickOutsideHandler($event: MouseEvent): void {
     if (this.disabled || !this.hideOnClickOutside) {
@@ -157,7 +160,7 @@ export class PopperController implements OnInit, OnChanges {
         this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, null, this.hideTimeout)));
         break;
     }
-    if(this.showTrigger !== Triggers.HOVER && this.hideOnMouseLeave){
+    if (this.showTrigger !== Triggers.HOVER && this.hideOnMouseLeave) {
       this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchend', this.scheduledHide.bind(this, null, this.hideTimeout)));
       this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchcancel', this.scheduledHide.bind(this, null, this.hideTimeout)));
       this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.scheduledHide.bind(this, null, this.hideTimeout)));
@@ -259,7 +262,7 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   hide() {
-    if(this.disabled){
+    if (this.disabled) {
       return;
     }
     if (!this.shown) {
@@ -279,7 +282,7 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   scheduledShow(delay: number | undefined = this.showDelay) {
-    if(this.disabled){
+    if (this.disabled) {
       return;
     }
     this.overrideHideTimeout();
@@ -290,7 +293,7 @@ export class PopperController implements OnInit, OnChanges {
   }
 
   scheduledHide($event: any = null, delay: number = this.hideTimeout) {
-    if(this.disabled){
+    if (this.disabled) {
       return;
     }
     this.overrideShowTimeout();
@@ -378,6 +381,7 @@ export class PopperController implements OnInit, OnChanges {
       hideOnMouseLeave: this.hideOnMouseLeave,
       styles: this.styles
     });
+    popperRef.onUpdate = this.onPopperUpdate.bind(this);
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));
   }
 
@@ -393,6 +397,10 @@ export class PopperController implements OnInit, OnChanges {
     }
 
     return this.getScrollParent(node.parentNode) || document;
+  }
+
+  private onPopperUpdate(event) {
+    this.popperOnUpdate.emit(event);
   }
 
 }

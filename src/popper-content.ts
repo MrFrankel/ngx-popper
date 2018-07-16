@@ -52,7 +52,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
 
     }
 
-    .ngxp__container .ngxp__arrow {
+    .ngxp__container > .ngxp__arrow {
       border-color: grey;
       width: 0;
       height: 0;
@@ -72,7 +72,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-bottom: 5px;
     }
 
-    .ngxp__container[x-placement^="top"] .ngxp__arrow {
+    .ngxp__container[x-placement^="top"] > .ngxp__arrow {
       border-width: 5px 5px 0 5px;      
       border-right-color: transparent;
       border-bottom-color: transparent;
@@ -83,7 +83,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-bottom: 0;
     }
     
-    .ngxp__container[x-placement^="top"] .ngxp__arrow.__force-arrow {
+    .ngxp__container[x-placement^="top"] > .ngxp__arrow.__force-arrow {
       border-right-color: transparent!important;
       border-bottom-color: transparent!important;
       border-left-color: transparent!important;
@@ -93,7 +93,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-top: 5px;
     }
 
-    .ngxp__container[x-placement^="bottom"] .ngxp__arrow {
+    .ngxp__container[x-placement^="bottom"] > .ngxp__arrow {
       border-width: 0 5px 5px 5px;
       border-top-color: transparent;
       border-right-color: transparent;
@@ -104,7 +104,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-bottom: 0;
     }
 
-    .ngxp__container[x-placement^="bottom"] .ngxp__arrow.__force-arrow {
+    .ngxp__container[x-placement^="bottom"] > .ngxp__arrow.__force-arrow {
       border-top-color: transparent!important;
       border-right-color: transparent!important;
       border-left-color: transparent!important;
@@ -114,7 +114,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-left: 5px;
     }
 
-    .ngxp__container[x-placement^="right"] .ngxp__arrow {
+    .ngxp__container[x-placement^="right"] > .ngxp__arrow {
       border-width: 5px 5px 5px 0;
       border-top-color: transparent;
       border-bottom-color: transparent;
@@ -125,7 +125,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-right: 0;
     }
 
-    .ngxp__container[x-placement^="right"] .ngxp__arrow.__force-arrow {
+    .ngxp__container[x-placement^="right"] > .ngxp__arrow.__force-arrow {
       border-top-color: transparent!important;
       border-bottom-color: transparent!important;
       border-left-color: transparent!important;
@@ -135,7 +135,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-right: 5px;
     }
 
-    .ngxp__container[x-placement^="left"] .ngxp__arrow {
+    .ngxp__container[x-placement^="left"] > .ngxp__arrow {
       border-width: 5px 0 5px 5px;
       border-top-color: transparent;
       border-bottom-color: transparent;
@@ -146,7 +146,7 @@ import {Placements, Triggers, PopperContentOptions} from './popper-model';
       margin-right: 0;
     }
 
-    .ngxp__container[x-placement^="left"] .ngxp__arrow.__force-arrow {
+    .ngxp__container[x-placement^="left"] > .ngxp__arrow.__force-arrow {
       border-top-color: transparent!important;
       border-bottom-color: transparent!important;
       border-right-color: transparent!important;
@@ -217,6 +217,8 @@ export class PopperContent implements OnDestroy {
 
   arrowColor: string | null = null;
 
+  onUpdate: Function;
+
   private globalResize: any;
 
   @ViewChild("popperViewRef")
@@ -260,6 +262,7 @@ export class PopperContent implements OnDestroy {
     let popperOptions: Popper.PopperOptions = <Popper.PopperOptions>{
       placement: this.popperOptions.placement,
       positionFixed: this.popperOptions.positionFixed,
+      onUpdate: this.onUpdate,
       modifiers: {
         arrow: {
           element: this.popperViewRef.nativeElement.querySelector('.ngxp__arrow')

@@ -188,8 +188,9 @@ SystemJS
     | popperApplyClass         | string            | undefined | list of comma separated class to apply on ngpx__container                                                |
     | popperStyles             | Object            | undefined | Apply the styles object, aligned with ngStyles                                                           |
     | popperApplyArrowClass    | string            | undefined | list of comma separated class to apply on ngpx__arrow                                                    |
-    | popperOnShown            | EventEmitter<void>| $event    | Event handler when popper is shown                                                                       |
-    | popperOnHidden           | EventEmitter<void>| $event    | Event handler when popper is hidden                                                                      |
+    | popperOnShown            | EventEmitter<>    | $event    | Event handler when popper is shown                                                                       |
+    | popperOnHidden           | EventEmitter<>    | $event    | Event handler when popper is hidden                                                                      |
+    | popperOnUpdate           | EventEmitter<>    | $event    | Event handler when popper is updated                                                                       |
     | popperAriaDescribeBy     | string            | undefined | Define value for aria-describeby attribute                                                               |
     | popperAriaRole           | string            | popper    | Define value for aria-role attribute                                                                     |
 
