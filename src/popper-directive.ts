@@ -33,7 +33,7 @@ export class PopperController implements OnInit, OnChanges {
               private elementRef: ElementRef,
               private renderer: Renderer2,
               @Inject('popperDefaults') private popperDefaults: PopperContentOptions = {}) {
-    PopperController.baseOptions = {...PopperController.baseOptions, ...this.popperDefaults}
+    PopperController.baseOptions = {...PopperController.baseOptions, ...this.popperDefaults};
   }
 
   public static baseOptions: PopperContentOptions = <PopperContentOptions>{
@@ -43,6 +43,7 @@ export class PopperController implements OnInit, OnChanges {
     hideOnMouseLeave: false,
     hideOnScroll: false,
     showTrigger: Triggers.HOVER,
+    appendTo: undefined,
     ariaRole: 'popper',
     ariaDescribe: '',
     styles: {}
@@ -120,6 +121,9 @@ export class PopperController implements OnInit, OnChanges {
   @Input('popperStyles')
   styles: Object | undefined;
 
+  @Input('popperAppendTo')
+  appendTo: string;
+
   @Output()
   popperOnShown: EventEmitter<PopperController> = new EventEmitter<PopperController>();
 
@@ -130,7 +134,9 @@ export class PopperController implements OnInit, OnChanges {
   popperOnUpdate: EventEmitter<any> = new EventEmitter<any>();
 
   hideOnClickOutsideHandler($event: MouseEvent): void {
-    if (this.disabled || !this.hideOnClickOutside) {
+    if (this.disabled || !this.hideOnClickOutside || $event.srcElement &&
+      $event.srcElement === this.popperContent.elemRef.nativeElement ||
+      this.popperContent.elemRef.nativeElement.contains($event.srcElement)) {
       return;
     }
     this.scheduledHide($event, this.hideTimeout);
@@ -147,11 +153,9 @@ export class PopperController implements OnInit, OnChanges {
     switch (this.showTrigger) {
       case Triggers.CLICK:
         this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'click', this.toggle.bind(this)));
-        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchstart', this.toggle.bind(this)));
         break;
       case Triggers.MOUSEDOWN:
         this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mousedown', this.toggle.bind(this)));
-        this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'touchstart', this.toggle.bind(this)));
         break;
       case Triggers.HOVER:
         this.eventListeners.push(this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', this.scheduledShow.bind(this, this.showDelay)));
@@ -230,6 +234,7 @@ export class PopperController implements OnInit, OnChanges {
     this.subscriptions.length = 0;
     this.clearEventListeners();
     this.clearGlobalEventListeners();
+    this.popperContent.ngOnDestroy();
   }
 
   toggle() {
@@ -305,7 +310,7 @@ export class PopperController implements OnInit, OnChanges {
       }
       this.hide();
       this.applyChanges();
-    }, delay)
+    }, delay);
   }
 
   getRefElement() {
@@ -379,7 +384,8 @@ export class PopperController implements OnInit, OnChanges {
       applyClass: this.applyClass,
       applyArrowClass: this.applyArrowClass,
       hideOnMouseLeave: this.hideOnMouseLeave,
-      styles: this.styles
+      styles: this.styles,
+      appendTo: this.appendTo
     });
     popperRef.onUpdate = this.onPopperUpdate.bind(this);
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));

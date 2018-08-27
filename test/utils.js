@@ -1,13 +1,13 @@
 module.exports = {
   curPage: {},
-  getPopperText: async (page) => {
-    let popper = await page.$('popper-content');
+  getPopperText: async (page, parent) => {
+    let popper = await page.$(parent || 'popper-content');
     let popperInner = await popper.$('.ngxp__inner');
     let popperText = await popperInner.getProperty('innerText');
     return await popperText.jsonValue();
   },
-  getPopperBoundingBox: async (page) => {
-    let popper = await page.$('popper-content');
+  getPopperBoundingBox: async (page, parent) => {
+    let popper = await page.$(parent || 'popper-content');
     let popperContainer = await popper.$('.ngxp__container');
     return await popperContainer.boundingBox();
   },

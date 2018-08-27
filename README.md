@@ -180,6 +180,7 @@ SystemJS
     | popperShowOnStart        | boolean           | false     | Popper default to show                                                                                   |
     | popperTrigger            | Trigger(string)   | hover     | Trigger/Event on which to show/hide the popper                                                           |
     | popperPositionFixed      | boolean           | false     | Set the popper element to use position: fixed                                                            |
+    | popperAppendTo           | string            | undefined | append The popper-content element to a given selector, if multiple will apply to first                   |
     | popperHideOnClickOutside | boolean           | true      | Popper will hide on a click outside                                                                      |
     | popperHideOnScroll       | boolean           | false     | Popper will hide on scroll                                                                               |
     | popperHideOnMouseLeave   | boolean           | false     | Popper will hide on mouse leave                                                                          |
@@ -190,7 +191,7 @@ SystemJS
     | popperApplyArrowClass    | string            | undefined | list of comma separated class to apply on ngpx__arrow                                                    |
     | popperOnShown            | EventEmitter<>    | $event    | Event handler when popper is shown                                                                       |
     | popperOnHidden           | EventEmitter<>    | $event    | Event handler when popper is hidden                                                                      |
-    | popperOnUpdate           | EventEmitter<>    | $event    | Event handler when popper is updated                                                                       |
+    | popperOnUpdate           | EventEmitter<>    | $event    | Event handler when popper is updated                                                                     |
     | popperAriaDescribeBy     | string            | undefined | Define value for aria-describeby attribute                                                               |
     | popperAriaRole           | string            | popper    | Define value for aria-role attribute                                                                     |
 
@@ -231,6 +232,7 @@ NgModule({
    | applyArrowClass          | string            | undefined |
    | ariaDescribeBy           | string            | undefined |
    | ariaRole                 | string            | undefined |
+   | appendTo                 | string            | undefined     |
 
 10. popperPlacement:
 

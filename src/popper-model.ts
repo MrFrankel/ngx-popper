@@ -64,4 +64,5 @@ export interface PopperContentOptions {
   applyClass?: string;
   applyArrowClass?: string;
   styles?: Object;
+  appendTo?: string;
 }
