@@ -5,7 +5,7 @@ import {
   ViewChild,
   EventEmitter,
   ViewEncapsulation,
-  HostListener, Renderer2,
+  HostListener, Renderer2, ViewRef, ViewContainerRef,
 } from "@angular/core";
 import Popper from 'popper.js';
 import {Placements, Triggers, PopperContentOptions} from './popper-model';
@@ -246,15 +246,25 @@ export class PopperContent implements OnDestroy {
     this.update();
   }
 
-  constructor(private renderer: Renderer2, public elemRef: ElementRef) {
+  constructor(private renderer: Renderer2, public elemRef: ElementRef, private viewRef: ViewContainerRef) {
   }
 
   ngOnDestroy() {
+    this.clean();
+    if(this.popperOptions.appendTo && this.elemRef && this.elemRef.nativeElement && this.elemRef.nativeElement.parentNode){
+      this.viewRef.detach();
+      this.elemRef.nativeElement.parentNode.removeChild(this.elemRef.nativeElement);
+    }
+  }
+
+  clean() {
+    this.toggleVisibility(false);
     if (!this.popperInstance) {
       return;
     }
     (this.popperInstance as any).disableEventListeners();
     this.popperInstance.destroy();
+
   }
 
   show(): void {
@@ -264,20 +274,22 @@ export class PopperContent implements OnDestroy {
 
     const appendToParent = this.popperOptions.appendTo && document.querySelector(this.popperOptions.appendTo);
     if (appendToParent && this.elemRef.nativeElement.parentNode !== appendToParent) {
-      this.elemRef.nativeElement.parentNode.removeChild(this.elemRef.nativeElement);
+      this.elemRef.nativeElement.parentNode && this.elemRef.nativeElement.parentNode.removeChild(this.elemRef.nativeElement);
       appendToParent.appendChild(this.elemRef.nativeElement);
     }
 
     let popperOptions: Popper.PopperOptions = <Popper.PopperOptions>{
       placement: this.popperOptions.placement,
       positionFixed: this.popperOptions.positionFixed,
-      onUpdate: this.onUpdate,
       modifiers: {
         arrow: {
           element: this.popperViewRef.nativeElement.querySelector('.ngxp__arrow')
         }
       }
     };
+    if (this.onUpdate) {
+      popperOptions.onUpdate = this.onUpdate as any;
+    }
 
     let boundariesElement = this.popperOptions.boundariesElement && document.querySelector(this.popperOptions.boundariesElement);
 

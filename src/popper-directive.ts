@@ -234,7 +234,7 @@ export class PopperController implements OnInit, OnChanges {
     this.subscriptions.length = 0;
     this.clearEventListeners();
     this.clearGlobalEventListeners();
-    this.popperContent.ngOnDestroy();
+    this.popperContent && this.popperContent.clean();
   }
 
   toggle() {
