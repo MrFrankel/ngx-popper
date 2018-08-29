@@ -4,3 +4,4 @@ node_modules/
 .idea
 dist
 dist-tsc
+test_dist
