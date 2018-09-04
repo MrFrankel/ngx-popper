@@ -5,7 +5,7 @@ import {
   ViewChild,
   EventEmitter,
   ViewEncapsulation,
-  HostListener, Renderer2, ViewRef, ViewContainerRef,
+  HostListener, Renderer2, ViewContainerRef,
 } from "@angular/core";
 import Popper from 'popper.js';
 import {Placements, Triggers, PopperContentOptions} from './popper-model';

@@ -262,6 +262,7 @@ export class PopperController implements OnInit, OnChanges {
     if (this.timeoutAfterShow > 0) {
       this.scheduledHide(null, this.timeoutAfterShow);
     }
+    this.globalEventListeners.push(this.renderer.listen('document', 'touchend', this.hideOnClickOutsideHandler.bind(this)));
     this.globalEventListeners.push(this.renderer.listen('document', 'click', this.hideOnClickOutsideHandler.bind(this)));
     this.globalEventListeners.push(this.renderer.listen(this.getScrollParent(this.getRefElement()), 'scroll', this.hideOnScrollHandler.bind(this)));
   }
