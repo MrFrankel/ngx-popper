@@ -3,8 +3,8 @@
 [![npm](https://img.shields.io/npm/v/ngx-popper.svg?style=flat-square)](https://www.npmjs.com/package/ngx-popper) 
 [![npm](https://img.shields.io/npm/dm/ngx-popper.svg?style=flat-square)](https://www.npmjs.com/package/ngx-popper) 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/MrFrankel/ngx-popper/blob/master/LICENSE)
-  <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@3.0.1/bundles/ngx-popper.umd.js?compression=brotli" alt="Stable Release Size"/>
-  <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@3.0.1/bundles/ngx-popper.umd.js?compression=gzip" alt="Stable Release Size"/>
+  <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@5.1.7/bundles/ngx-popper.umd.js?compression=brotli" alt="Stable Release Size"/>
+  <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@5.1.7/bundles/ngx-popper.umd.js?compression=gzip" alt="Stable Release Size"/>
 
 ngx-popper is an angular wrapper for the [Popper.js](https://popper.js.org/) library.
 
@@ -142,7 +142,7 @@ SystemJS
        <div [popper]="'As text'"
             [popperTrigger]="'hover'"
             [popperPlacement]="'bottom'"
-            [popperTarget]="popperTargetElement"
+            [popperTarget]="popperTargetElement.nativeElement"
             (popperOnShown)="onShown($event)">
        </div>
   ```
