@@ -159,7 +159,7 @@ SystemJS
       <popper-content #tooltipcontent>
         <div>
           <p>This is a tooltip with text</p>
-          <span (click)="tooltipcontent.hide()">Close</div>
+          <span (click)="tooltipcontent.hide()">Close</span>
         </div>
       </popper-content>
   ```
