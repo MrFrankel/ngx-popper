@@ -7,6 +7,7 @@ import {
   OnChanges,
   SimpleChange,
   Output,
+  OnDestroy,
   EventEmitter, OnInit, Renderer2, ChangeDetectorRef, Inject, ElementRef
 } from '@angular/core';
 import {Placement, Placements, PopperContentOptions, Trigger, Triggers} from './popper-model';
@@ -16,7 +17,7 @@ import {PopperContent} from './popper-content';
   selector: '[popper]',
   exportAs: 'popper'
 })
-export class PopperController implements OnInit, OnChanges {
+export class PopperController implements OnInit, OnDestroy, OnChanges {
   private popperContentClass = PopperContent;
   private popperContentRef: ComponentRef<PopperContent>;
   private shown: boolean = false;
