@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "ng-package.json",
+        "package.json"
+      ]
+    }
+  }
+}
