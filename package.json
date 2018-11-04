@@ -8,7 +8,7 @@
   "scripts": {
     "test-server": "http-server test_dist -p 8888",
     "create_test_server": "rm -rf test_dist && webpack --config ./test/webpack.config.js && npm run test-server",
-    "test": "jest",
+    "test": "npm run start_test",
     "start_test": "start-server-and-test create_test_server http://localhost:8888 test",
     "build": "ng-packagr -p ng-package.json",
     "deploy": "npm run build && npm publish --access=public dist",
