@@ -46,7 +46,7 @@
     "@angular/platform-browser": "^7.0.2",
     "@angular/platform-browser-dynamic": "^7.0.2",
     "@angular/platform-server": "^7.0.2",
-    "@ngtools/webpack": "^7.0.4",
+    "@ngtools/webpack": "7.0.4",
     "@types/node": "^10.12.2",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^5.2.1",
