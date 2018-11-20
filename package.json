@@ -68,7 +68,7 @@
     "rxjs": "^6.3.3",
     "script-loader": "^0.7.2",
     "standard-version": "^4.3.0",
-    "start-server-and-test": "^1.4.1",
+    "start-server-and-test": "^1.7.10",
     "style-loader": "^0.23.1",
     "typescript": "^3.1.6",
     "webpack": "^4.24.0",
