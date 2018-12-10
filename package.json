@@ -63,7 +63,7 @@
     "open-browser-webpack-plugin": "^0.0.5",
     "progress-bar-webpack-plugin": "^1.10.0",
     "puppeteer": "^1.4.0",
-    "raw-loader": "^0.5.1",
+    "raw-loader": "^1.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
     "script-loader": "^0.7.2",
