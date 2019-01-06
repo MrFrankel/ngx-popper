@@ -50,7 +50,7 @@
     "@types/node": "^10.12.2",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^5.2.1",
-    "chalk": "^2.3.0",
+    "chalk": "2.4.1",
     "css-loader": "^1.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
