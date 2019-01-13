@@ -363,7 +363,6 @@ export class PopperContent implements OnDestroy {
     if (!this.CDR['destroyed']) {
       this.CDR.detectChanges();
     }
-    this.CDR.detectChanges();
   }
 
   extractAppliedClassListExpr(classList?: string): Object | null {
