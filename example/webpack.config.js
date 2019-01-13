@@ -1,11 +1,9 @@
 const path = require('path');
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const webpack = require('webpack');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const chalk = require('chalk');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 
 module.exports = {
   entry: './example/app/index.ts',
@@ -22,12 +20,12 @@ module.exports = {
       {
         test: /\.ts?$/,
         use: ['awesome-typescript-loader?configFileName="./tsconfig.json"', 'angular2-template-loader'],
-        exclude: ['node_modules', 'dist', 'dist-tsc', 'test', 'public_api']
+      //  exclude: [/node_modules/, /dist/, /dist-tsc/, /test/, /public_api/]
       },
       {
         test: /\.(html|css)$/,
         use: 'raw-loader',
-        exclude: ['node_modules', 'dist', 'dist-tsc', 'test']
+    //    exclude: [/node_modules/, /dist/, /dist-tsc/, /test/]
       }
     ]
   },
@@ -40,9 +38,6 @@ module.exports = {
     new ProgressBarPlugin({
       format: '  build [' + chalk.blue.bold(':bar') + ']' + chalk.green.bold(':percent') + ' (:elapsed seconds) => :msg...  ',
       clear: false
-    }),
-    new OpenBrowserPlugin({
-      url: `http://localhost:8888`
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

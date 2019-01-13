@@ -104,9 +104,6 @@ export class PopperController implements OnInit, OnDestroy, OnChanges {
   @Input('popperDisableAnimation')
   disableAnimation: boolean;
 
-  @Input('popperForceDetection')
-  forceDetection: boolean;
-
   @Input('popperApplyClass')
   applyClass: string;
 
@@ -323,9 +320,7 @@ export class PopperController implements OnInit, OnDestroy, OnChanges {
 
   private applyChanges() {
     this.changeDetectorRef.markForCheck();
-    if (this.forceDetection) {
-      this.changeDetectorRef.detectChanges();
-    }
+    this.changeDetectorRef.detectChanges();
   }
 
   private setDefaults() {

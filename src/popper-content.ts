@@ -1,18 +1,22 @@
 import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ElementRef,
-  OnDestroy,
-  ViewChild,
   EventEmitter,
+  HostListener,
+  OnDestroy,
+  Renderer2,
+  ViewChild,
+  ViewContainerRef,
   ViewEncapsulation,
-  HostListener, Renderer2, ViewContainerRef,
-} from "@angular/core";
-import Popper from 'popper.js';
-import {Placements, Triggers, PopperContentOptions} from './popper-model';
+} from "@angular/core"
+import Popper from 'popper.js'
+import {Placements, PopperContentOptions, Triggers} from './popper-model'
 
 @Component({
   selector: "popper-content",
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div #popperViewRef
          [class.ngxp__container]="!popperOptions.disableDefaultStyling"
@@ -246,7 +250,11 @@ export class PopperContent implements OnDestroy {
     this.update();
   }
 
-  constructor(private renderer: Renderer2, public elemRef: ElementRef, private viewRef: ViewContainerRef) {
+  constructor(
+    public elemRef: ElementRef,
+    private renderer: Renderer2,
+    private viewRef: ViewContainerRef,
+    private CDR: ChangeDetectorRef) {
   }
 
   ngOnDestroy() {
@@ -352,6 +360,7 @@ export class PopperContent implements OnDestroy {
       this.displayType = "block";
       this.ariaHidden = 'false';
     }
+    this.CDR.detectChanges();
   }
 
   extractAppliedClassListExpr(classList?: string): Object | null {

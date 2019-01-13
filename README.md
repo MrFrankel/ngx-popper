@@ -10,6 +10,9 @@ ngx-popper is an angular wrapper for the [Popper.js](https://popper.js.org/) lib
 
 ## Changes
 
+As of version 6.0.0 popper content runs in onPush change detection strategy, therefore forceChangeDetection is no longer necessary and is removed
+
+
 As of version 4.0.0 ngx-popper now use innerHTML binding for string popper i.e:
 ```HTML
 <div popper="some text"></div>
@@ -184,7 +187,6 @@ SystemJS
     | popperHideOnClickOutside | boolean           | true      | Popper will hide on a click outside                                                                      |
     | popperHideOnScroll       | boolean           | false     | Popper will hide on scroll                                                                               |
     | popperHideOnMouseLeave   | boolean           | false     | Popper will hide on mouse leave                                                                          |
-    | popperForceDetection     | boolean           | false     | Force the popper to trigger detection event, in case the parent component use onPush strategy            |
     | popperModifiers          | popperModifier    | undefined | popper.js custom modifiers hock                                                                          |
     | popperApplyClass         | string            | undefined | list of comma separated class to apply on ngpx__container                                                |
     | popperStyles             | Object            | undefined | Apply the styles object, aligned with ngStyles                                                           |
@@ -268,9 +270,9 @@ NgModule({
   Hell ya!!!
   
 ```terminal
-  $ yarn install
-  $ yarn run build
-  $ yarn run dev  //run example
-  $ yarn run start_test  //run tests
+  $ npm install
+  $ npm run build
+  $ npm run dev  //run example
+  $ npm run start_test  //run tests
 ```
 
