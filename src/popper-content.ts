@@ -360,6 +360,9 @@ export class PopperContent implements OnDestroy {
       this.displayType = "block";
       this.ariaHidden = 'false';
     }
+    if (!this.CDR['destroyed']) {
+      this.CDR.detectChanges();
+    }
     this.CDR.detectChanges();
   }
 
