@@ -122,6 +122,9 @@ export class PopperController implements OnInit, OnDestroy, OnChanges {
   @Input('popperAppendTo')
   appendTo: string;
 
+  @Input('popperPreventOverflow')
+  preventOverflow: boolean;
+
   @Output()
   popperOnShown: EventEmitter<PopperController> = new EventEmitter<PopperController>();
 
@@ -384,7 +387,8 @@ export class PopperController implements OnInit, OnDestroy, OnChanges {
       applyArrowClass: this.applyArrowClass,
       hideOnMouseLeave: this.hideOnMouseLeave,
       styles: this.styles,
-      appendTo: this.appendTo
+      appendTo: this.appendTo,
+      preventOverflow: this.preventOverflow,
     });
     popperRef.onUpdate = this.onPopperUpdate.bind(this);
     this.subscriptions.push(popperRef.onHidden.subscribe(this.hide.bind(this)));

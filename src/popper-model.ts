@@ -65,4 +65,5 @@ export interface PopperContentOptions {
   applyArrowClass?: string;
   styles?: Object;
   appendTo?: string;
+  preventOverflow?: boolean;
 }
