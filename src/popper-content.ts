@@ -304,6 +304,13 @@ export class PopperContent implements OnDestroy {
     if (popperOptions.modifiers && boundariesElement) {
       popperOptions.modifiers.preventOverflow = {boundariesElement};
     }
+    if (popperOptions.modifiers && this.popperOptions.preventOverflow !== undefined) {
+      popperOptions.modifiers.preventOverflow = popperOptions.modifiers.preventOverflow || {};
+      popperOptions.modifiers.preventOverflow.enabled = this.popperOptions.preventOverflow;
+      if (!popperOptions.modifiers.preventOverflow.enabled) {
+        popperOptions.modifiers.hide = {enabled: false};
+      }
+    }
     this.determineArrowColor();
     popperOptions.modifiers = Object.assign(popperOptions.modifiers, this.popperOptions.popperModifiers);
 
