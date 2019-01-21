@@ -8,7 +8,7 @@
   "scripts": {
     "test-server": "http-server test_dist -p 8888",
     "create_test_server": "rm -rf test_dist && webpack --config ./test/webpack.config.js && npm run test-server",
-    "test": "npm run start_test",
+    "test": "npm install && npm run start_test",
     "run_jest": "jest",
     "start_test": "npm run build && start-server-and-test create_test_server http://localhost:8888 run_jest",
     "build": "ng-packagr -p ng-package.json",
