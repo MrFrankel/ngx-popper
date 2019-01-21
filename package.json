@@ -1,6 +1,6 @@
 {
   "name": "ngx-popper",
-  "version": "6.0.2",
+  "version": "6.0.5",
   "description": "ngx-popper is an Angular wrapper for popper.js",
   "directories": {
     "test": "test"
@@ -10,7 +10,7 @@
     "create_test_server": "rm -rf test_dist && webpack --config ./test/webpack.config.js && npm run test-server",
     "test": "npm run start_test",
     "run_jest": "jest",
-    "start_test": "start-server-and-test create_test_server http://localhost:8888 run_jest",
+    "start_test": "npm run build && start-server-and-test create_test_server http://localhost:8888 run_jest",
     "build": "ng-packagr -p ng-package.json",
     "deploy": "npm run build && npm publish --access=public dist",
     "dev": "webpack-dev-server --config ./example/webpack.config.js"
