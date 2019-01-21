@@ -5,6 +5,7 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/MrFrankel/ngx-popper/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/MrFrankel/ngx-popper.svg)](https://greenkeeper.io/)
   <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@6.0.0/bundles/ngx-popper.umd.js?compression=brotli" alt="Stable Release Size"/>
   <img src="http://badge-size.now.sh/https://unpkg.com/ngx-popper@6.0.0/bundles/ngx-popper.umd.js?compression=gzip" alt="Stable Release Size"/>
+[![Build Status](https://travis-ci.org/MrFrankel/ngx-popper.svg?branch=master)](https://travis-ci.org/MrFrankel/ngx-popper)
 
 ngx-popper is an angular wrapper for the [Popper.js](https://popper.js.org/) library.
 
