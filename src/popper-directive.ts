@@ -334,7 +334,7 @@ export class PopperController implements OnInit, OnDestroy, OnChanges {
     this.hideOnMouseLeave = typeof this.hideOnMouseLeave === 'undefined' ? PopperController.baseOptions.hideOnMouseLeave : this.hideOnMouseLeave;
     this.ariaRole = typeof this.ariaRole === 'undefined' ? PopperController.baseOptions.ariaRole : this.ariaRole;
     this.ariaDescribe = typeof this.ariaDescribe === 'undefined' ? PopperController.baseOptions.ariaDescribe : this.ariaDescribe;
-    this.styles = typeof this.styles === 'undefined' ? PopperController.baseOptions.styles : this.styles;
+    this.styles = typeof this.styles === 'undefined' ? Object.assign({}, PopperController.baseOptions.styles) : this.styles;
   }
 
   private clearEventListeners() {
