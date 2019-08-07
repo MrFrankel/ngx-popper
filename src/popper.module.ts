@@ -18,11 +18,7 @@ import {PopperContent} from './popper-content';
   ],
   entryComponents: [
     PopperContent
-  ],
-  providers: [
-    {
-      provide: 'popperDefaults', useValue: {}
-    }]
+  ]
 })
 export class NgxPopperModule {
   ngDoBootstrap() {
