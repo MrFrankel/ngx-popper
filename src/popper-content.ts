@@ -205,16 +205,18 @@ export class PopperContent implements OnDestroy {
     this.onHidden.emit();
   }
 
-  toggleVisibility(state: boolean) {
-    if (!state) {
+  toggleVisibility(forcedState?: boolean) {
+    if (forcedState === false || this.state) {
       this.opacity = 0;
       this.displayType = "none";
       this.ariaHidden = 'true';
+      this.state = false;
     }
-    else {
+    else if(forcedState || !this.state) {
       this.opacity = 1;
       this.displayType = "block";
       this.ariaHidden = 'false';
+      this.state = true;
     }
     if (!this.CDR['destroyed']) {
       this.CDR.detectChanges();
