@@ -235,8 +235,8 @@ export class PopperController implements OnInit, OnDestroy, OnChanges {
     this.subscriptions.length = 0;
     this.clearEventListeners();
     this.clearGlobalEventListeners();
-    clearTimeout(this.scheduledShowTimeout);
-    clearTimeout(this.scheduledHideTimeout);
+    if (this.scheduledShowTimeout !== undefined) clearTimeout(this.scheduledShowTimeout);
+    if (this.scheduledHideTimeout !== undefined) clearTimeout(this.scheduledHideTimeout);
     this.popperContent && this.popperContent.clean();
   }
 
