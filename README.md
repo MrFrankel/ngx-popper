@@ -153,22 +153,50 @@ SystemJS
   
 7. hide/show programmatically:
   ```HTML
-   <div [popper]="tooltipcontent"
-           [popperTrigger]="'hover'"
-           [popperPlacement]="'bottom'"
-           [popperApplyClass]="'popperSpecialStyle'">
-        <p class="bold">Pop</p>
-        <p class="thin">on the bottom</p>
+    <div [popper]="tooltipcontent"
+         [popperTrigger]="'hover'"
+         [popperPlacement]="'bottom'"
+         [popperApplyClass]="'popperSpecialStyle'">
+      <p class="bold">Pop</p>
+      <p class="thin">on the bottom</p>
+    </div>
+    <popper-content #tooltipcontent>
+      <div>
+        <p>This is a tooltip with text</p>
+        <span (click)="tooltipcontent.hide()">Close</span>
       </div>
-      <popper-content #tooltipcontent>
-        <div>
-          <p>This is a tooltip with text</p>
-          <span (click)="tooltipcontent.hide()">Close</span>
-        </div>
-      </popper-content>
+    </popper-content>
+  ```
+  
+8. hide/show in class:
+  ```HTML
+    <div [popper]="tooltipcontent"
+         [popperTrigger]="'click'"
+         [popperPlacement]="'bottom'"
+         [popperApplyClass]="'popperSpecialStyle'">
+      <p class="bold">Pop</p>
+      <p class="thin">on the bottom</p>
+    </div>
+    <popper-content #tooltipcontent>
+      <div>
+        <p>This is a tooltip with text</p>
+      </div>
+    </popper-content>
+  ```
+  
+  ``` TypeScript
+  @ViewChild(PopperController) popper: PopperController;
+  
+  show() {
+    this.popper.show();
+  }
+  
+  hide() {
+    this.popper.hide();
+  }
   ```
  
-8. Attributes map:  
+9. Attributes map:  
   
     | Option                       | Type              | Default   | Description                                                                                              |
     |:-----------------------      |:----------------  |:--------- | :------------------------------------------------------------------------------------------------------  |
@@ -201,7 +229,7 @@ SystemJS
 
 
 
-9. Override defaults:
+10. Override defaults:
 
     Ngx-popper comes with a few default properties you can override in default to effect all instances
     These are overridden by any child attributes.
@@ -239,7 +267,7 @@ NgModule({
    | appendTo                 | string            | undefined |
    | preventOverflow          | boolean           | undefined |
 
-10. popperPlacement:
+11. popperPlacement:
 
   | 'top'
   | 'bottom'
@@ -258,7 +286,7 @@ NgModule({
   | 'auto-end'
   | Function
   
-11. popperTrigger:
+12. popperTrigger:
 
   | 'click'
   | 'mousedown'
