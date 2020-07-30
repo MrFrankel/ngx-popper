@@ -24,7 +24,7 @@ export class NgxPopperModule {
   ngDoBootstrap() {
   }
 
-  public static forRoot(popperBaseOptions: PopperContentOptions = {}): ModuleWithProviders {
+  public static forRoot(popperBaseOptions: PopperContentOptions = {}): ModuleWithProviders<NgxPopperModule> {
     return {ngModule: NgxPopperModule, providers: [{provide: 'popperDefaults', useValue: popperBaseOptions}]};
   }
 }
